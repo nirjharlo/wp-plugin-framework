@@ -38,7 +38,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			/**
 			*
 			* Install database by defining your SQL
-			*/
+			*
 			if ( class_exists( 'PLUGIN_DB' ) ) {
 				$db = new PLUGIN_DB();
 				$db->table = 'plugin_db_table_name';
@@ -47,27 +47,27 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 							UNIQUE KEY ID (ID)";
 				$db->build();
 			}
-			/*
+			*
 			*
 			* Optionally check if the DB table is installed correctly
-			*/
+			*
 			if (get_option('_plugin_db_exist') == '0') {
 				add_action( 'admin_notices', 'db_error_msg' );
 			}
-			/*
+			*
 			*/
 
 			/**
 			*
-			* Install db options
-			*/
+			* Install DB options
+			*
 			$options = array(
 							array( 'option_name', '__value__' ),
 						);
 			foreach ($options as $value) {
 				update_option( $value[0], $value[1] );
 			}
-			/*
+			*
 			*/
 		}
 

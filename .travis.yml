@@ -1,8 +1,8 @@
 # Travis CI configuration file.
 # @link https://travis-ci.org/
 
-# For use with the Twenty Sixteen WordPress theme
-# @link https://github.com/WordPress/twentysixteen/
+# For use with the WordPress Plugin Framwork
+# @link https://github.com/nirjharlo/wp-plugin-framework/
 
 # Declare project language and PHP versions to test against.
 # @link http://about.travis-ci.org/docs/user/languages/php/
@@ -39,11 +39,11 @@ before_script:
     - mkdir -p $WP_DEVELOP_DIR
     # Use the Git mirror of WordPress.
     - git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ $WP_DEVELOP_DIR
-    # Set up Twenty Sixteen theme information.
-    - theme_slug=$(basename $(pwd))
-    - theme_dir=$WP_DEVELOP_DIR/src/wp-content/themes/$theme_slug
+    # Set up WordPress Plugin Framewrok information.
+    - plugin_slug=$(basename $(pwd))
+    - plugin_dir=$WP_DEVELOP_DIR/src/wp-content/plugins/$plugin_slug
     - cd ..
-    - mv $theme_slug $theme_dir
+    - mv $plugin_slug $plugin_dir
     # Set up WordPress configuration.
     - cd $WP_DEVELOP_DIR
     - echo $WP_DEVELOP_DIR
@@ -62,8 +62,8 @@ before_script:
     # Set install path for WordPress Coding Standards
     # @link https://github.com/squizlabs/PHP_CodeSniffer/blob/4237c2fc98cc838730b76ee9cee316f99286a2a7/CodeSniffer.php#L1941
     - scripts/phpcs --config-set installed_paths ../wordpress-coding-standards
-    # Hop into themes directory.
-    - cd $theme_dir
+    # Hop into plugins directory.
+    - cd $plugin_dir
     # After CodeSniffer install you should refresh your path.
     - phpenv rehash
     # Install JSCS: JavaScript Code Style checker
@@ -78,11 +78,11 @@ before_script:
 # Default is specific to project language.
 # All commands must exit with code 0 on success. Anything else is considered failure.
 script:
-    # Search theme for PHP syntax errors.
+    # Search plugin for PHP syntax errors.
     - find . \( -name '*.php' \) -exec php -lf {} \;
-    # Run the theme through JSHint
+    # Run the plugin through JSHint
     - jshint .
-    # Run the theme through JavaScript Code Style checker
+    # Run the plugin through JavaScript Code Style checker
     - jscs .
     # WordPress Coding Standards
     # @link https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards

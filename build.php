@@ -12,15 +12,21 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 			/**
 			*
-			* plugin installation
+			* Plugin installation
 			*
-			$install = if (class_exists('PLUGIN_INSTALL')) new PLUGIN_INSTALL();
-			$install->textDomin = '';
-			$install->phpVerAllowed = '';
-			$install->pluginPageLinks = array(
-											array(
-												'slug' => '', 'label' => '' ), );
-			$install->do();
+			if (class_exists('PLUGIN_INSTALL')) {
+
+				$install = new PLUGIN_INSTALL();
+				$install->textDomin = '';
+				$install->phpVerAllowed = '';
+				$install->pluginPageLinks = array(
+												array(
+													'slug' => '',
+													'label' => ''
+												),
+											);
+				$install->do();
+			}
 			*
 			*/
 		}
@@ -32,34 +38,48 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			/**
 			*
 			* Install database by defining your SQL
+			*/
+			if ( class_exists( 'PLUGIN_DB' ) ) {
+				$db = new PLUGIN_DB();
+				$db->table = 'plugin_db_table_name';
+				$db->sql = "ID mediumint(9) NOT NULL AUTO_INCREMENT,
+							date date NOT NULL,
+							UNIQUE KEY ID (ID)";
+				$db->build();
+			}
+			/*
 			*
-			$db = if ( class_exists( 'PLUGIN_DB' ) ) new PLUGIN_DB();
-			$db->table = 'plugin_db_table_name';
-			$db->sql = 'ID mediumint(9) NOT NULL AUTO_INCREMENT,
-
-						//ENTER SQL
-
-						date date NOT NULL,
-						UNIQUE KEY ID (ID)';
-			$db->build();
+			* Optionally check if the DB table is installed correctly
+			*/
 			if (get_option('_plugin_db_exist') == '0') {
 				add_action( 'admin_notices', 'db_error_msg' );
 			}
-			*
+			/*
 			*/
 
 			/**
 			*
 			* Install db options
-			*
+			*/
 			$options = array(
 							array( 'option_name', '__value__' ),
 						);
-			foreach ($$options as $value) {
+			foreach ($options as $value) {
 				update_option( $value[0], $value[1] );
 			}
-			*
+			/*
 			*/
+		}
+
+
+
+		//Notice of DB
+		public function db_error_msg() { ?>
+
+			<div class="notice notice-error is-dismissible">
+				<p><?php _e( 'Database table Not installed correctly.', 'textdomain' ); ?></p>
+ 			</div>
+			<?php
 		}
 
 
@@ -86,16 +106,6 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 
 
-		//Add customization files
-		public function customization() {
-
-			require_once ('src/');
-			require_once ('src/');
-			require_once ('src/');
-		}
-
-
-
 		//Include settings pages
 		public function functionality() {
 
@@ -117,17 +127,32 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 											'screen' => true/false ) );
 			$settings->help = array(
 								array( 'slug' => '',
-										'help' => array(
-													'info' => array(
-																array(
-																	'id' => 'helpId',
-																	'title' => __( 'Title', 'textdomain' ),
-																	'content' => __( 'helpDescription', 'textdomain' ),
-																),
+									'help' => array(
+												'info' => array(
+															array(
+																'id' => 'helpId',
+																'title' => __( 'Title', 'textdomain' ),
+																'content' => __( 'helpDescription', 'textdomain' ),
 															),
-										'link' => '<p><a href="#">' . __( 'helpLink', 'textdomain' ) . '</a></p>',
+														),
+									'link' => '<p><a href="#">' . __( 'helpLink', 'textdomain' ) . '</a></p>',
 								) ) );
 			$settings->execute();
+			*
+			*/
+		}
+
+
+
+		public function customization() {
+
+			/**
+			*
+			* Add customization files
+			*
+			require_once ('src/');
+			require_once ('src/');
+			require_once ('src/');
 			*
 			*/
 		}
@@ -142,17 +167,6 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 
 
-		//Notice of DB
-		public function db_error_msg() { ?>
-
-			<div class="notice notice-error is-dismissible">
-				<p><?php _e( 'Database table Not installed correctly.', 'textdomain' ); ?></p>
- 			</div>
-			<?php
-		}
-
-
-
 		//-----// Framework code ->
 
 
@@ -160,11 +174,12 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		//Call the dependency files
 		public function helpers() {
 
-			require_once ('helper/api.php');
+			require_once ('helper/install.php');
 			require_once ('helper/db.php');
+
+			require_once ('helper/api.php');
 			require_once ('helper/table.php');
 			require_once ('helper/ajax.php');
-			require_once ('helper/install.php');
 			require_once ('helper/settings.php');
 			require_once ('helper/widgets.php');
 		}

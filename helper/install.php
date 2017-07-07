@@ -25,7 +25,7 @@ if ( ! class_exists( 'PLUGGIN_INSTALL' ) ) {
 		public function do() {
 			add_action( 'plugins_loaded', array( $this, 'text_domain_cb' ) );
 			add_action( 'admin_notices', array( $this, 'php_ver_incompatible' ) );
-			add_filter( 'plugin_action_links', array( $this, 'menuPageLink' ), 10, 2 );
+			add_filter( 'plugin_action_links', array( $this, 'menu_page_link' ), 10, 2 );
 		}
 
 
@@ -53,17 +53,17 @@ if ( ! class_exists( 'PLUGGIN_INSTALL' ) ) {
 
 
 		// Add settings link to plugin page
-		public function menuPageLink( $links, $file ) {
+		public function menu_page_link( $links, $file ) {
 
 			if ($this->pluginPageLinks) {
 				static $this_plugin;
 				if ( ! $this_plugin ) {
-					$this_plugin = INTERNAL_LINK_MASTER_FILE;
+					$this_plugin = PLUGIN_FILE;
 				}
 				if ( $file == $this_plugin ) {
 					$shift_link = array();
 					foreach ($this->pluginPageLinks as $value) {
-						$shift_link[] = '<a href="'.admin_url().'admin.php?page='.$value['slug'].'">'.$value['label'].'</a>';
+						$shift_link[] = '<a href="'.$value['slug'].'">'.$value['label'].'</a>';
 					}
 					foreach( $shift_link as $val ) {
 						array_unshift( $links, $val );

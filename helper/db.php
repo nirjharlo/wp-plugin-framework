@@ -40,7 +40,8 @@ if ( ! class_exists( 'PLUGIN_DB' ) ) {
 		public function collate() {
 
 			global $wpdb;
-			$collate = '';
+			$wpdb->hide_errors();
+			$collate = "";
 		    if ( $wpdb->has_cap( 'collation' ) ) {
 				if( ! empty($wpdb->charset ) )
 					$collate .= "DEFAULT CHARACTER SET $wpdb->charset";
@@ -55,7 +56,6 @@ if ( ! class_exists( 'PLUGIN_DB' ) ) {
 
 		//SQL query to create the main plugin table.
 		public function execute( $table_name, $collate, $sql ) {
-
 			return "CREATE TABLE $table_name ( $sql ) $collate;";
 		}
 

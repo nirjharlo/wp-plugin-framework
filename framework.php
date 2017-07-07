@@ -1,9 +1,9 @@
 <?php
 /**
- Plugin Name: Plugin Framework
+ Plugin Name: WordPress Plugin Framework
  Plugin URI: https://github.com/nirjharlo/wp-plugin-framework/
- Description: Simple and Light WordPress plugin development framework for organized OO code.
- Version: 1.0
+ Description: Simple and Light WordPress plugin development framework for organized Object Oriented code for Developers.
+ Version: 0.1
  Author: Nirjhar Lo
  Author URI: http://stackoverflow.com/story/nirjhar-lo-206774
  Text Domain: textdomain
@@ -25,10 +25,11 @@ defined('PLUGIN_EXECUTE') or define('PLUGIN_EXECUTE', plugin_dir_path(__FILE__).
 defined('PLUGIN_HELPER') or define('PLUGIN_HELPER', plugin_dir_path(__FILE__).'helper/');
 defined('PLUGIN_TRANSLATE') or define('PLUGIN_TRANSLATE', plugin_basename( plugin_dir_path(__FILE__).'asset/ln/'));
 
+//change /wp-plugin-framework/ with your /plugin-name/
 defined('PLUGIN_JS') or define('PLUGIN_JS_PATH', plugins_url().'/wp-plugin-framework/asset/js/');
 defined('PLUGIN_CSS') or define('PLUGIN_CSS_PATH', plugins_url().'/wp-plugin-framework/asset/css/');
 
 
 //The Plugin
 require_once('build.php');
-//if ( class_exists( 'PLUGIN_BUILD' ) ) new PLUGIN_BUILD(); ?>
+if ( class_exists( 'PLUGIN_BUILD' ) ) new PLUGIN_BUILD(); ?>

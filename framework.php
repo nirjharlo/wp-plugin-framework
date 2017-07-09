@@ -31,5 +31,5 @@ defined('PLUGIN_CSS') or define('PLUGIN_CSS_PATH', plugins_url().'/wp-plugin-fra
 
 
 //The Plugin
-require_once('build.php');
+require_once('autoload.php');
 if ( class_exists( 'PLUGIN_BUILD' ) ) new PLUGIN_BUILD(); ?>

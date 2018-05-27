@@ -23,11 +23,11 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 					'info' => array(
 								array(
 									'id' => 'helpId',
-									'title' => __( 'API Settings', 'InLinkMaster' ),
-									'content' => __( 'helpDescription', 'InLinkMaster' ),
+									'title' => __( 'API Settings', 'textdomain' ),
+									'content' => __( 'helpDescription', 'textdomain' ),
 								),
 							),
-					'link' => '<p><a href="#">' . __( 'helpLink', 'InLinkMaster' ) . '</a></p>',
+					'link' => '<p><a href="#">' . __( 'helpLink', 'textdomain' ) . '</a></p>',
 			) ) );
 		*/
 		public $help;
@@ -80,7 +80,7 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 					$this->menuPage['slug'],
 					function() { ?>
 						<div class="wrap">
-							<h1><?php echo get_admin_page_title(); ?> <a href="#" class="hide-if-no-js page-title-action" id="addNewUrlSet"><?php _e( 'Add New', 'InLinkMaster' ); ?></a> </h1>
+							<h1><?php echo get_admin_page_title(); ?> <a href="#" class="hide-if-no-js page-title-action" id="addNewUrlSet"><?php _e( 'Add New', 'textdomain' ); ?></a> </h1>
 							<br class="clear">
 							<?php settings_errors(); ?>
 						</div>
@@ -167,13 +167,13 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		//Add different types of settings and corrosponding sections
 		public function add_settings() {
 
-			add_settings_section( 'ApiSettingsId', __( 'API Configuration', 'InLinkMaster' ), array( $this,'ApiSettingsCb' ), 'ApiSettingsName' );
+			add_settings_section( 'ApiSettingsId', __( 'API Configuration', 'textdomain' ), array( $this,'ApiSettingsCb' ), 'ApiSettingsName' );
 
 			register_setting( 'ApiSettingsId', 'InternalLinkApiKeyField', 'AfterSaveAPI' );
-			add_settings_field( 'InternalLinkApiKeyName', __( 'Access ID', 'InLinkMaster' ), array( $this, 'InternalLinkApiKeyFieldCb' ), 'ApiSettingsName', 'ApiSettingsId' );
+			add_settings_field( 'InternalLinkApiKeyName', __( 'Access ID', 'textdomain' ), array( $this, 'InternalLinkApiKeyFieldCb' ), 'ApiSettingsName', 'ApiSettingsId' );
 
 			register_setting( 'ApiSettingsId', 'InternalLinkApiPassField', 'AfterSaveAPI' );
-			add_settings_field( 'InternalLinkApiPassName', __( 'Secrect Key', 'InLinkMaster' ), array( $this, 'InternalLinkApiPassFieldCb' ), 'ApiSettingsName', 'ApiSettingsId' );
+			add_settings_field( 'InternalLinkApiPassName', __( 'Secrect Key', 'textdomain' ), array( $this, 'InternalLinkApiPassFieldCb' ), 'ApiSettingsName', 'ApiSettingsId' );
 		}
 
 
@@ -181,14 +181,14 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		//Section description
 		public function InternalLinkCb() {
 
-			echo '<p class="description">' . __( 'Set up internal linking', 'InLinkMaster' ) . '</p>';
+			echo '<p class="description">' . __( 'Set up internal linking', 'textdomain' ) . '</p>';
 		}
 
 
 		//Section description
 		public function ApiSettingsCb() {
 
-			echo '<p class="description">' . __( 'Set up your MOZ API credentials', 'InLinkMaster' ) . '</p>';
+			echo '<p class="description">' . __( 'Set up your MOZ API credentials', 'textdomain' ) . '</p>';
 		}
 
 
@@ -196,7 +196,7 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		//Field explanation
 		public function InternalLinkApiKeyFieldCb() {
 
-			echo '<input type="text" class="medium-text" name="InternalLinkApiKeyField" id="InternalLinkApiKeyField" value="' . get_option('InternalLinkApiKeyField') . '" placeholder="' . __( 'Enter Access Id', 'InLinkMaster' ) . '" required />';
+			echo '<input type="text" class="medium-text" name="InternalLinkApiKeyField" id="InternalLinkApiKeyField" value="' . get_option('InternalLinkApiKeyField') . '" placeholder="' . __( 'Enter Access Id', 'textdomain' ) . '" required />';
 		}
 
 
@@ -204,7 +204,7 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		//Field explanation
 		public function InternalLinkApiPassFieldCb() {
 
-			echo '<input type="password" class="regular-text" name="InternalLinkApiPassField" id="InternalLinkApiPassField" value="' . get_option('InternalLinkApiPassField') . '" placeholder="' . __( 'Enter Secrect Key', 'InLinkMaster' ) . '" required />';
+			echo '<input type="password" class="regular-text" name="InternalLinkApiPassField" id="InternalLinkApiPassField" value="' . get_option('InternalLinkApiPassField') . '" placeholder="' . __( 'Enter Secrect Key', 'textdomain' ) . '" required />';
 		}
 	}
 } ?>

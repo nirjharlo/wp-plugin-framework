@@ -17,7 +17,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			if (class_exists('PLUGIN_INSTALL')) {
 
 				$install = new PLUGIN_INSTALL();
-				$install->textDomin = '';
+				$install->textDomin = 'textdomain';
 				$install->phpVerAllowed = '';
 				$install->pluginPageLinks = array(
 												array(
@@ -113,31 +113,35 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			*
 			* Add Settings functionality
 			*
-			$settings = if ( class_exists( 'PLUGIN_SETTINGS' ) ) new PLUGIN_SETTINGS();
-			$settings->capability = 'manage_options';
-			$settings->screen = ;
-			$settings->menuPage = array( 'name' => '', 'heading' => '', 'slug' => '' );
-			$settings->subMenuPage = array(
-										array(
-											'name' => '',
-											'heading' => '',
-											'slug' => '',
-											'parent_slug' => '',
-											'help' => true/false,
-											'screen' => true/false ) );
-			$settings->help = array(
-								array( 'slug' => '',
-									'help' => array(
-												'info' => array(
-															array(
-																'id' => 'helpId',
-																'title' => __( 'Title', 'textdomain' ),
-																'content' => __( 'helpDescription', 'textdomain' ),
+			if ( class_exists( 'PLUGIN_SETTINGS' ) ) {
+
+				$settings = new PLUGIN_SETTINGS();
+				$settings->capability = 'manage_options';
+				$settings->screen = ;
+				$settings->menuPage = array( 'name' => '', 'heading' => '', 'slug' => '' );
+				$settings->subMenuPage = array(
+											array(
+												'name' => '',
+												'heading' => '',
+												'slug' => '',
+												'parent_slug' => '',
+												'help' => true/false,
+												'screen' => true/false ) );
+				$settings->help = array(
+									array( 'slug' => '',
+										'help' => array(
+													'info' => array(
+																array(
+																	'id' => 'helpId',
+																	'title' => __( 'Title', 'textdomain' ),
+																	'content' => __( 'helpDescription', 'textdomain' ),
+																),
 															),
-														),
-									'link' => '<p><a href="#">' . __( 'helpLink', 'textdomain' ) . '</a></p>',
-								) ) );
-			$settings->execute();
+										'link' => '<p><a href="#">' . __( 'helpLink', 'textdomain' ) . '</a></p>',
+									) ) );
+				$settings->execute();
+
+			}
 			*
 			*/
 		}
@@ -167,21 +171,26 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 
 
-		//-----// Framework code ->
+		//Include metabox classes
+		public function metabox() {
+
+			if ( class_exists( 'PLUGIN_METABOX' ) ) new PLUGIN_METABOX();
+		}
 
 
 
 		//Call the dependency files
 		public function helpers() {
 
-			require_once ('vendor/install.php');
-			require_once ('vendor/db.php');
+			require_once ('src/install.php');
+			require_once ('src/db.php');
 
 			require_once ('vendor/api.php');
 			require_once ('vendor/table.php');
 			require_once ('vendor/ajax.php');
 			require_once ('vendor/settings.php');
 			require_once ('vendor/widgets.php');
+			require_once ('vendor/metabox.php');
 		}
 
 
@@ -192,12 +201,15 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			$this->customization();
 
 			register_activation_hook( PLUGIN_FILE, array( $this, 'db_install' ) );
-			register_uninstall_hook( PLUGIN_FILE, array( 'PLUGIN_BUILD', 'db_uninstall' ) );
+
+			//remove the DB upon uninstallation
+			register_uninstall_hook( PLUGIN_FILE, array( 'PLUGIN_BUILD', 'db_uninstall' ) ); //$this won't work here.
 
 			add_action('init', array($this, 'installation'));
 			add_action('init', array($this, 'functionality'));
 
 			$this->widgets();
+			$this->metabox();
 		}
 	}
 } ?>

@@ -107,60 +107,10 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 
 		//Include settings pages
-		public function functionality() {
+		public function settings() {
 
-			/*
-			*
-			* Add Settings functionality
-			*
-			if ( class_exists( 'PLUGIN_SETTINGS' ) ) {
-
-				$settings = new PLUGIN_SETTINGS();
-				$settings->capability = 'manage_options';
-				$settings->screen = ;
-				$settings->menuPage = array( 'name' => '', 'heading' => '', 'slug' => '' );
-				$settings->subMenuPage = array(
-											array(
-												'name' => '',
-												'heading' => '',
-												'slug' => '',
-												'parent_slug' => '',
-												'help' => true/false,
-												'screen' => true/false ) );
-				$settings->help = array(
-									array( 'slug' => '',
-										'help' => array(
-													'info' => array(
-																array(
-																	'id' => 'helpId',
-																	'title' => __( 'Title', 'textdomain' ),
-																	'content' => __( 'helpDescription', 'textdomain' ),
-																),
-															),
-										'link' => '<p><a href="#">' . __( 'helpLink', 'textdomain' ) . '</a></p>',
-									) ) );
-				$settings->execute();
-
-			}
-			*
-			*/
+			if ( class_exists( 'PLUGIN_SETTINGS' ) ) new PLUGIN_SETTINGS();
 		}
-
-
-
-		public function customization() {
-
-			/**
-			*
-			* Add customization files
-			*
-			require_once ('src/');
-			require_once ('src/');
-			require_once ('src/');
-			*
-			*/
-		}
-
 
 
 		//Include widget classes
@@ -179,18 +129,35 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 
 
-		//Call the dependency files
-		public function helpers() {
+		//Include shortcode classes
+		public function shortcode() {
+
+			if ( class_exists( 'PLUGIN_SHORTCODE' ) ) new PLUGIN_SHORTCODE();
+		}
+
+
+
+		//Add customization files
+		public function customization() {
 
 			require_once ('src/install.php');
 			require_once ('src/db.php');
+			require_once ('src/settings.php');
+			require_once ('src/widgets.php');
+			require_once ('src/metabox.php');
+			require_once ('src/shortcode.php');
+		}
 
-			require_once ('vendor/api.php');
-			require_once ('vendor/table.php');
-			require_once ('vendor/ajax.php');
-			require_once ('vendor/settings.php');
-			require_once ('vendor/widgets.php');
-			require_once ('vendor/metabox.php');
+
+
+		//Call the dependency files
+		public function helpers() {
+
+			require_once ('lib/cron.php');
+			require_once ('lib/api.php');
+			require_once ('lib/table.php');
+			require_once ('lib/ajax.php');
+			require_once ('lib/upload.php');
 		}
 
 
@@ -210,6 +177,8 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 			$this->widgets();
 			$this->metabox();
+			$this->shortcode();
+			$this->settings();
 		}
 	}
 } ?>

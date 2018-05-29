@@ -9,7 +9,7 @@ if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 
 		public function __construct() {
 
-			//Adding the metabox
+			//Adding the metabox. For custom post type use "add_meta_boxes_posttype" action
 			add_action( 'add_meta_boxes', array( $this, 'register' ) );
 			add_action( 'save_post', array( $this, 'save' ), 10, 2 );
 		}
@@ -30,10 +30,9 @@ if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 
 
 
-
 		public function render() {
 
-			<?php wp_nonce_field( basename( __FILE__ ), 'metaBoxName_nonce' ); ?>
+			wp_nonce_field( basename( __FILE__ ), 'metaBoxName_nonce' ); ?>
 
 			<p>
 				<label for="metaBoxName"><?php _e( "Custom Text", 'myPlugintextDomain' ); ?></label>

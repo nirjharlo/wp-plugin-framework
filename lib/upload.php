@@ -44,7 +44,7 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 
 			// Check in your file type
 			if( $type != 'application/_TYPE_' ) {
-				$this->file_type_error_admin_notice();
+				add_action( 'admin_notices', array( $this, 'file_type_error_admin_notice' ) );
 			} else {
 
 				if (!function_exists('wp_handle_upload')){
@@ -59,12 +59,12 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 				if( is_array( $attachment_id ) && array_key_exists( 'url', $attachment_id ) ) {
 					$upload_id = $attachment_id['url'];
 
-					$this->success_notice();
+					add_action( 'admin_notices', array( $this, 'success_notice' ) );
 
 					// Use $upload_id for any purpose. For example storing temporarily
 					//update_option('some_token', $upload_id);
 				} else {
-					$this->file_error_admin_notice();
+					add_action( 'admin_notices', array( $this, 'file_error_admin_notice' ) );
 					$upload_id = false;
 				}
 			}

@@ -1,0 +1,5 @@
+/**
+ *
+ * Sample JS file
+ * 
+ */

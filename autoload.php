@@ -178,11 +178,12 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			require_once ('lib/table.php');
 			require_once ('lib/ajax.php');
 			require_once ('lib/upload.php');
+			require_once ('lib/script.php');
 
 			/**
 			 * Available classes:
 			 * 
-			 * 
+			 * PLUGIN_CORN, PLUGIN_API, PLUGIN_TABLE, PLUGIN_AJAX, PLUGIN_UPLOAD, PLUGIN_SCRIPT
 			 */
 		}
 

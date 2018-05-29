@@ -6,7 +6,7 @@ It contains various items, such as Settings pages, Data tables, Widgets, Metabox
 
 There are extra classes for API integration, AJAX, File upload and Cron jobs.
 
-NOTE: Requires PHP 5.4 and up.
+NOTE: Requires PHP 5.4 and up. Uses `cURL` for API integration class.
 
 ## Usage
 

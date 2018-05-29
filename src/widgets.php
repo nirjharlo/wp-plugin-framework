@@ -1,7 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-//Widget class
+/**
+ * Widget class
+ */
 if ( ! class_exists( 'PLUGIN_WIDGET' ) ) {
 
 	final class PLUGIN_WIDGET extends WP_WIDGET {

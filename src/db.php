@@ -1,7 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-//DB installation class
+/**
+ * DB installation class
+ */
 if ( ! class_exists( 'PLUGIN_DB' ) ) {
 
 	class PLUGIN_DB {

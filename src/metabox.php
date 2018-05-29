@@ -1,6 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Build a sample metabox in editor screen
+ */
 if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 
 	final class PLUGIN_METABOX {
@@ -22,7 +25,8 @@ if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 				'meta-box-id',
 				esc_html__( 'MetaBox Title', 'textdomain' ),
 				array( $this, 'render' ),
-				'nav-menus',
+				// Declare the post type to show meta box
+				'post_type',
 				'normal',
 				'core'
 			);

@@ -1,7 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-//Shortcode class
+/**
+ * Shortcode class for rendering in front end
+ */
 if ( ! class_exists( 'PLUGIN_SHORTCODE' ) ) {
 
 	class PLUGIN_SHORTCODE {

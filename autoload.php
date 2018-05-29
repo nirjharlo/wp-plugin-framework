@@ -27,8 +27,28 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 											);
 				$install->do();
 			}
+
+			$this->corn();
 			*
 			*/
+		}
+
+
+
+		//Custom corn class, register it while activation
+		public function corn() {
+
+			if ( class_exists( 'PLUGIN_CRON' ) ) {
+				$cron = new PLUGIN_CRON();
+				$schedule = $cron->schedule_task(
+							array(
+							'timestamp' => current_time('timestamp'),
+							'recurrence' => 'amaz_24_hrs',
+							// Use custom_corn_hook to hook into any cron process, anywhere in the plugin.
+							'hook' => 'custom_corn_hook'
+						) );
+			}
+
 		}
 
 
@@ -158,6 +178,12 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			require_once ('lib/table.php');
 			require_once ('lib/ajax.php');
 			require_once ('lib/upload.php');
+
+			/**
+			 * Available classes:
+			 * 
+			 * 
+			 */
 		}
 
 

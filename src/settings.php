@@ -1,6 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Backend settings page class, can have settings fields or data table
+ */
 if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 
 	final class PLUGIN_SETTINGS {
@@ -60,7 +63,7 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 					$this->menuPage['heading'],
 					$this->capability,
 					$this->menuPage['slug'],
-					'menu_page_callback'
+					array( $this, 'menu_page_callback' )
 				);
 			}
 		}
@@ -79,7 +82,7 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 							// For the first submenu page, slug should be same as menupage.
 							$this->subMenuPage['slug'],
 							// For the first submenu page, callback should be same as menupage.
-							'menu_page_callback'
+							array( $this, 'menu_page_callback' )
 						);
 					if ($this->subMenuPage['help']) {
 						add_action( 'load-' . $hook, array( $this, 'help_tabs' ) );
@@ -89,15 +92,14 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 					}
 				}
 			}
-		}
 
 
 
 		//Set screen option
-		function set_screen($status, $option, $value) {
+		public function set_screen($status, $option, $value) {
  
     		if ( 'option_name_per_page' == $option ) return $value; // Related to PLUGIN_TABLE()
-    			return $status; 
+    			//return $status; 
 		}
 
 

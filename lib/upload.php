@@ -1,57 +1,103 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-//Widget class
+/**
+ * Plugin upload for WordPress front end or backend
+ * 
+ * 
+ */
 if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 
 	final class PLUGIN_UPLOAD extends WP_WIDGET {
 
 
 
-		// Add basic actions
+		// Add basic form
 		public function __construct() {
 
-			$widget_ops = array( 
-							'classname' => 'plugin_widget',
-							'description' => __( 'Plugin widget', 'textdomain' ),
-							);
-			parent::__construct( 'my_widget_id', __( 'Plugin widget', 'textdomain' ), $widget_ops );
-		}
-
-
-
-		//Outputs the content of the widget
-		public function widget( $args, $instance ) {
-
-			echo $args['before_widget'];
-			if ( ! empty( $instance['title'] ) ) {
-				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
+			if ( isset($_POST['UploadSubmit']) ) {
+				$this->upload();
 			}
-			echo esc_html__( 'Hello, World!', 'textdomain' );
-			echo $args['after_widget'];
+
+			$this->form();
 		}
 
 
 
-		//Outputs the options form on admin
-		public function form( $instance ) {
+		// Outputs the content of the widget
+		public function form() { ?>
 
-			$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Title', 'textdomain' ); ?>
-			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'textdomain' ); ?></label> 
-				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-			</p>
-		<?php 
+			<form method="POST" action="" enctype="multipart/form-data">
+				<input name="UploadFile" type="file" multiple="false"/>
+				<?php submit_button( __( 'Upload', 'stv' ), 'secondary', 'UploadSubmit' ); ?>
+			</form>
+			<?php
 		}
 
 
 
-		//Processing widget options on save
-		public function update( $new_instance, $old_instance ) {
-			
-			$instance = array();
-			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-			return $instance;
+		// Manage the Upload file
+		public function upload() {
+
+			$file = $_FILES['UploadFile'];
+			$type = $file['type'];
+
+			// Check in your file type
+			if( $type != 'application/_TYPE_' ) {
+				$this->file_type_error_admin_notice();
+			} else {
+
+				if (!function_exists('wp_handle_upload')){
+					require_once(ABSPATH . 'wp-admin/includes/image.php');
+					require_once(ABSPATH . 'wp-admin/includes/file.php');
+					require_once(ABSPATH . 'wp-admin/includes/media.php');
+				}
+
+				$overrides = array( 'test_form' => false);
+				$attachment_id = wp_handle_upload($file, $overrides);
+
+				if( is_array( $attachment_id ) && array_key_exists( 'url', $attachment_id ) ) {
+					$upload_id = $attachment_id['url'];
+
+					$this->success_notice();
+
+					// Use $upload_id for any purpose. For example storing temporarily
+					//update_option('some_token', $upload_id);
+				} else {
+					$this->file_error_admin_notice();
+					$upload_id = false;
+				}
+			}
+		}
+
+
+		// Notify wrong file type
+		public function file_type_error_admin_notice() { ?>
+
+			<div class="notice notice-success is-dismissible">
+				<p><?php _e( 'Please Upload correct type of file only.', 'textdomain' ); ?></p>
+ 			</div>
+		<?php
+		}
+
+
+		// Notify error in upload process
+		public function file_error_admin_notice() { ?>
+
+			<div class="notice notice-success is-dismissible">
+				<p><?php _e( 'File Upload failed.', 'textdomain' ); ?></p>
+ 			</div>
+		<?php
+		}
+
+
+		// Notify on success
+		public function success_notice() { ?>
+
+			<div class="notice notice-success is-dismissible">
+				<p><?php _e( 'Successfully saved file details.', 'textdomain' ); ?></p>
+ 			</div>
+		<?php
 		}
 	}
 } ?>

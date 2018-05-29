@@ -1,7 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-// Implimentation of WordPress inbuilt functions for creating a settings page class.
+/**
+ * Implimentation of WordPress inbuilt functions for plugin activation.
+ */
 if ( ! class_exists( 'PLUGGIN_INSTALL' ) ) {
 
 	final class PLUGIN_INSTALL {

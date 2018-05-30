@@ -188,7 +188,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 				'per_page'    => $per_page,
 			) );
 
-			$this->items = self::get_Console( $per_page, $current_page );
+			$this->items = self::get_Table( $per_page, $current_page );
 		}
 
 

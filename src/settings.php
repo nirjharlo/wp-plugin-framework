@@ -146,10 +146,10 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 					 * Following is the data table class
 					 */ ?>
 					<form method="post" action="">
-					<?php // Data table class is brought from /vendor/table.php
-						$this->Table = new PLUGIN_TABLE();
-						$this->Table->prepare_items();
-						$this->Table->display(); ?>
+					<?php // Source /lib/table.php
+						$table = new PLUGIN_TABLE();
+						$table->prepare_items();
+						$table->display(); ?>
 					</form>
 				<br class="clear">
 			</div>

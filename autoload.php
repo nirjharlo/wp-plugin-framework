@@ -200,7 +200,6 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			register_uninstall_hook( PLUGIN_FILE, array( 'PLUGIN_BUILD', 'db_uninstall' ) ); //$this won't work here.
 
 			add_action('init', array($this, 'installation'));
-			add_action('init', array($this, 'functionality'));
 
 			$this->widgets();
 			$this->metabox();

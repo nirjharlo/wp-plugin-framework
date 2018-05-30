@@ -46,10 +46,15 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 							);
 			$this->screen = ''; // true/false
 
+			/**
+			 * Add menues and hooks
+			 * 
 			add_action( 'admin_menu', array( $this, 'add_settings' ) );
 			add_action( 'admin_menu', array( $this, 'menu_page' ) );
 			add_action( 'admin_menu', array( $this, 'sub_menu_page' ) );
 			add_filter( 'set-screen-option', array( $this, 'set_screen' ), 10, 3 );
+			*
+			*/
 		}
 
 
@@ -75,7 +80,7 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 
 			if ($this->subMenuPage) {
 				$hook = add_submenu_page(
-							$this->subMenuPage['parent'],
+							$this->subMenuPage['parent_slug'],
 							$this->subMenuPage['name'],
 							$this->subMenuPage['heading'],
 							$this->capability,

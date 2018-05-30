@@ -16,16 +16,16 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 		public function __construct() {
 
 			if ( isset($_POST['UploadSubmit']) ) {
-				$this->upload();
+				$this->upload_controller();
 			}
 
-			$this->form();
+			$this->form_upload();
 		}
 
 
 
 		// Outputs the content of the widget
-		public function form() { ?>
+		public function upload_form() { ?>
 
 			<form method="POST" action="" enctype="multipart/form-data">
 				<input name="UploadFile" type="file" multiple="false"/>
@@ -37,7 +37,7 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 
 
 		// Manage the Upload file
-		public function upload() {
+		public function upload_controller() {
 
 			$file = $_FILES['UploadFile'];
 			$type = $file['type'];

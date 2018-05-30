@@ -163,7 +163,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			require_once ('src/install.php');
 			require_once ('src/db.php');
 			require_once ('src/settings.php');
-			require_once ('src/widgets.php');
+			require_once ('src/widget.php');
 			require_once ('src/metabox.php');
 			require_once ('src/shortcode.php');
 		}

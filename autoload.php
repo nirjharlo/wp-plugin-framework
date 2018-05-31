@@ -126,6 +126,14 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 
 
+		//Include scripts
+		public function scripts() {
+
+			if ( class_exists( 'CGSS_SCRIPT' ) ) new CGSS_SCRIPT();
+		}
+
+
+
 		//Include settings pages
 		public function settings() {
 
@@ -200,6 +208,8 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			register_uninstall_hook( PLUGIN_FILE, array( 'PLUGIN_BUILD', 'db_uninstall' ) ); //$this won't work here.
 
 			add_action('init', array($this, 'installation'));
+
+			$this->scripts();
 
 			$this->widgets();
 			$this->metabox();

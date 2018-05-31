@@ -95,7 +95,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 		public function column_name( $item ) {
 
 			$delete_nonce = wp_create_nonce( 'delete_url' );
-			$title = sprintf( '<strong>%s</strong>', $item['URL'] );
+			$title = sprintf( '<strong>%s</strong>', $item['item_name'] );
 
 			//Change the page instruction where you want to show it
 			$actions = array(
@@ -117,12 +117,12 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 				case 'caseOne':
 				case 'caseTwo':
 				case 'caseThree':
-				return $item[ $column_name ];
+					return $item[ $column_name ];
 
-			default:
+				default:
 
-				//Show the whole array for troubleshooting purposes
-				return print_r( $item, true );
+					//Show the whole array for troubleshooting purposes
+					return print_r( $item, true );
 			}
 		}
 

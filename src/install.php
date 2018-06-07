@@ -24,7 +24,7 @@ if ( ! class_exists( 'PLUGGIN_INSTALL' ) ) {
 
 
 
-		public function do() {
+		public function execute() {
 			add_action( 'plugins_loaded', array( $this, 'text_domain_cb' ) );
 			add_action( 'admin_notices', array( $this, 'php_ver_incompatible' ) );
 			add_filter( 'plugin_action_links', array( $this, 'menu_page_link' ), 10, 2 );

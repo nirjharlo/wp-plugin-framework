@@ -25,7 +25,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 													'label' => ''
 												),
 											);
-				$install->do();
+				$install->execute();
 			}
 
 			$this->corn();
@@ -165,8 +165,8 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 
 
-		//Add customization files
-		public function customization() {
+		//Add functionality files
+		public function functionality() {
 
 			require_once ('src/install.php');
 			require_once ('src/db.php');
@@ -200,7 +200,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		public function __construct() {
 
 			$this->helpers();
-			$this->customization();
+			$this->functionality();
 
 			register_activation_hook( PLUGIN_FILE, array( $this, 'db_install' ) );
 

@@ -1,0 +1,19 @@
+{
+    "name": "nirjharlo/wp-plugin-framework",
+    "type": "wordpress-plugin",
+    "description": "A framework for quick production of WordPress plugins.",
+    "keywords": ["wordpress","framework"],
+    "homepage": "https://github.com/nirjharlo/wp-plugin-framework",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Nirjhar Lo",
+            "email": "hi@nirjharlo.com",
+            "homepage": "http://nirjharlo.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

@@ -15,7 +15,7 @@ if ( ! class_exists( 'PLUGIN_AJAX' ) ) {
 		public function __construct() {
 
 			//Adding the AJAX
-			add_action( 'admin_footer', array( $this, 'customName_js' ) );
+			add_action( 'wp_footer', array( $this, 'customName_js' ) );
 			add_action( 'wp_ajax_customName', array( $this, 'customName' ) );
 			add_action( 'wp_ajax_nopriv_customName', array( $this, 'customName' ) );
 		}

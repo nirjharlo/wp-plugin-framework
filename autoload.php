@@ -72,7 +72,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			* Optionally check if the DB table is installed correctly
 			*
 			if (get_option('_plugin_db_exist') == '0') {
-				add_action( 'admin_notices', 'db_error_msg' );
+				add_action( 'admin_notices', array( $this, 'db_error_msg' ) );
 			}
 			*
 			*/
@@ -110,7 +110,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			*
 			* Important table name declarition
 			*
-			$tableName = 'plugin_db_table';
+			$tableName = 'plugin_db_table_name';
 
 			global $wpdb;
 			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}$tableName" );
@@ -129,7 +129,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		//Include scripts
 		public function scripts() {
 
-			if ( class_exists( 'CGSS_SCRIPT' ) ) new CGSS_SCRIPT();
+			if ( class_exists( 'PLUGIN_SCRIPT' ) ) new PLUGIN_SCRIPT();
 		}
 
 

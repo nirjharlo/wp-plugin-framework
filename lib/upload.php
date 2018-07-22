@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 
-	final class PLUGIN_UPLOAD extends WP_WIDGET {
+	final class PLUGIN_UPLOAD {
 
 
 
@@ -19,7 +19,7 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 				$this->upload_controller();
 			}
 
-			$this->form_upload();
+			$this->upload_form();
 		}
 
 
@@ -74,7 +74,7 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 		// Notify wrong file type
 		public function file_type_error_admin_notice() { ?>
 
-			<div class="notice notice-success is-dismissible">
+			<div class="notice notice-error is-dismissible">
 				<p><?php _e( 'Please Upload correct type of file only.', 'textdomain' ); ?></p>
  			</div>
 		<?php
@@ -84,7 +84,7 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 		// Notify error in upload process
 		public function file_error_admin_notice() { ?>
 
-			<div class="notice notice-success is-dismissible">
+			<div class="notice notice-error is-dismissible">
 				<p><?php _e( 'File Upload failed.', 'textdomain' ); ?></p>
  			</div>
 		<?php

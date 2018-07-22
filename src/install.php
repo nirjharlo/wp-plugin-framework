@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Implimentation of WordPress inbuilt functions for plugin activation.
  */
-if ( ! class_exists( 'PLUGGIN_INSTALL' ) ) {
+if ( ! class_exists( 'PLUGIN_INSTALL' ) ) {
 
 	final class PLUGIN_INSTALL {
 
@@ -45,7 +45,7 @@ if ( ! class_exists( 'PLUGGIN_INSTALL' ) ) {
 
 			if ( version_compare( phpversion(), $this->phpVerAllowed, '<' ) ) :
 				$text = __( 'The Plugin can\'t be activated because your PHP version', 'textdomain' );
-				$text_last = __( 'is less than required 5.3. See more information', 'textdomain' );
+				$text_last = __( 'is less than required '.$this->phpVerAllowed.'. See more information', 'textdomain' );
 				$text_link = 'php.net/eol.php'; ?>
 
 				<div id="message" class="updated notice notice-success is-dismissible"><p><?php echo $text . ' ' . phpversion() . ' ' . $text_last . ': '; ?><a href="http://php.net/eol.php/" target="_blank"><?php echo $text_link; ?></a></p></div>

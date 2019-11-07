@@ -39,8 +39,8 @@ if ( ! class_exists( 'PLUGIN_SCRIPT' ) ) {
 			// Set condition to add script
 			// if ( ! isset( $_GET['page'] ) || $_GET['page'] != 'pageName' ) return;
 
-			wp_enqueue_script( 'jsName', _PLUGIN_JS . 'ui.js', array() );
-			wp_enqueue_style( 'cssName', _PLUGIN_CSS . 'css.css' );
+			wp_enqueue_script( 'jsName', PLUGIN_JS . 'ui.js', array() );
+			wp_enqueue_style( 'cssName', PLUGIN_CSS . 'css.css' );
 		}
 
 
@@ -48,8 +48,8 @@ if ( ! class_exists( 'PLUGIN_SCRIPT' ) ) {
 		// Enter scripts into pages
 		public function frontend_scripts() {
 
-			wp_enqueue_script( 'jsName', _PLUGIN_JS . 'ui.js', array() );
-			wp_enqueue_style( 'cssName', _PLUGIN_CSS . 'css.css' );
+			wp_enqueue_script( 'jsName', PLUGIN_JS . 'ui.js', array() );
+			wp_enqueue_style( 'cssName', PLUGIN_CSS . 'css.css' );
 		}
 	}
 } ?>

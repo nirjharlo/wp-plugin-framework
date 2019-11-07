@@ -10,11 +10,13 @@ if ( ! class_exists( 'PLUGIN_QUERY' ) ) {
 
 	class PLUGIN_QUERY {
 
-		public $display_count = get_option('posts_per_page', 10);
+		public $display_count = NULL;
 
 		public function __construct() {
 
 			global $post, $ga_customers, $user;
+
+			$this->display_count = get_option('posts_per_page', 10);
 
 			$paged = get_query_var('paged') ?
 			get_query_var('paged')

@@ -37,6 +37,8 @@ Go through the files in `/lib/` and `/src/`. First one contains classes for extr
 
 `/lib/script.php` :: `PLUGIN_SCRIPT` to add required CSS and JS.
 
+`/lib/cron.php` :: `PLUGIN_CRON` to add cron actions and callbacks.
+
 ### `/src` Files
 
 `/src/install.php` :: `PLUGIN_INSTALL` to handle activation process.

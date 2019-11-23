@@ -23,9 +23,13 @@ if ( ! class_exists( 'PLUGIN_QUERY' ) ) {
 			 : (get_query_var('page') ?
 			  	get_query_var('page') : 1);
 
-			$args = $this->user_args($paged); // OR $this->post_args($paged)
+			$post_args = $this->post_args($paged);
+			$the_query = new WP_Query( $post_args );
 
-			$the_query = new WP_Query( $args );
+			/**
+			$user_args = $this->user_args($paged);
+			$the_query = new WP_User_Query( $user_args );
+			*/
 
 			// The Loop
 			if ( $the_query->have_posts() ) {

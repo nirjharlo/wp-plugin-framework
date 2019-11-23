@@ -48,8 +48,8 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 
 			/**
 			 * Add menues and hooks
-			 * 
-			add_action( 'admin_menu', array( $this, 'add_settings' ) );
+			 *
+			add_action( 'admin_init', array( $this, 'add_settings' ) );
 			add_action( 'admin_menu', array( $this, 'menu_page' ) );
 			add_action( 'admin_menu', array( $this, 'sub_menu_page' ) );
 			add_filter( 'set-screen-option', array( $this, 'set_screen' ), 10, 3 );
@@ -102,9 +102,9 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 
 		//Set screen option
 		public function set_screen($status, $option, $value) {
- 
+
     		if ( 'option_name_per_page' == $option ) return $value; // Related to PLUGIN_TABLE()
-    			//return $status; 
+    			//return $status;
 		}
 
 
@@ -136,8 +136,8 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 					 * Following is the settings form
 					 */ ?>
 					<form method="post" action="">
-						<?php settings_fields("addPdfsId");
-						do_settings_sections("addPdfs");
+						<?php settings_fields("settings_name");
+						do_settings_sections("settings_name");
 						submit_button( __( 'Save', 'textdomain' ), 'primary', 'id' ); ?>
 					</form>
 
@@ -177,15 +177,15 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		//Add different types of settings and corrosponding sections
 		public function add_settings() {
 
-			add_settings_section( 'SettingsId', __( 'Section Name', 'textdomain' ), array( $this,'SectionCb' ), 'SettingsName' );
-			register_setting( 'SettingsId', 'SettingsField' );
-			add_settings_field( 'SettingsFieldName', __( 'Field Name', 'textdomain' ), array( $this, 'SettingsFieldCb' ), 'SettingsName', 'SettingsId' );
+			add_settings_section( 'settings_id', __( 'Section Name', 'textdomain' ), array( $this,'section_cb' ), 'settings_name' );
+			register_setting( 'settings_name', 'settings_field' );
+			add_settings_field( 'settings_field_name', __( 'Field Name', 'textdomain' ), array( $this, 'settings_field_cb' ), 'settings_name', 'settings_id' );
 		}
 
 
 
 		//Section description
-		public function SectionCb() {
+		public function section_cb() {
 
 			echo '<p class="description">' . __( 'Set up settings', 'textdomain' ) . '</p>';
 		}
@@ -193,9 +193,15 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 
 
 		//Field explanation
-		public function SettingsFieldCb() {
+		public function settings_field_cb() {
 
-			echo '<input type="text" class="medium-text" name="SettingsFieldName" id="SettingsFieldName" value="' . get_option('SettingsFieldName') . '" placeholder="' . __( 'Enter Value', 'textdomain' ) . '" required />';
+			//Choose any one from input, textarea, select or checkbox
+			/**
+			echo '<input type="text" class="medium-text" name="settings_field_name" id="settings_field_name" value="' . get_option('settings_field_name') . '" placeholder="' . __( 'Enter Value', 'textdomain' ) . '" required />';
+			echo '<textarea name="settings_field_name" id="settings_field_name" value="' . get_option('settings_field_name') . '>'. __( 'Enter Value', 'textdomain' ) . '</textarea>';
+			echo '<select name="settings_field_name" id="settings_field_name"><option value="value" ' . selected( 'value', get_option('settings_field_name'), false) . '>Value</option></select>';
+			echo '<input type="checkbox" id="settings_field_name" name="settings_field_name" value="1"' . checked( 1, get_option('settings_field_name'), false ) . '/>';
+			*/
 		}
 	}
 } ?>

@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  *
- * Add settings page with regarding options
+ * Add Cron schedules and cron task callback
  *
  */
 if ( ! class_exists( 'PLUGIN_CRON' ) ) {
@@ -12,12 +12,17 @@ if ( ! class_exists( 'PLUGIN_CRON' ) ) {
 
 		public function __construct() {
 
+			//Add cron schedules
 			add_filter('cron_schedules', array( $this, 'cron_schedules' ) );
+
+			//Add cron callbacks
+
 		}
 
 		public function cron_schedules( $schedules ) {
 
 			$prefix = 'prefix_'; // Avoid conflict with other crons. Example Reference: cron_30_mins
+
 			// Example schedule options
 			$schedule_options = array(
 						'24_hrs' => array(
@@ -37,15 +42,19 @@ if ( ! class_exists( 'PLUGIN_CRON' ) ) {
 			/* Add each custom schedule into the cron job system. */
 			foreach($schedule_options as $schedule_key => $schedule){
 
-				$schedules[$prefix.$schedule_key] = array(
+				if(!isset($schedules[$prefix.$schedule_key])) {
+
+					$schedules[$prefix.$schedule_key] = array(
 									'interval' => $schedule['interval'],
 									'display' => __('Every '.$schedule['display'])
 									);
+				}
 			}
 
 			return $schedules;
 		}
 
+		//Called in autoload.php
 		public function schedule_task($task) {
 
 			if( ! $task ) {

@@ -35,6 +35,11 @@ if ( ! class_exists( 'PLUGIN_INSTALL' ) ) {
 		//Load plugin textdomain
 		public function text_domain_cb() {
 
+			$locale = is_admin() && function_exists('get_user_locale') ? get_user_locale() : get_locale();
+			$locale = apply_filters('plugin_locale', $locale, $this->textDomin);
+
+			unload_textdomain($this->textDomin);
+			load_textdomain($this->textDomin, PLUGIN_LN . 'quize-custom-ads-' . $locale . '.mo');
 			load_plugin_textdomain( $this->textDomin, false, PLUGIN_LN );
 		}
 

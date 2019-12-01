@@ -36,12 +36,12 @@ if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 
 		public function render() {
 
-			wp_nonce_field( basename( __FILE__ ), 'metaBoxName_nonce' ); ?>
+			wp_nonce_field( basename( __FILE__ ), 'metabox_name_nonce' ); ?>
 
 			<p>
-				<label for="metaBoxName"><?php _e( "Custom Text", 'myPlugintextDomain' ); ?></label>
+				<label for="metabox_name"><?php _e( "Custom Text", 'textdomain' ); ?></label>
     			<br />
-    			<input class="widefat" type="text" name="metaBoxFieldName" id="metaBoxFieldName" value="<?php echo esc_attr( get_post_meta( $object->ID, 'metaBoxName', true ) ); ?>" />
+    			<input class="widefat" type="text" name="metabox_field_name" id="metabox_field_name" value="<?php echo esc_attr( get_post_meta( $object->ID, 'metabox_name', true ) ); ?>" />
   			</p>
   			<?php
 		}
@@ -51,33 +51,20 @@ if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 		//Save the post data
 		function save( $post_id, $post ) {
 
+			//Check if doing autosave
+			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+
 			//Verify the nonce before proceeding.
-			if ( !isset( $_POST['metaBoxName_nonce'] ) || !wp_verify_nonce( $_POST['metaBoxName_nonce'], basename( __FILE__ ) ) )
-				return $post_id;
+			if ( !isset( $_POST['metabox_name_nonce'] ) || !wp_verify_nonce( $_POST['metabox_name_nonce'], basename( __FILE__ ) ) ) return;
 
 			//Get the post type object.
 			$post_type = get_post_type_object( $post->post_type );
 
 			//Check if the current user has permission to edit the post.
-			if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
-				return $post_id;
+			if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ) return $post_id;
 
-			//Get the posted data and sanitize it for use as an HTML class.
-			$new_meta_value = ( isset( $_POST['metaBoxName'] ) ? sanitize_html_class( $_POST['metaBoxName'] ) : '' );
-
-			//Get the meta key.
-			$meta_key = 'metaBoxName';
-
-			//Get the meta value of the custom field key.
-			$meta_value = get_post_meta( $post_id, $meta_key, true );
-
-			//If a new meta value was added and there was no previous value, add it.
-			if ( $new_meta_value && '' == $meta_value ) {
-				add_post_meta( $post_id, $meta_key, $new_meta_value, true );
-			} elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
-				update_post_meta( $post_id, $meta_key, $new_meta_value );
-			} elseif ( '' == $new_meta_value && $meta_value ) {
-				delete_post_meta( $post_id, $meta_key, $meta_value );
+			if ( isset( $_POST['metabox_field_name'] ) ) {
+				update_post_meta( $post_id, 'metabox_field_name', esc_attr($_POST['metabox_field_name']) );
 			}
 		}
 	}

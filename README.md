@@ -37,8 +37,6 @@ Go through the files in `/lib/` and `/src/`. First one contains classes for extr
 
 `/lib/script.php` :: `PLUGIN_SCRIPT` to add required CSS and JS.
 
-`/lib/cron.php` :: `PLUGIN_CRON` to add cron actions and callbacks.
-
 ### `/src` Files
 
 `/src/install.php` :: `PLUGIN_INSTALL` to handle activation process.
@@ -52,3 +50,5 @@ Go through the files in `/lib/` and `/src/`. First one contains classes for extr
 `/src/metabox.php` :: `PLUGIN_METABOX` to add custom metabox in editor screen.
 
 `/src/shortcode.php`:: `PLUGIN_SHORTCODE` to add and display shortcodes.
+
+`/src/query.php`:: `PLUGIN_QUERY` to use post and user query. It uses `wp_pagenavi()` for breadceumbs

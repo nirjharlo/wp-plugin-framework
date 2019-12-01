@@ -229,7 +229,6 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			add_action('init', array($this, 'custom_cron_hook_cb'));
 
 			$this->scripts();
-
 			$this->widgets();
 			$this->metabox();
 			$this->shortcode();

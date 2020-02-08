@@ -39,7 +39,7 @@ if ( ! class_exists( 'PLUGIN_INSTALL' ) ) {
 			$locale = apply_filters('plugin_locale', $locale, $this->textDomin);
 
 			unload_textdomain($this->textDomin);
-			load_textdomain($this->textDomin, PLUGIN_LN . 'quize-custom-ads-' . $locale . '.mo');
+			load_textdomain($this->textDomin, PLUGIN_LN . 'textdomain-' . $locale . '.mo');
 			load_plugin_textdomain( $this->textDomin, false, PLUGIN_LN );
 		}
 

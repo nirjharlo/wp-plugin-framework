@@ -136,7 +136,7 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 					 * Following is the settings form
 					 */ ?>
 					<form method="post" action="">
-						<?php settings_fields("settings_name");
+						<?php settings_fields("settings_id");
 						do_settings_sections("settings_name");
 						submit_button( __( 'Save', 'textdomain' ), 'primary', 'id' ); ?>
 					</form>
@@ -178,7 +178,8 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		public function add_settings() {
 
 			add_settings_section( 'settings_id', __( 'Section Name', 'textdomain' ), array( $this,'section_cb' ), 'settings_name' );
-			register_setting( 'settings_name', 'settings_field' );
+
+			register_setting( 'settings_id', 'settings_field_name' );
 			add_settings_field( 'settings_field_name', __( 'Field Name', 'textdomain' ), array( $this, 'settings_field_cb' ), 'settings_name', 'settings_id' );
 		}
 

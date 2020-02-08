@@ -3,7 +3,7 @@
  Plugin Name: WordPress Plugin Framework
  Plugin URI: https://github.com/nirjharlo/wp-plugin-framework/
  Description: Simple and Light WordPress plugin development framework for organized Object Oriented code for Developers.
- Version: 1.1
+ Version: 1.2
  Author: Nirjhar Lo
  Author URI: http://nirjharlo.com
  Text Domain: textdomain
@@ -26,9 +26,10 @@ defined('PLUGIN_HELPER') or define('PLUGIN_HELPER', plugin_dir_path(__FILE__).'h
 defined('PLUGIN_TRANSLATE') or define('PLUGIN_TRANSLATE', plugin_basename( plugin_dir_path(__FILE__).'asset/ln/'));
 
 //change /wp-plugin-framework/ with your /plugin-name/
-defined('PLUGIN_JS') or define('PLUGIN_JS', plugins_url().'/wp-plugin-framework/asset/js/');
-defined('PLUGIN_CSS') or define('PLUGIN_CSS', plugins_url().'/wp-plugin-framework/asset/css/');
-defined('PLUGIN_IMAGE') or define('PLUGIN_IMAGE', plugins_url().'/wp-plugin-framework/asset/img/');
+$plugin_file_parts = explode('/', PLUGIN_FILE);
+defined('PLUGIN_JS') or define('PLUGIN_JS', plugins_url().'/' . $plugin_file_parts[0] . '/asset/js/');
+defined('PLUGIN_CSS') or define('PLUGIN_CSS', plugins_url().'/' . $plugin_file_parts[0] . '/asset/css/');
+defined('PLUGIN_IMAGE') or define('PLUGIN_IMAGE', plugins_url().'/' . $plugin_file_parts[0] . '/asset/img/');
 
 
 //The Plugin

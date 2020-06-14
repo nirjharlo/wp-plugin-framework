@@ -29,5 +29,5 @@ defined( 'PLUGIN_IMAGE' ) or define( 'PLUGIN_IMAGE', plugins_url( '/asset/img/',
 
 
 //The Plugin
-require_once('autoload.php');
+require_once( 'autoload.php' );
 if ( class_exists( 'PLUGIN_BUILD' ) ) new PLUGIN_BUILD(); ?>

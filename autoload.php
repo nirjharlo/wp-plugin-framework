@@ -8,10 +8,70 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 	final class PLUGIN_BUILD {
 
+		/**
+		 * @var String
+		 */
+		protected $version = '1.2.1';
 
+
+		/**
+		 * Plugin Instance.
+		 *
+		 * @var PLUGIN_BUILD the PLUGIN Instance
+		 */
+		protected static $_instance;
+
+
+		/**
+		 * Text domain to be used throughout the plugin
+		 *
+		 * @var String
+		 */
 		protected static $text_domain = 'textdomain';
-		protected static $php_ver_allowed = '5.4';
+
+
+		/**
+		 * Minimum PHP version allowed for the plugin
+		 *
+		 * @var String
+		 */
+		protected static $php_ver_allowed = '5.3';
+
+
+		/**
+		 * DB tabble used in plugin
+		 *
+		 * @var String
+		 */
 		protected static $plugin_table = 'plugin_db_table_name';
+
+
+		/**
+		 * Plugin listing page links, along with Deactivate
+		 *
+		 * @var Array
+		 */
+		protected static $plugin_page_links = array(
+			array(
+				'slug' => '',
+				'label' => ''
+			) );
+
+
+		/**
+		 * Main Plugin Instance.
+		 *
+		 * @return PLUGIN_BUILD
+		 */
+		public static function instance() {
+
+			if ( is_null( self::$_instance ) ) {
+				self::$_instance = new self();
+				self::$_instance->init();
+			}
+
+			return self::$_instance;
+		}
 
 
 		/**
@@ -26,12 +86,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 				$install = new PLUGIN_INSTALL();
 				$install->text_domain = self::$text_domain;
 				$install->php_ver_allowed = self::$php_ver_allowed;
-				$install->plugin_page_links = array(
-												array(
-													'slug' => '',
-													'label' => ''
-												),
-											);
+				$install->plugin_page_links = self::$plugin_page_links;
 				$install->execute();
 			}
 		}
@@ -253,7 +308,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function __construct() {
+		public function init() {
 
 			$this->helpers();
 			$this->functionality();

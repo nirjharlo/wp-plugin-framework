@@ -3,13 +3,21 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Build a sample metabox in editor screen
+ *
+ * @author     Nirjhar Lo
+ * @version    1.2.1
+ * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 
 	final class PLUGIN_METABOX {
 
 
-
+		/**
+		 * Add Meetabox
+		 *
+		 * @return Void
+		 */
 		public function __construct() {
 
 			//Adding the metabox. For custom post type use "add_meta_boxes_posttype" action
@@ -18,7 +26,11 @@ if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 		}
 
 
-
+		/**
+		 * Metabox callback
+		 *
+		 * @return Html
+		 */
 		public function register() {
 
 			add_meta_box(
@@ -33,7 +45,11 @@ if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 		}
 
 
-
+		/**
+		 * Metabox render HTML
+		 *
+		 * @return Html
+		 */
 		public function render() {
 
 			wp_nonce_field( basename( __FILE__ ), 'metabox_name_nonce' ); ?>
@@ -47,8 +63,13 @@ if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 		}
 
 
-
-		//Save the post data
+		/**
+ 	    * Save the Metabox post data
+ 		*
+ 		* @param Array $atts
+ 		*
+ 		* @return Html
+ 		*/
 		function save( $post_id, $post ) {
 
 			//Check if doing autosave
@@ -64,7 +85,7 @@ if ( ! class_exists( 'PLUGIN_METABOX' ) ) {
 			if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ) return $post_id;
 
 			if ( isset( $_POST['metabox_field_name'] ) ) {
-				update_post_meta( $post_id, 'metabox_field_name', esc_attr($_POST['metabox_field_name']) );
+				update_post_meta( $post_id, 'metabox_field_name', sanitize_text_field($_POST['metabox_field_name']) );
 			}
 		}
 	}

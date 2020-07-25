@@ -2,23 +2,34 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- *
  * Add Cron schedules and cron task callback
  *
+ * @author     Nirjhar Lo
+ * @version    1.2.1
+ * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_CRON' ) ) {
 
 	final class PLUGIN_CRON {
 
+
+		/**
+		 * Add corn to wp scheduler
+		 *
+		 * @return Void
+		 */
 		public function __construct() {
 
 			//Add cron schedules
 			add_filter('cron_schedules', array( $this, 'cron_schedules' ) );
-
-			//Add cron callbacks
-
 		}
 
+
+		/**
+		 * Set up the schedules
+		 *
+		 * @return Void
+		 */
 		public function cron_schedules( $schedules ) {
 
 			$prefix = 'prefix_'; // Avoid conflict with other crons. Example Reference: cron_30_mins
@@ -46,7 +57,7 @@ if ( ! class_exists( 'PLUGIN_CRON' ) ) {
 
 					$schedules[$prefix.$schedule_key] = array(
 									'interval' => $schedule['interval'],
-									'display' => __('Every '.$schedule['display'])
+									'display' => __( 'Every '.$schedule['display'] )
 									);
 				}
 			}
@@ -54,7 +65,12 @@ if ( ! class_exists( 'PLUGIN_CRON' ) ) {
 			return $schedules;
 		}
 
-		//Called in autoload.php
+
+		/**
+		 * Schedule the task based on added schedules
+		 *
+		 * @return Bool
+		 */
 		public function schedule_task($task) {
 
 			if( ! $task ) {

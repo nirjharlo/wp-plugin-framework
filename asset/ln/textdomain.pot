@@ -1,0 +1,164 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: WordPress Plugin Framework\n"
+"POT-Creation-Date: 2020-07-25 13:12+0530\n"
+"PO-Revision-Date: 2020-07-25 13:12+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: wp-plugin-framework.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: autoload.php:163
+msgid "Database table Not installed correctly."
+msgstr ""
+
+#: lib/ajax.php:33
+msgid "Text"
+msgstr ""
+
+#: lib/cron.php:53
+msgid "Every "
+msgstr ""
+
+#: lib/table.php:29 lib/table.php:149
+msgid "Name"
+msgstr ""
+
+#: lib/table.php:30
+msgid "Names"
+msgstr ""
+
+#: lib/table.php:77
+msgid "No Items Added yet."
+msgstr ""
+
+#: lib/table.php:107
+msgid "Delete"
+msgstr ""
+
+#: lib/table.php:150
+msgid "Case One"
+msgstr ""
+
+#: lib/table.php:151
+msgid "Case Two"
+msgstr ""
+
+#: lib/table.php:152
+msgid "Case Three"
+msgstr ""
+
+#: lib/upload.php:36
+msgid "Upload"
+msgstr ""
+
+#: lib/upload.php:82
+msgid "Please Upload correct type of file only."
+msgstr ""
+
+#: lib/upload.php:92
+msgid "File Upload failed."
+msgstr ""
+
+#: lib/upload.php:102
+msgid "Successfully saved file details."
+msgstr ""
+
+#: src/install.php:60
+msgid "The Plugin can't be activated because your PHP version"
+msgstr ""
+
+#: src/install.php:61
+msgid "is less than required "
+msgstr ""
+
+#: src/metabox.php:32
+msgid "MetaBox Title"
+msgstr ""
+
+#: src/metabox.php:48
+msgid "Custom Text"
+msgstr ""
+
+#: src/settings.php:45
+msgid "Title"
+msgstr ""
+
+#: src/settings.php:46
+msgid "Description"
+msgstr ""
+
+#: src/settings.php:49
+msgid "helpLink"
+msgstr ""
+
+#: src/settings.php:123
+msgid "Show per page"
+msgstr ""
+
+#: src/settings.php:147
+msgid "Save"
+msgstr ""
+
+#: src/settings.php:186
+msgid "Section Name"
+msgstr ""
+
+#: src/settings.php:189
+msgid "Field Name"
+msgstr ""
+
+#: src/settings.php:197
+msgid "Set up settings"
+msgstr ""
+
+#: src/widget.php:24 src/widget.php:26
+msgid "Plugin widget"
+msgstr ""
+
+#: src/widget.php:38
+msgid "Hello, World!"
+msgstr ""
+
+#: src/widget.php:47
+msgid "Internal Link Master"
+msgstr ""
+
+#: src/widget.php:49
+msgid "Title:"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WordPress Plugin Framework"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/nirjharlo/wp-plugin-framework/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Simple and Light WordPress plugin development framework for organized Object "
+"Oriented code for Developers."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Nirjhar Lo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://nirjharlo.com"
+msgstr ""

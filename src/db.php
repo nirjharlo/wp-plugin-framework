@@ -3,42 +3,61 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * DB installation class
+ *
+ * @author     Nirjhar Lo
+ * @version    1.2.1
+ * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_DB' ) ) {
 
 	class PLUGIN_DB {
 
+		/**
+		 * @var String
+		 */
+		public $table;
 
 
-		public $table; //string. Declare before using
-		public $sql; //string. Declare before using
+		/**
+		 * @var String
+		 */
+		public $sql;
 
 
-
+		/**
+		 * Instantiate the db class
+		 *
+		 * @return Void
+		 */
 		public function __construct() {
 
 			$this->up_path = ABSPATH . 'wp-admin/includes/upgrade.php';
-			$this->build();
 		}
 
 
-
-		//Define the necessary database tables
+		/**
+		 * Define the necessary database tables
+		 *
+		 * @return Void
+		 */
 		public function build() {
 
 			global $wpdb;
 			$wpdb->hide_errors();
 			$this->table_name = $wpdb->prefix . $this->table;
 			update_option( '_plugin_db_exist', 0 );
-			if ( $wpdb->get_var("SHOW TABLES LIKE '$this->table_name'") != $this->table_name ) {
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$this->table_name'" ) != $this->table_name ) {
 				$execute_sql = $this->execute( $this->table_name, $this->collate(), $this->sql );
 				dbDelta( $execute_sql );
 			}
 		}
 
 
-
-		//Define the variables for db table creation
+		/**
+		 * Define the variables for db table creation
+		 *
+		 * @return String
+		 */
 		public function collate() {
 
 			global $wpdb;
@@ -55,19 +74,33 @@ if ( ! class_exists( 'PLUGIN_DB' ) ) {
 		}
 
 
-
-		//SQL query to create the main plugin table.
+		/**
+		 * SQL query to create the main plugin table.
+		 *
+		 * @param String $table_name
+		 * @param String $collate
+		 * @param String $sql
+		 *
+		 * @return String
+		 */
 		public function execute( $table_name, $collate, $sql ) {
+
 			return "CREATE TABLE $table_name ( $sql ) $collate;";
 		}
 
 
-
-		//Check options and tables and output the info to check if db install is successful
+		/**
+		 * Check options and tables and output the info to check if db install is successful
+		 *
+		 * @return String
+		 */
 		public function __destruct() {
+
 			global $wpdb;
+
 			$this->table_name = $wpdb->prefix . $this->table;
-			if ( $wpdb->get_var("SHOW TABLES LIKE '$this->table_name'") == $this->table_name ) {
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$this->table_name'" ) == $this->table_name ) {
+
 				update_option( '_plugin_db_exist', 1 );
 			}
 		}

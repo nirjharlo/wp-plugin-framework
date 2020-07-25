@@ -3,16 +3,21 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Plugin upload for WordPress front end or backend
- * 
- * 
+ *
+ * @author     Nirjhar Lo
+ * @version    1.2.1
+ * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 
 	final class PLUGIN_UPLOAD {
 
 
-
-		// Add basic form
+		/**
+		 * Add basic form
+		 *
+		 * @return Void
+		 */
 		public function __construct() {
 
 			if ( isset($_POST['UploadSubmit']) ) {
@@ -23,8 +28,11 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 		}
 
 
-
-		// Outputs the content of the widget
+		/**
+		 * Outputs the content of the widget
+		 *
+		 * @return Html
+		 */
 		public function upload_form() { ?>
 
 			<form method="POST" action="" enctype="multipart/form-data">
@@ -35,8 +43,11 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 		}
 
 
-
-		// Manage the Upload file
+		/**
+		 * Manage the Upload file
+		 *
+		 * @return Void
+		 */
 		public function upload_controller() {
 
 			$file = $_FILES['UploadFile'];
@@ -54,24 +65,28 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 				}
 
 				$overrides = array( 'test_form' => false);
-				$attachment_id = wp_handle_upload($file, $overrides);
+				$attachment = wp_handle_upload($file, $overrides);
 
-				if( is_array( $attachment_id ) && array_key_exists( 'url', $attachment_id ) ) {
-					$upload_id = $attachment_id['url'];
+				if( is_array( $attachment_id ) && array_key_exists( 'path', $attachment ) ) {
+					$upload_path = $attachment['path'];
 
 					add_action( 'admin_notices', array( $this, 'success_notice' ) );
 
-					// Use $upload_id for any purpose. For example storing temporarily
-					//update_option('some_token', $upload_id);
+					// Use $upload_path for any purpose. For example storing temporarily
+					// update_option( 'some_token', $upload_path );
 				} else {
 					add_action( 'admin_notices', array( $this, 'file_error_admin_notice' ) );
-					$upload_id = false;
+					$upload_path = false;
 				}
 			}
 		}
 
 
-		// Notify wrong file type
+		/**
+		 * Notify wrong file type
+		 *
+		 * @return Html
+		 */
 		public function file_type_error_admin_notice() { ?>
 
 			<div class="notice notice-error is-dismissible">
@@ -81,7 +96,11 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 		}
 
 
-		// Notify error in upload process
+		/**
+		 * Notify error in upload process
+		 *
+		 * @return Html
+		 */
 		public function file_error_admin_notice() { ?>
 
 			<div class="notice notice-error is-dismissible">
@@ -91,7 +110,11 @@ if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
 		}
 
 
-		// Notify on success
+		/**
+		 * Notify on success
+		 *
+		 * @return Html
+		 */
 		public function success_notice() { ?>
 
 			<div class="notice notice-success is-dismissible">

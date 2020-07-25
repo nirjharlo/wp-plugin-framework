@@ -1,23 +1,30 @@
 <?php
 /**
  * Implimentation of WordPress inbuilt functions for creating an extension of a default table class.
- * 
- * $myPluginNameTable = new myPluginNameTable();
- * $myPluginNameTable->prepare_items();
- * $myPluginNameTable->display();
  *
+ * $my_plugin_name_table = new PLUGIN_TABLE();
+ * $my_plugin_name_table->prepare_items();
+ * $my_plugin_name_table->display();
+ *
+ * @author     Nirjhar Lo
+ * @version    1.2.1
+ * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_TABLE' ) ) {
 
-if ( ! class_exists( 'WP_List_Table' ) ) {
-    require_once( ABSPATH . 'wp-admin/includes/screen.php' );
-    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-}
+	if ( ! class_exists( 'WP_List_Table' ) ) {
+    	require_once( ABSPATH . 'wp-admin/includes/screen.php' );
+    	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+	}
 
 	final class PLUGIN_TABLE extends WP_List_Table {
 
 
-
+		/**
+		 * Instantiate the table
+		 *
+		 * @return Void
+		 */
 		public function __construct() {
 
 			parent::__construct( [
@@ -28,8 +35,11 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 		}
 
 
-
-		//fetch the data using custom named method function
+		/**
+		 * Fetch the data using custom named method function
+		 *
+		 * @return Array
+		 */
 		public static function get_Table( $per_page = 5, $page_number = 1 ) {
 
 			global $wpdb;
@@ -56,25 +66,35 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 		}
 
 
-
-		//Delete individual data
+		/**
+		 * Delete individual data
+		 *
+		 * @return Void
+		 */
 		public static function delete_url( $id ) {
 
 			global $wpdb;
-			$wpdb->delete("{$wpdb->prefix}wordpress_table", array( 'ID' => $id ), array( '%s' ) );
+
+			$wpdb->delete( "{$wpdb->prefix}wordpress_table", array( 'ID' => $id ), array( '%s' ) );
 		}
 
 
-
-		//If there is no data to show
+		/**
+		 * If there is no data to show
+		 *
+		 * @return String
+		 */
 		public function no_items() {
 
-			_e( 'No Items Added yet.', 'myPlugintextDomain' );
+			_e( 'No Items Added yet.', 'textDomain' );
 		}
 
 
-
-		//How many rows are present there
+		/**
+		 * How many rows are present there
+		 *
+		 * @return Int
+		 */
 		public static function record_count() {
 
 			global $wpdb;
@@ -90,8 +110,11 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 		}
 
 
-
-		//Display columns content
+		/**
+		 * Display columns content
+		 *
+		 * @return Html
+		 */
 		public function column_name( $item ) {
 
 			$delete_nonce = wp_create_nonce( 'delete_url' );
@@ -101,12 +124,16 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 			$actions = array(
 					'delete' => sprintf( '<a href="?page=%s&action=%s&instruction=%s&_wpnonce=%s">%s</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['ID'] ), $delete_nonce, __( 'Delete', 'textdomain' ) )
 					);
+
 			return $title . $this->row_actions( $actions );
 		}
 
 
-
-		//set coulmns name
+		/**
+		 * set coulmns name
+		 *
+		 * @return Html
+		 */
 		public function column_default( $item, $column_name ) {
 
 			switch ( $column_name ) {
@@ -127,16 +154,22 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 		}
 
 
-
-		//Set checkboxes to delete
+		/**
+		 * Set checkboxes to delete
+		 *
+		 * @return Html
+		 */
 		public function column_cb( $item ) {
 
 			return sprintf( '<input type="checkbox" name="bulk-select[]" value="%s" />', $item['ID'] );
 		}
 
 
-
-		//Columns callback
+		/**
+		 * Columns callback
+		 *
+		 * @return Array
+		 */
 		public function get_columns() {
 
 			$columns = array(
@@ -146,12 +179,16 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 							'caseTwo'	=> __( 'Case Two', 'textdomain' ),
 							'caseThree'	=> __( 'Case Three', 'textdomain' ),
 						);
+
 			return $columns;
 		}
 
 
-
-		//Decide columns to be sortable by array input
+		/**
+		 * Decide columns to be sortable by array input
+		 *
+		 * @return Array
+		 */
 		public function get_sortable_columns() {
 
 			$sortable_columns = array(
@@ -159,21 +196,29 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 				'caseOne' => array( 'caseOne', false ),
 				'caseTwo' => array( 'caseTwo', false ),
 			);
+
 			return $sortable_columns;
 		}
 
 
-
-		//Determine bulk actions in the table dropdown
+		/**
+		 * Determine bulk actions in the table dropdown
+		 *
+		 * @return Array
+		 */
 		public function get_bulk_actions() {
 
 			$actions = array( 'bulk-delete' => 'Delete'	);
+
 			return $actions;
 		}
 
 
-
-		//Prapare the display variables for screen options
+		/**
+		 * Prapare the display variables for screen options
+		 *
+		 * @return Void
+		 */
 		public function prepare_items() {
 
 			$this->_column_headers = $this->get_column_info();
@@ -192,8 +237,11 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 		}
 
 
-
-		//process bulk action
+		/**
+		 * Process bulk action
+		 *
+		 * @return Void
+		 */
 		public function process_bulk_action() {
 
 			//Detect when a bulk action is being triggered...

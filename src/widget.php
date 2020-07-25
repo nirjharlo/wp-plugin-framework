@@ -3,17 +3,24 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Widget class
+ *
+ * @author     Nirjhar Lo
+ * @version    1.2.1
+ * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_WIDGET' ) ) {
 
 	final class PLUGIN_WIDGET extends WP_WIDGET {
 
 
-
-		// Add basic actions
+		/**
+		 * Add widget
+		 *
+		 * @return Void
+		 */
 		public function __construct() {
 
-			$widget_ops = array( 
+			$widget_ops = array(
 							'classname' => 'plugin_widget',
 							'description' => __( 'Plugin widget', 'textdomain' ),
 							);
@@ -21,8 +28,14 @@ if ( ! class_exists( 'PLUGIN_WIDGET' ) ) {
 		}
 
 
-
-		//Outputs the content of the widget
+		/**
+		 * Outputs the content of the widget for front end
+		 *
+		 * @param Array $args
+		 * @param Array $instance
+		 *
+		 * @return Html
+		 */
 		public function widget( $args, $instance ) {
 
 			echo $args['before_widget'];
@@ -34,25 +47,36 @@ if ( ! class_exists( 'PLUGIN_WIDGET' ) ) {
 		}
 
 
-
-		//Outputs the options form on admin
+		/**
+		 * Outputs the options form on admin
+		 *
+		 * @param Array $instance
+		 *
+		 * @return Html
+		 */
 		public function form( $instance ) {
 
 			$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Internal Link Master', 'textdomain' ); ?>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'textdomain' ); ?></label> 
+				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'textdomain' ); ?></label>
 				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 			</p>
-		<?php 
+		<?php
 		}
 
 
-
-		//Processing widget options on save
+		/**
+		 * Processing widget options on save
+		 *
+		 * @param Array $new_instance
+		 * @param Array $old_instance
+		 *
+		 * @return Array
+		 */
 		public function update( $new_instance, $old_instance ) {
-			
+
 			$instance = array();
-			$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+			$instance['title'] = ( ! empty( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : '' );
 			return $instance;
 		}
 	}

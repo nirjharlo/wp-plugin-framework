@@ -3,6 +3,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Main plugin object to define the plugin
+ * Follow: https://codex.wordpress.org/Plugin_API for details
+ *
+ * @author     Nirjhar Lo
+ * @version    1.2.1
+ * @copyright  (c) 2020 Nirjhar Lo
+ * @license    http://www.gnu.org/licenses/gpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
+ * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
@@ -148,7 +155,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		/**
 		 * Notice of DB
 		 *
-		 * @return string
+		 * @return Html
 		 */
 		public function db_error_msg() { ?>
 
@@ -314,10 +321,10 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			$this->functionality();
 
 			register_activation_hook( PLUGIN_FILE, array( $this, 'db_install' ) );
-			register_activation_hook( PLUGIN_FILE, array($this, 'cron_activation' ) );
+			register_activation_hook( PLUGIN_FILE, array( $this, 'cron_activation' ) );
 
 			//remove the DB and CORN upon uninstallation
-			//$this won't work here.
+			//using $this won't work here.
 			register_uninstall_hook( PLUGIN_FILE, array( 'PLUGIN_BUILD', 'db_uninstall' ) );
 			register_uninstall_hook( PLUGIN_FILE, array( 'PLUGIN_BUILD', 'cron_uninstall' ) );
 

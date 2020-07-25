@@ -3,25 +3,62 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Backend settings page class, can have settings fields or data table
+ *
+ * @author     Nirjhar Lo
+ * @version    1.2.1
+ * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 
 	final class PLUGIN_SETTINGS {
 
+
+		/**
+		 * @var String
+		 */
 		public $capability;
-		public $menuPage;
-		public $subMenuPage;
+
+
+		/**
+		 * @var Array
+		 */
+		public $menu_page;
+
+
+		/**
+		 * @var Array
+		 */
+		public $sub_menu_page;
+
+
+		/**
+		 * @var Array
+		 */
 		public $help;
+
+
+		/**
+		 * @var String
+		 */
 		public $screen;
 
 
+		/**
+		 * @var Object
+		 */
+		 public $table
 
-		// Add basic actions for menu and settings
+
+		/**
+		 * Add basic actions for menu and settings
+		 *
+		 * @return Void
+		 */
 		public function __construct() {
 
 			$this->capability = 'manage_options';
-			$this->menuPage = array( 'name' => '', 'heading' => '', 'slug' => '' );
-			$this->subMenuPage = array(
+			$this->menu_page = array( 'name' => '', 'heading' => '', 'slug' => '' );
+			$this->sub_menu_page = array(
 									'name' => '',
 									'heading' => '',
 									'slug' => '',
@@ -53,78 +90,107 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 			add_action( 'admin_menu', array( $this, 'menu_page' ) );
 			add_action( 'admin_menu', array( $this, 'sub_menu_page' ) );
 			add_filter( 'set-screen-option', array( $this, 'set_screen' ), 10, 3 );
-			*
-			*/
+			 *
+			 */
 		}
 
 
-
-		// Add a sample main menu page callback
+		/**
+		 * Add a sample main menu page callback
+		 *
+		 * @return Void
+		 */
 		public function menu_page() {
 
-			if ($this->menuPage) {
+			if ($this->menu_page) {
 				add_menu_page(
-					$this->menuPage['name'],
-					$this->menuPage['heading'],
+					$this->menu_page['name'],
+					$this->menu_page['heading'],
 					$this->capability,
-					$this->menuPage['slug'],
+					$this->menu_page['slug'],
 					array( $this, 'menu_page_callback' )
 				);
 			}
 		}
 
 
-
-		//Add a sample Submenu page callback
+		/**
+		 * Add a sample Submenu page callback
+		 *
+		 * @return Void
+		 */
 		public function sub_menu_page() {
 
-			if ($this->subMenuPage) {
-				$hook = add_submenu_page(
-							$this->subMenuPage['parent_slug'],
-							$this->subMenuPage['name'],
-							$this->subMenuPage['heading'],
+			if ( $this->sub_menu_page ) {
+				foreach ( $this->sub_menu_page as $page ) {
+					$hook = add_submenu_page(
+							$page['parent_slug'],
+							$page['name'],
+							$page['heading'],
 							$this->capability,
 							// For the first submenu page, slug should be same as menupage.
-							$this->subMenuPage['slug'],
+							$page['slug'],
 							// For the first submenu page, callback should be same as menupage.
 							array( $this, 'menu_page_callback' )
 						);
-					if ($this->subMenuPage['help']) {
+					if ( $page['help'] ) {
 						add_action( 'load-' . $hook, array( $this, 'help_tabs' ) );
 					}
-					if ($this->subMenuPage['screen']) {
+					if ( $page['screen'] ) {
 						add_action( 'load-' . $hook, array( $this, 'screen_option' ) );
 					}
 				}
 			}
-
-
-
-		//Set screen option
-		public function set_screen($status, $option, $value) {
-
-    		if ( 'option_name_per_page' == $option ) return $value; // Related to PLUGIN_TABLE()
-    			//return $status;
 		}
 
 
+		/**
+		 * Set screen
+		 *
+		 * @param String $status
+		 * @param String $option
+		 * @param String $value
+		 *
+		 * @return String
+		 */
+		public function set_screen($status, $option, $value) {
 
-		//Set screen option for Items table
+			$user = get_current_user_id();
+
+			switch ($option) {
+				case 'option_name_per_page':
+					update_user_meta($user, 'option_name_per_page', $value);
+					$output = $value;
+					break;
+			}
+
+    		if ( $output ) return $output; // Related to PLUGIN_TABLE()
+		}
+
+
+		/**
+		 * Set screen option for Items table
+		 *
+		 * @return Void
+		 */
 		public function screen_option() {
 
 			$option = 'per_page';
 			$args   = array(
-						'label'   => __( 'Show per page', '' ),
+						'label'   => __( 'Show per page', 'textdomain' ),
 						'default' => 10,
 						'option'  => 'option_name_per_page' // Related to PLUGIN_TABLE()
 						);
 			add_screen_option( $option, $args );
-			$this->Table = new PLUGIN_TABLE();
+			$this->table = new PLUGIN_TABLE(); // Source /lib/table.php
 		}
 
 
-
-		// Menu page callback
+		/**
+		 * Menu page callback
+		 *
+		 * @return Html
+		 */
 		public function menu_page_callback() { ?>
 
 			<div class="wrap">
@@ -146,10 +212,9 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 					 * Following is the data table class
 					 */ ?>
 					<form method="post" action="">
-					<?php // Source /lib/table.php
-						$table = new PLUGIN_TABLE();
-						$table->prepare_items();
-						$table->display(); ?>
+					<?php
+						$this->table->prepare_items();
+						$this->table->display(); ?>
 					</form>
 				<br class="clear">
 			</div>
@@ -157,8 +222,11 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		}
 
 
-
-		// Add help tabs using help data
+		/**
+		 * Add help tabs using help data
+		 *
+		 * @return Void
+		 */
 		public function help_tabs() {
 
 			foreach ($this->helpData as $value) {
@@ -173,8 +241,11 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		}
 
 
-
-		//Add different types of settings and corrosponding sections
+		/**
+		 * Add different types of settings and corrosponding sections
+		 *
+		 * @return Void
+		 */
 		public function add_settings() {
 
 			add_settings_section( 'settings_id', __( 'Section Name', 'textdomain' ), array( $this,'section_cb' ), 'settings_name' );
@@ -184,16 +255,22 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		}
 
 
-
-		//Section description
+		/**
+		 * Section description
+		 *
+		 * @return Html
+		 */
 		public function section_cb() {
 
 			echo '<p class="description">' . __( 'Set up settings', 'textdomain' ) . '</p>';
 		}
 
 
-
-		//Field explanation
+		/**
+		 * Field explanation
+		 *
+		 * @return Html
+		 */
 		public function settings_field_cb() {
 
 			//Choose any one from input, textarea, select or checkbox

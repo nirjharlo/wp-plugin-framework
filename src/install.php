@@ -3,14 +3,31 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Implimentation of WordPress inbuilt functions for plugin activation.
+ *
+ * @author     Nirjhar Lo
+ * @version    1.2.1
+ * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_INSTALL' ) ) {
 
 	final class PLUGIN_INSTALL {
 
 
+		/**
+		 * @var String
+		 */
 		public $text_domain;
+
+
+		/**
+		 * @var String
+		 */
 		public $php_ver_allowed;
+
+
+		/**
+		 * @var Array
+		 */
 		public $plugin_page_links;
 
 
@@ -70,6 +87,7 @@ if ( ! class_exists( 'PLUGIN_INSTALL' ) ) {
 		 *
 		 * @param Array $links
 		 * @param String $file
+		 *
 		 * @return Array
 		 */
 		public function menu_page_link( $links, $file ) {

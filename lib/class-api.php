@@ -13,7 +13,6 @@
  * $data = $api->parse();
  *
  * @author     Nirjhar Lo
- * @version    1.2.1
  * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_API' ) ) {

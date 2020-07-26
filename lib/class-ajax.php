@@ -4,7 +4,6 @@
  * Use this class in admin or user side
  *
  * @author     Nirjhar Lo
- * @version    1.2.1
  * @package    wp-plugin-framework
  */
 if ( ! defined( 'ABSPATH' ) ) exit;

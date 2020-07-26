@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * DB installation class
  *
  * @author     Nirjhar Lo
- * @version    1.2.1
  * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_DB' ) ) {

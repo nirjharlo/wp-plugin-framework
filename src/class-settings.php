@@ -5,12 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Backend settings page class, can have settings fields or data table
  *
  * @author     Nirjhar Lo
- * @version    1.2.1
  * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 
-	final class PLUGIN_SETTINGS {
+	class PLUGIN_SETTINGS {
 
 
 		/**
@@ -46,7 +45,7 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 		/**
 		 * @var Object
 		 */
-		 public $table
+		 public $table;
 
 
 		/**

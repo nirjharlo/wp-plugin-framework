@@ -21,34 +21,36 @@ It's a precaution to avoid conflict.
 
 ## Features
 
-Go through the files in `/lib/` and `/src/`. First one contains classes for extra features, while the latter is using essential features.
+Go through the files in `/lib/class-` and `/src/class-`. First one contains classes for extra features, while the latter is using essential features.
 
 ### `/lib` Files
 
-`/lib/cron.php` :: `PLUGIN_CRON` to schedule operations.
+`/lib/class-cron.php` :: `PLUGIN_CRON` to schedule operations.
 
-`/lib/api.php` :: `PLUGIN_API` to integrate 3rd party APIs.
+`/lib/class-api.php` :: `PLUGIN_API` to integrate 3rd party APIs.
 
 `lib/table.php` :: `PLUGIN_TABLE` to display data tables.
 
-`/lib/ajax.php` :: `PLUGIN_AJAX` to make AJAX requests.
+`/lib/class-ajax.php` :: `PLUGIN_AJAX` to make AJAX requests.
 
-`/lib/upload.php` :: `PLUGIN_UPLOAD` to upload a file.
+`/lib/class-upload.php` :: `PLUGIN_UPLOAD` to upload a file.
 
-`/lib/script.php` :: `PLUGIN_SCRIPT` to add required CSS and JS.
+`/lib/class-script.php` :: `PLUGIN_SCRIPT` to add required CSS and JS.
 
 ### `/src` Files
 
-`/src/install.php` :: `PLUGIN_INSTALL` to handle activation process.
+`/src/class-install.php` :: `PLUGIN_INSTALL` to handle activation process.
 
-`/src/db.php` :: `PLUGIN_DB` to install database tables.
+`/src/class-db.php` :: `PLUGIN_DB` to install database tables.
 
-`/src/settings.php` :: `PLUGIN_SETTINGS` to create admin settings pages.
+`/src/class-settings.php` :: `PLUGIN_SETTINGS` to create admin settings pages.
 
-`/src/widget.php` :: `PLUGIN_WIDGET` to add custom widget.
+`/src/class-cpt.php` :: `PLUGIN_CPT` to create custom post type.
 
-`/src/metabox.php` :: `PLUGIN_METABOX` to add custom metabox in editor screen.
+`/src/class-widget.php` :: `PLUGIN_WIDGET` to add custom widget.
 
-`/src/shortcode.php`:: `PLUGIN_SHORTCODE` to add and display shortcodes.
+`/src/class-metabox.php` :: `PLUGIN_METABOX` to add custom metabox in editor screen.
 
-`/src/query.php`:: `PLUGIN_QUERY` to use post and user query. It uses `wp_pagenavi()` for breadceumbs
+`/src/class-shortcode.php`:: `PLUGIN_SHORTCODE` to add and display shortcodes.
+
+`/src/class-query.php`:: `PLUGIN_QUERY` to use post and user query. It uses `wp_pagenavi()` for breadceumbs

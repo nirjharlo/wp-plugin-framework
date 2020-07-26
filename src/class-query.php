@@ -7,7 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * This class depends on WP pagenavi plugin: https://wordpress.org/plugins/wp-pagenavi/
  *
  * @author     Nirjhar Lo
- * @version    1.2.1
  * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_QUERY' ) ) {

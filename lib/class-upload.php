@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Plugin upload for WordPress front end or backend
  *
  * @author     Nirjhar Lo
- * @version    1.2.1
  * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {

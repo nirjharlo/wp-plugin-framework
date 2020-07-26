@@ -6,9 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Follow: https://codex.wordpress.org/Plugin_API for details
  *
  * @author     Nirjhar Lo
- * @version    1.2.1
- * @copyright  (c) 2020 Nirjhar Lo
- * @license    http://www.gnu.org/licenses/gpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
@@ -18,7 +15,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		/**
 		 * @var String
 		 */
-		protected $version = '1.2.1';
+		protected $version = '1.3';
 
 
 		/**
@@ -96,6 +93,10 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 				$install->plugin_page_links = self::$plugin_page_links;
 				$install->execute();
 			}
+
+			//If CPT exists, include taht and flush the rewrite rules
+			if ( class_exists( 'PLUGIN_CPT' ) ) new PLUGIN_CPT();
+			flush_rewrite_rules();
 		}
 
 
@@ -221,6 +222,17 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 
 		/**
+		 * Install Custom post types
+		 *
+		 * @return Void
+		 */
+		public function cpt() {
+
+			if ( class_exists( 'PLUGIN_CPT' ) ) new PLUGIN_CPT();
+		}
+
+
+		/**
 		 * Include scripts
 		 *
 		 * @return Void
@@ -283,13 +295,14 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		 */
 		public function functionality() {
 
-			require_once( 'src/install.php' );
-			require_once( 'src/db.php' );
-			require_once( 'src/query.php' );
-			require_once( 'src/settings.php' );
-			require_once( 'src/widget.php' );
-			require_once( 'src/metabox.php' );
-			require_once( 'src/shortcode.php' );
+			require_once( 'src/class-install.php' );
+			require_once( 'src/class-db.php' );
+			require_once( 'src/class-query.php' );
+			require_once( 'src/class-settings.php' );
+			require_once( 'src/class-widget.php' );
+			require_once( 'src/class-metabox.php' );
+			require_once( 'src/class-shortcode.php' );
+			require_once( 'src/class-cpt.php' );
 		}
 
 
@@ -301,12 +314,12 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		 */
 		public function helpers() {
 
-			require_once( 'lib/cron.php' );
-			require_once( 'lib/api.php' );
-			require_once( 'lib/table.php' );
-			require_once( 'lib/ajax.php' );
-			require_once( 'lib/upload.php' );
-			require_once( 'lib/script.php' );
+			require_once( 'lib/class-cron.php' );
+			require_once( 'lib/class-api.php' );
+			require_once( 'lib/class-table.php' );
+			require_once( 'lib/class-ajax.php' );
+			require_once( 'lib/class-upload.php' );
+			require_once( 'lib/class-script.php' );
 		}
 
 
@@ -330,6 +343,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 			add_action( 'init', array( $this, 'installation' ) );
 			add_action( 'init', array( $this, 'custom_cron_hook_cb' ) );
+			add_action( 'init', array( $this, 'cpt' ) );
 
 			$this->scripts();
 			$this->widgets();

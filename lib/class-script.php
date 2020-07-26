@@ -3,7 +3,6 @@
  * Add scripts to the plugin. CSS and JS.
  *
  * @author     Nirjhar Lo
- * @version    1.2.1
  * @package    wp-plugin-framework
  */
 if ( ! defined( 'ABSPATH' ) ) exit;

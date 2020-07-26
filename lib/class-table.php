@@ -7,7 +7,6 @@
  * $my_plugin_name_table->display();
  *
  * @author     Nirjhar Lo
- * @version    1.2.1
  * @package    wp-plugin-framework
  */
 if ( ! class_exists( 'PLUGIN_TABLE' ) ) {

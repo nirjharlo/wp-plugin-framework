@@ -288,6 +288,17 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 
 
 		/**
+		 * Instantiate REST API
+		 *
+		 * @return Void
+		 */
+		 public function rest_api() {
+
+			 if ( class_exists( 'PLUGIN_CUSTOM_ROUTE' ) ) new PLUGIN_CUSTOM_ROUTE();
+		 }
+
+
+		/**
 		 * Add the functionality files
 		 * Available classes: PLUGIN_INSTALL, PLUGIN_DB, PLUGIN_METABOX, PLUGIN_QUERY, PLUGIN_SETTINGS, PLUGIN_SHORTCODE, PLUGIN_WIDGET
 		 *
@@ -303,6 +314,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			require_once( 'src/class-metabox.php' );
 			require_once( 'src/class-shortcode.php' );
 			require_once( 'src/class-cpt.php' );
+			require_once( 'src/class-rest.php' );
 		}
 
 
@@ -350,6 +362,9 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			$this->metabox();
 			$this->shortcode();
 			$this->settings();
+
+			//Alternative method: add_action( 'rest_api_init', array($this, 'rest_api') );
+			$this->rest_api();
 		}
 	}
 } ?>

@@ -99,6 +99,8 @@ if ( ! class_exists( 'PLUGIN_CPT' ) ) {
 	          'publicly_queryable'  => true,
 	          'capability_type'     => 'post',
 	          'show_in_rest'        => true,
+			  //Controls WP REST API behaviour
+			  'rest_controller_class' => 'WP_REST_Terms_Controller',
 	      );
 
 	      return $args;

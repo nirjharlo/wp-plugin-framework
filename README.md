@@ -54,3 +54,5 @@ Go through the files in `/lib/class-` and `/src/class-`. First one contains clas
 `/src/class-shortcode.php`:: `PLUGIN_SHORTCODE` to add and display shortcodes.
 
 `/src/class-query.php`:: `PLUGIN_QUERY` to use post and user query. It uses `wp_pagenavi()` for breadceumbs
+
+`/src/class-rest.php`:: `PLUGIN_CUSTOM_ROUTE` to extend REST API.

@@ -1,5 +1,4 @@
 <?php
-<?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -29,8 +28,8 @@ if ( ! class_exists( 'PLUGIN_CUSTOM_ROUTE' ) ) {
         		'methods'             => WP_REST_Server::READABLE,
         		'callback'            => array( $this, 'callback' ),
         		'permission_callback' => array( $this, 'permission' ),
-        		'args'                => array('sample', 'list', 'of', 'args'),
-      		),
+        		'args'                => array('sample', 'list', 'of', 'args')
+      		));
 		}
 
 
@@ -72,7 +71,7 @@ if ( ! class_exists( 'PLUGIN_CUSTOM_ROUTE' ) ) {
 		 *
 		 * @return Array
 		 */
-		protected function prepare_item_for_response($items, $request) {
+		public function prepare_item_for_response($items, $request) {
 
 			//Process the data in any way you like
 			$data = compact($items, $request);

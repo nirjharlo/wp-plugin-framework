@@ -37,8 +37,13 @@ if ( ! class_exists( 'PLUGIN_CPT' ) ) {
 			$this->labels = $this->labels();
 			$this->args = $this->args( $this->labels );
 
+			$this->taxonomy_labels = $this->taxonomy_labels();
+			$this->taxonomy_args = $this->taxonomy_args( $this->taxonomy_labels );
+
 			//register_post_type( 'cpt_name', $this->args );
 			//add_filter( 'post_updated_messages', array( $this, 'group_updated_messages' ) );
+
+			//register_taxonomy( 'custom_tax', array( 'cpt_name' ), $this->taxonomy_args );
 		}
 
 
@@ -70,7 +75,7 @@ if ( ! class_exists( 'PLUGIN_CPT' ) ) {
 
 
 		/**
-		 * Define the arguments
+		 * Define the arguments for custom post type
 		 *
 		 * @param Array $labels
 		 *
@@ -83,7 +88,7 @@ if ( ! class_exists( 'PLUGIN_CPT' ) ) {
 	          'description'         => __( '', 'textdomain' ),
 	          'labels'              => $labels,
 	          'supports'            => array( 'title', 'editor', 'thumbnail' ),
-	          'taxonomies'          => array( 'topics', 'post_tag' ),
+	          'taxonomies'          => array( 'custom_tax', 'post_tag' ),
 	          'hierarchical'        => true,
 	          'public'              => true,
 			  'rewrite'			  	=> array( 'slug' => 'slug_name' ),
@@ -100,7 +105,7 @@ if ( ! class_exists( 'PLUGIN_CPT' ) ) {
 	          'capability_type'     => 'post',
 	          'show_in_rest'        => true,
 			  //Controls WP REST API behaviour
-			  'rest_controller_class' => 'WP_REST_Terms_Controller',
+			  'rest_controller_class' => 'WP_REST_Posts_Controller',
 	      );
 
 	      return $args;
@@ -134,5 +139,56 @@ if ( ! class_exists( 'PLUGIN_CPT' ) ) {
 
 			 return $messages;
 		 }
+
+
+		 /**
+ 	 	  * Taxonomy labels
+ 		  *
+ 		  * @return Array
+ 	 	  */
+		 public function taxonomy_labels() {
+
+			 $labels = array(
+			     'name'              => _x( 'Taxonomy', 'taxonomy general name', 'textdomain' ),
+			     'singular_name'     => _x( 'Taxonomy', 'taxonomy singular name', 'textdomain' ),
+			     'search_items'      => __( 'Search Taxonomy', 'textdomain' ),
+			     'all_items'         => __( 'All Taxonomies', 'textdomain' ),
+			     'parent_item'       => __( 'Parent Taxonomy', 'textdomain' ),
+			     'parent_item_colon' => __( 'Parent Taxonomy:', 'textdomain' ),
+			     'edit_item'         => __( 'Edit Taxonomy', 'textdomain' ),
+			     'update_item'       => __( 'Update Taxonomy', 'textdomain' ),
+			     'add_new_item'      => __( 'Add New Taxonomy', 'textdomain' ),
+			     'new_item_name'     => __( 'New Taxonomy Name', 'textdomain' ),
+			     'menu_name'         => __( 'Taxonomy', 'textdomain' ),
+			);
+
+			return $labels;
+		 }
+
+
+		 /**
+ 		 * Define the arguments for custom taxonomy
+ 		 *
+ 		 * @param Array $labels
+ 		 *
+ 		 * @return Array
+ 		 */
+ 	    public function taxonomy_args( $labels ) {
+
+ 	      $args = array(
+			  	'hierarchical'          => true,
+    			'labels'                => $labels,
+    			'show_ui'               => true,
+    			'show_admin_column'     => true,
+    			'query_var'             => true,
+    			'rewrite'               => array( 'slug' => 'custom_tax' ),
+    			'show_in_rest'          => true,
+    			'rest_base'             => 'custom_tax',
+				//Controls WP REST API behaviour
+    			'rest_controller_class' => 'WP_REST_Terms_Controller',
+ 	      );
+
+ 	      return $args;
+ 	    }
 	}
 }

@@ -298,6 +298,32 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		 }
 
 
+		 /**
+ 		  * Instantiate REST API
+ 		  *
+ 		  * @return Void
+ 		  */
+		 public function prevent_unauthorized_rest_access( $result ) {
+ 		    // If a previous authentication check was applied,
+ 		    // pass that result along without modification.
+ 		    if ( true === $result || is_wp_error( $result ) ) {
+ 		        return $result;
+ 		    }
+
+ 		    // No authentication has been performed yet.
+ 		    // Return an error if user is not logged in.
+ 		    if ( ! is_user_logged_in() ) {
+ 		        return new WP_Error(
+ 		            'rest_not_logged_in',
+ 		            __( 'You are not currently logged in.' ),
+ 		            array( 'status' => 401 )
+ 		        );
+ 		    }
+
+ 		    return $result;
+ 		}
+
+
 		/**
 		 * Add the functionality files
 		 * Available classes: PLUGIN_INSTALL, PLUGIN_DB, PLUGIN_METABOX, PLUGIN_QUERY, PLUGIN_SETTINGS, PLUGIN_SHORTCODE, PLUGIN_WIDGET
@@ -352,6 +378,8 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			//using $this won't work here.
 			register_uninstall_hook( PLUGIN_FILE, array( 'PLUGIN_BUILD', 'db_uninstall' ) );
 			register_uninstall_hook( PLUGIN_FILE, array( 'PLUGIN_BUILD', 'cron_uninstall' ) );
+
+			add_filter( 'rest_authentication_errors', array( $this, 'prevent_unauthorized_rest_access' ) );
 
 			add_action( 'init', array( $this, 'installation' ) );
 			add_action( 'init', array( $this, 'custom_cron_hook_cb' ) );

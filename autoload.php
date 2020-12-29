@@ -15,7 +15,7 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 		/**
 		 * @var String
 		 */
-		protected $version = '1.3';
+		protected $version = '1.4.2';
 
 
 		/**
@@ -382,8 +382,9 @@ if ( ! class_exists( 'PLUGIN_BUILD' ) ) {
 			add_filter( 'rest_authentication_errors', array( $this, 'prevent_unauthorized_rest_access' ) );
 
 			add_action( 'init', array( $this, 'installation' ) );
-			add_action( 'init', array( $this, 'custom_cron_hook_cb' ) );
 			add_action( 'init', array( $this, 'cpt' ) );
+
+			$this->custom_cron_hook_cb();
 
 			$this->scripts();
 			$this->widgets();

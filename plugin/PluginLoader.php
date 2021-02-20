@@ -29,7 +29,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		/**
 		 * @var String
 		 */
-		protected $version = '1.4.2';
+		protected $version = '1.4.3';
 
 
 		/**

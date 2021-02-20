@@ -1,4 +1,6 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Src;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -9,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'PLUGIN_QUERY' ) ) {
+if ( ! class_exists( 'Query' ) ) {
 
-	class PLUGIN_QUERY {
+	class Query {
 
 
 		/**

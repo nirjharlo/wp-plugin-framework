@@ -1,4 +1,6 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Lib;
+
 /**
  * Implimentation of WordPress inbuilt API class
  *
@@ -15,9 +17,9 @@
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'PLUGIN_API' ) ) {
+if ( ! class_exists( 'Api' ) ) {
 
-	class PLUGIN_API {
+	class Api {
 
 
 		/**

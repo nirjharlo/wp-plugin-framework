@@ -1,4 +1,8 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Src;
+
+use WP_WIDGET as WP_WIDGET;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -7,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'PLUGIN_WIDGET' ) ) {
+if ( ! class_exists( 'Widget' ) ) {
 
-	final class PLUGIN_WIDGET extends WP_WIDGET {
+	final class Widget extends WP_WIDGET {
 
 
 		/**

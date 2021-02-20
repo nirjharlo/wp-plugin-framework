@@ -1,4 +1,6 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Lib;
+
 /**
  * Doing AJAX the WordPress way.
  * Use this class in admin or user side
@@ -9,9 +11,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 //AJAX helper class
-if ( ! class_exists( 'PLUGIN_AJAX' ) ) {
+if ( ! class_exists( 'Ajax' ) ) {
 
-	final class PLUGIN_AJAX {
+	final class Ajax {
 
 
 		/**

@@ -1,4 +1,6 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Lib;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -7,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'PLUGIN_UPLOAD' ) ) {
+if ( ! class_exists( 'Upload' ) ) {
 
-	final class PLUGIN_UPLOAD {
+	final class Upload {
 
 
 		/**

@@ -29,9 +29,11 @@ defined( 'PLUGIN_IMAGE' ) or define( 'PLUGIN_IMAGE', plugins_url( '/asset/img/',
 
 
 //The Plugin
-require_once( 'autoload.php' );
+require_once( 'vendor/autoload.php' );
 function plugin() {
-	if ( class_exists( 'PLUGIN_BUILD' ) ) return PLUGIN_BUILD::instance();
+	if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\PluginLoader' ) ) {
+		return NirjharLo\WP_Plugin_Framework\PluginLoader::instance();
+	}
 }
 
 global $plugin;

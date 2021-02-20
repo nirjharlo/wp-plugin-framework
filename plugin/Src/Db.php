@@ -1,4 +1,6 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Src;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -7,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'PLUGIN_DB' ) ) {
+if ( ! class_exists( 'Db' ) ) {
 
-	class PLUGIN_DB {
+	class Db {
 
 		/**
 		 * @var String

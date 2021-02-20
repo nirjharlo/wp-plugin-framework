@@ -1,4 +1,8 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Src;
+
+use NirjharLo\WP_Plugin_Framework\Lib\Table as Table;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -7,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
+if ( ! class_exists( 'Settings' ) ) {
 
-	class PLUGIN_SETTINGS {
+	class Settings {
 
 
 		/**
@@ -181,7 +185,7 @@ if ( ! class_exists( 'PLUGIN_SETTINGS' ) ) {
 						'option'  => 'option_name_per_page' // Related to PLUGIN_TABLE()
 						);
 			add_screen_option( $option, $args );
-			$this->table = new PLUGIN_TABLE(); // Source /lib/table.php
+			$this->table = new Table(); // Source /lib/table.php
 		}
 
 

@@ -1,4 +1,6 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Lib;
+
 /**
  * Add scripts to the plugin. CSS and JS.
  *
@@ -7,9 +9,9 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'PLUGIN_SCRIPT' ) ) {
+if ( ! class_exists( 'Script' ) ) {
 
-	final class PLUGIN_SCRIPT {
+	final class Script {
 
 
 		/**

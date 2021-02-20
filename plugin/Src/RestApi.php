@@ -1,4 +1,8 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Src;
+
+use WP_REST_Controller as WP_REST_Controller;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -7,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'PLUGIN_CUSTOM_ROUTE' ) ) {
+if ( ! class_exists( 'RestApi' ) ) {
 
-	class PLUGIN_CUSTOM_ROUTE extends WP_REST_Controller {
+	class RestApi extends WP_REST_Controller {
 
 
 		/**

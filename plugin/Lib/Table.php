@@ -1,4 +1,6 @@
 <?php
+namespace NirjharLo\WP_Plugin_Framework\Lib;
+
 /**
  * Implimentation of WordPress inbuilt functions for creating an extension of a default table class.
  *
@@ -9,14 +11,14 @@
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'PLUGIN_TABLE' ) ) {
+if ( ! class_exists( 'Table' ) ) {
 
 	if ( ! class_exists( 'WP_List_Table' ) ) {
     	require_once( ABSPATH . 'wp-admin/includes/screen.php' );
     	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 	}
 
-	final class PLUGIN_TABLE extends WP_List_Table {
+	final class Table extends WP_List_Table {
 
 
 		/**

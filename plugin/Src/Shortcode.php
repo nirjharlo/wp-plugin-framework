@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Shortcode' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' ) ) {
 
 	class Shortcode {
 
@@ -45,7 +45,7 @@ if ( ! class_exists( 'Shortcode' ) ) {
 		 *
 		 * @return Html
 		 */
-		public function html() { ?>
+		private function html() { ?>
 
 			<div class="class">
 				Some text.

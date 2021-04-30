@@ -151,7 +151,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 				$db->sql = "ID mediumint(9) NOT NULL AUTO_INCREMENT,
 							date date NOT NULL,
 							UNIQUE KEY ID (ID)";
-				$db->build();
+				#$db->build();
 			}
 
 			if (get_option( '_plugin_db_exist') == '0' ) {

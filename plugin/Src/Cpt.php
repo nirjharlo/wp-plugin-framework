@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Cpt' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) {
 
 	class Cpt {
 
@@ -42,10 +42,10 @@ if ( ! class_exists( 'Cpt' ) ) {
 			$this->taxonomy_labels = $this->taxonomy_labels();
 			$this->taxonomy_args = $this->taxonomy_args( $this->taxonomy_labels );
 
-			//register_post_type( 'cpt_name', $this->args );
-			//add_filter( 'post_updated_messages', array( $this, 'group_updated_messages' ) );
+			#register_post_type( 'cpt_name', $this->args );
+			#add_filter( 'post_updated_messages', array( $this, 'group_updated_messages' ) );
 
-			//register_taxonomy( 'custom_tax', array( 'cpt_name' ), $this->taxonomy_args );
+			#register_taxonomy( 'custom_tax', array( 'cpt_name' ), $this->taxonomy_args );
 		}
 
 
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Cpt' ) ) {
 		 *
 		 * @return Array
 		 */
-		public function labels() {
+		private function labels() {
 
 	      $labels = array(
 	        'name'                => _x( '', 'Post Type General Name', 'textdomain' ),
@@ -83,35 +83,35 @@ if ( ! class_exists( 'Cpt' ) ) {
 		 *
 		 * @return Array
 		 */
-	    public function args( $labels ) {
+    private function args( $labels ) {
 
-	      $args = array(
-	          'label'               => __( '', 'textdomain' ),
-	          'description'         => __( '', 'textdomain' ),
-	          'labels'              => $labels,
-	          'supports'            => array( 'title', 'editor', 'thumbnail' ),
-	          'taxonomies'          => array( 'custom_tax', 'post_tag' ),
-	          'hierarchical'        => true,
-	          'public'              => true,
-			  'rewrite'			  	=> array( 'slug' => 'slug_name' ),
-	          'show_ui'             => true,
-	          'show_in_menu'        => true,
-			  'menu_icon' 			=> 'data:image/svg+xml;base64,' . self::$menu_svg,
-	          'show_in_nav_menus'   => true,
-	          'show_in_admin_bar'   => true,
-	          'menu_position'       => 5,
-	          'can_export'          => true,
-	          'has_archive'         => true,
-	          'exclude_from_search' => false,
-	          'publicly_queryable'  => true,
-	          'capability_type'     => 'post',
-	          'show_in_rest'        => true,
-			  //Controls WP REST API behaviour
-			  'rest_controller_class' => 'WP_REST_Posts_Controller',
-	      );
+      $args = array(
+          'label'               => __( '', 'textdomain' ),
+          'description'         => __( '', 'textdomain' ),
+          'labels'              => $labels,
+          'supports'            => array( 'title', 'editor', 'thumbnail' ),
+          'taxonomies'          => array( 'custom_tax', 'post_tag' ),
+          'hierarchical'        => true,
+          'public'              => true,
+		  		'rewrite'			  			=> array( 'slug' => 'slug_name' ),
+          'show_ui'             => true,
+          'show_in_menu'        => true,
+		  		'menu_icon' 					=> 'data:image/svg+xml;base64,' . self::$menu_svg,
+          'show_in_nav_menus'   => true,
+          'show_in_admin_bar'   => true,
+          'menu_position'       => 5,
+          'can_export'          => true,
+          'has_archive'         => true,
+          'exclude_from_search' => false,
+          'publicly_queryable'  => true,
+          'capability_type'     => 'post',
+          'show_in_rest'        => true,
+		  		//Controls WP REST API behaviour
+		  		'rest_controller_class' => 'WP_REST_Posts_Controller',
+      );
 
-	      return $args;
-	    }
+      return $args;
+    }
 
 
 		/**
@@ -148,7 +148,7 @@ if ( ! class_exists( 'Cpt' ) ) {
  		  *
  		  * @return Array
  	 	  */
-		 public function taxonomy_labels() {
+		 private function taxonomy_labels() {
 
 			 $labels = array(
 			     'name'              => _x( 'Taxonomy', 'taxonomy general name', 'textdomain' ),
@@ -175,7 +175,7 @@ if ( ! class_exists( 'Cpt' ) ) {
  		 *
  		 * @return Array
  		 */
- 	    public function taxonomy_args( $labels ) {
+ 	    private function taxonomy_args( $labels ) {
 
  	      $args = array(
 			  	'hierarchical'          => true,

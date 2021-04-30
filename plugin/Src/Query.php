@@ -65,7 +65,7 @@ if ( ! class_exists( 'Query' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function user_args( $paged ) {
+		private function user_args( $paged ) {
 
 			$offset = ( $paged - 1 ) * $this->display_count;
 
@@ -110,7 +110,7 @@ if ( ! class_exists( 'Query' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function post_args( $paged ) {
+		private function post_args( $paged ) {
 
 			$offset = ( $paged - 1 ) * $this->display_count;
 

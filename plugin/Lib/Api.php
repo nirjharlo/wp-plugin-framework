@@ -6,7 +6,7 @@ namespace NirjharLo\WP_Plugin_Framework\Lib;
  *
  * Usage:
  *
- * $api = new PLUGIN_API();
+ * $api = new \Api();
  * $api->endpoint = 'endpoint_url'
  * $api->header = array( "key: $val" )
  * $api->data_type = 'xml' or 'json'
@@ -65,7 +65,7 @@ if ( ! class_exists( 'Api' ) ) {
 		 *
 		 * @return Array
 		 */
-		public function build() {
+		protected function build() {
 
 			$args = array(
 						CURLOPT_URL => $this->endpoint,
@@ -122,7 +122,7 @@ if ( ! class_exists( 'Api' ) ) {
 		 *
 		 * @return Array
 		 */
-		public function xml( $data ) {
+		protected function xml( $data ) {
 
 			libxml_use_internal_errors( true );
 			$parsed = ( ! $data || $data == '' ? false : simplexml_load_string( $data ) );
@@ -141,7 +141,7 @@ if ( ! class_exists( 'Api' ) ) {
 		 *
 		 * @return Array
 		 */
-		public function json( $data ) {
+		protected function json( $data ) {
 
 			$parsed = ( ! $data || $data == '' ? false : json_decode( $data, 1 ) );
 			return $parsed;

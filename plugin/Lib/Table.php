@@ -229,12 +229,12 @@ if ( ! class_exists( 'Table' ) ) {
 			$per_page     = $this->get_items_per_page( 'option_name_per_page', 5 );
 			$current_page = $this->get_pagenum();
 			$total_items  = self::record_count();
-			$this->_column_headers = [
+			$this->_column_headers = array(
     			$this->get_columns(),
-    			[], // hidden columns
+    			array(), // hidden columns
     			$this->get_sortable_columns(),
     			$this->get_primary_column_name(),
-			];
+			);
 			$this->set_pagination_args( array(
 				'total_items' => $total_items,
 				'per_page'    => $per_page,

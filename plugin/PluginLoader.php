@@ -207,7 +207,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function do_cron_job_function() {
+		private function do_cron_job_function() {
 
 			//Do cron function
 		}
@@ -218,7 +218,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function custom_cron_hook_cb() {
+		private function custom_cron_hook_cb() {
 
 			add_action( 'custom_cron_hook', array( $this, 'do_cron_job_function' ) );
 		}
@@ -251,7 +251,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function scripts() {
+		private function scripts() {
 
 			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) new Script();
 		}
@@ -262,7 +262,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function settings() {
+		private function settings() {
 
 			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Settings' ) ) new Settings();
 		}
@@ -273,7 +273,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function widgets() {
+		private function widgets() {
 
 			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) new Widget();
 		}
@@ -284,7 +284,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function metabox() {
+		private function metabox() {
 
 			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) new Metabox();
 		}
@@ -295,7 +295,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function shortcode() {
+		private function shortcode() {
 
 			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' ) ) new Shortcode();
 		}
@@ -306,7 +306,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @return Void
 		 */
-		 public function rest_api() {
+		 private function rest_api() {
 
 			 if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) new RestApi();
 		 }
@@ -317,7 +317,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
  		  *
  		  * @return Void
  		  */
-		 public function prevent_unauthorized_rest_access( $result ) {
+		 private function prevent_unauthorized_rest_access( $result ) {
  		    // If a previous authentication check was applied,
  		    // pass that result along without modification.
  		    if ( true === $result || is_wp_error( $result ) ) {

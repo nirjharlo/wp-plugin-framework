@@ -34,7 +34,7 @@ if ( ! class_exists( 'Upload' ) ) {
 		 *
 		 * @return Html
 		 */
-		public function upload_form() { ?>
+		private function upload_form() { ?>
 
 			<form method="POST" action="" enctype="multipart/form-data">
 				<input name="UploadFile" type="file" multiple="false"/>
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Upload' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function upload_controller() {
+		private function upload_controller() {
 
 			$file = $_FILES['UploadFile'];
 			$type = $file['type'];
@@ -88,7 +88,7 @@ if ( ! class_exists( 'Upload' ) ) {
 		 *
 		 * @return Html
 		 */
-		public function file_type_error_admin_notice() { ?>
+		private function file_type_error_admin_notice() { ?>
 
 			<div class="notice notice-error is-dismissible">
 				<p><?php _e( 'Please Upload correct type of file only.', 'textdomain' ); ?></p>
@@ -102,7 +102,7 @@ if ( ! class_exists( 'Upload' ) ) {
 		 *
 		 * @return Html
 		 */
-		public function file_error_admin_notice() { ?>
+		private function file_error_admin_notice() { ?>
 
 			<div class="notice notice-error is-dismissible">
 				<p><?php _e( 'File Upload failed.', 'textdomain' ); ?></p>
@@ -116,7 +116,7 @@ if ( ! class_exists( 'Upload' ) ) {
 		 *
 		 * @return Html
 		 */
-		public function success_notice() { ?>
+		private function success_notice() { ?>
 
 			<div class="notice notice-success is-dismissible">
 				<p><?php _e( 'Successfully saved file details.', 'textdomain' ); ?></p>

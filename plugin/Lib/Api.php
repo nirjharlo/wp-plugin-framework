@@ -17,7 +17,7 @@ namespace NirjharLo\WP_Plugin_Framework\Lib;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Api' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' ) ) {
 
 	class Api {
 

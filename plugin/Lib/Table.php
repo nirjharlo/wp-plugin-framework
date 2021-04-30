@@ -11,7 +11,7 @@ namespace NirjharLo\WP_Plugin_Framework\Lib;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Table' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Table' ) ) {
 
 	if ( ! class_exists( 'WP_List_Table' ) ) {
     	require_once( ABSPATH . 'wp-admin/includes/screen.php' );

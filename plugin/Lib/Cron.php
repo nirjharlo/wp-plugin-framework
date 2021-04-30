@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Cron' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Cron' ) ) {
 
 	final class Cron {
 

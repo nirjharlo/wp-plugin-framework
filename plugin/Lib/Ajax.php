@@ -11,7 +11,7 @@ namespace NirjharLo\WP_Plugin_Framework\Lib;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 //AJAX helper class
-if ( ! class_exists( 'Ajax' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Ajax' ) ) {
 
 	final class Ajax {
 

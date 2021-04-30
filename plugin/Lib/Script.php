@@ -9,7 +9,7 @@ namespace NirjharLo\WP_Plugin_Framework\Lib;
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'Script' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 
 	final class Script {
 

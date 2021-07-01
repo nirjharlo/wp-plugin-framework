@@ -1,6 +1,8 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Src;
 
+use League\Plates\Engine as Template;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -55,15 +57,10 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) {
 
 			wp_nonce_field( basename( __FILE__ ), 'metabox_name_nonce' );
 
-			
-			?>
-
-			<p>
-				<label for="metabox_name"><?php _e( "Custom Text", 'textdomain' ); ?></label>
-  			<br />
-  			<input class="widefat" type="text" name="metabox_field_name" id="metabox_field_name" value="<?php echo esc_attr( get_post_meta( $object->ID, 'metabox_name', true ) ); ?>" />
-			</p>
-			<?php
+			$templates = new Template(PLUGIN_PATH . '/plugin/views');
+			echo $templates->render('metabox', [
+				'field_value' => esc_attr( get_post_meta( $object->ID, 'metabox_field_name', true ) )
+			]);
 		}
 
 

@@ -186,7 +186,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) {
     			'rewrite'               => array( 'slug' => 'custom_tax' ),
     			'show_in_rest'          => true,
     			'rest_base'             => 'custom_tax',
-				//Controls WP REST API behaviour
+					//Controls WP REST API behaviour
     			'rest_controller_class' => 'WP_REST_Terms_Controller',
  	      );
 

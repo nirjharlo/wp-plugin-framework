@@ -56,7 +56,9 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 			// if ( ! isset( $_GET['page'] ) || $_GET['page'] != 'pageName' ) return;
 
 			wp_enqueue_script( 'jsName', PLUGIN_JS . 'ui.js', array() );
-			wp_localize_script( 'jsName', 'ajax', array( 'ajax_url' => admin_url('admin-ajax.php') ) );
+
+			wp_enqueue_script( 'action-jsName', PLUGIN_JS . 'ajax.js', array() );
+			wp_localize_script( 'action-jsName', 'ajax', array( 'url' => admin_url('admin-ajax.php') ) );
 
 			wp_enqueue_style( 'cssName', PLUGIN_CSS . 'css.css' );
 		}
@@ -70,7 +72,9 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 		public function frontend_scripts() {
 
 			wp_enqueue_script( 'jsName', PLUGIN_JS . 'ui.js', array() );
-			wp_localize_script( 'jsName', 'ajax', array( 'ajax_url' => admin_url('admin-ajax.php') ) );
+
+			wp_enqueue_script( 'action-jsName', PLUGIN_JS . 'ajax.js', array() );
+			wp_localize_script( 'action-jsName', 'ajax', array( 'url' => admin_url('admin-ajax.php') ) );
 
 			wp_enqueue_style( 'cssName', PLUGIN_CSS . 'css.css' );
 		}

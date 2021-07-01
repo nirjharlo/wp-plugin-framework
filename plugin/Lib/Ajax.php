@@ -45,41 +45,6 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Ajax' ) ) {
 
 
 		/**
-		 * The javascript
-		 *
-		 * @return Html
-		 */
-		public function custom_name_js() { ?>
-
-			<script type="text/javascript">
-				jQuery(document).ready(function() {
-
-					jQuery("#add_by_ajax form").submit(function() {
-
-						event.preventDefault();
-
-						var val = jQuery("input[name='text_name']").val();
-
-							jQuery.post(
-								'<?php echo admin_url("admin-ajax.php"); ?>',
-								{ 'action': 'custom_name', 'val': val },
-								function(response) {
-									if ( response != '' && response != false && response != undefined ) {
-
-										var data = JSON.parse(response);
-										// Do some stuff
-									}
-								}
-							);
-						}
-					});
-				});
-			</script>
-		<?php
-		}
-
-
-		/**
 		 * The data processor
 		 *
 		 * @return Json

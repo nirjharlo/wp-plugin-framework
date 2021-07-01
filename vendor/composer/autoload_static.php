@@ -11,6 +11,10 @@ class ComposerStaticInit3743e829f921e1c1302d19c10846ac46
         array (
             'NirjharLo\\WP_Plugin_Framework\\' => 30,
         ),
+        'L' => 
+        array (
+            'League\\Plates\\' => 14,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -18,26 +22,14 @@ class ComposerStaticInit3743e829f921e1c1302d19c10846ac46
         array (
             0 => __DIR__ . '/../..' . '/plugin',
         ),
+        'League\\Plates\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/plates/src',
+        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'NirjharLo\\WP_Plugin_Framework\\Lib\\Ajax' => __DIR__ . '/../..' . '/plugin/Lib/Ajax.php',
-        'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' => __DIR__ . '/../..' . '/plugin/Lib/Api.php',
-        'NirjharLo\\WP_Plugin_Framework\\Lib\\Cron' => __DIR__ . '/../..' . '/plugin/Lib/Cron.php',
-        'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' => __DIR__ . '/../..' . '/plugin/Lib/Script.php',
-        'NirjharLo\\WP_Plugin_Framework\\Lib\\Table' => __DIR__ . '/../..' . '/plugin/Lib/Table.php',
-        'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' => __DIR__ . '/../..' . '/plugin/Lib/Upload.php',
-        'NirjharLo\\WP_Plugin_Framework\\PluginLoader' => __DIR__ . '/../..' . '/plugin/PluginLoader.php',
-        'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' => __DIR__ . '/../..' . '/plugin/Src/Cpt.php',
-        'NirjharLo\\WP_Plugin_Framework\\Src\\Db' => __DIR__ . '/../..' . '/plugin/Src/Db.php',
-        'NirjharLo\\WP_Plugin_Framework\\Src\\Install' => __DIR__ . '/../..' . '/plugin/Src/Install.php',
-        'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' => __DIR__ . '/../..' . '/plugin/Src/Metabox.php',
-        'NirjharLo\\WP_Plugin_Framework\\Src\\Query' => __DIR__ . '/../..' . '/plugin/Src/Query.php',
-        'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' => __DIR__ . '/../..' . '/plugin/Src/RestApi.php',
-        'NirjharLo\\WP_Plugin_Framework\\Src\\Settings' => __DIR__ . '/../..' . '/plugin/Src/Settings.php',
-        'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' => __DIR__ . '/../..' . '/plugin/Src/Shortcode.php',
-        'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' => __DIR__ . '/../..' . '/plugin/Src/Widget.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

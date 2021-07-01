@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'NirjharLo\\WP_Plugin_Framework\\' => array($baseDir . '/plugin'),
+    'League\\Plates\\' => array($vendorDir . '/league/plates/src'),
 );

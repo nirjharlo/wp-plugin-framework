@@ -14,7 +14,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.0",
+        "league/plates": "^3.4"
     },
   	"autoload": {
           "psr-4": {"NirjharLo\\WP_Plugin_Framework\\": "./plugin"}

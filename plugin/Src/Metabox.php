@@ -53,14 +53,17 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) {
 		 */
 		public function render() {
 
-			wp_nonce_field( basename( __FILE__ ), 'metabox_name_nonce' ); ?>
+			wp_nonce_field( basename( __FILE__ ), 'metabox_name_nonce' );
+
+			
+			?>
 
 			<p>
 				<label for="metabox_name"><?php _e( "Custom Text", 'textdomain' ); ?></label>
-    			<br />
-    			<input class="widefat" type="text" name="metabox_field_name" id="metabox_field_name" value="<?php echo esc_attr( get_post_meta( $object->ID, 'metabox_name', true ) ); ?>" />
-  			</p>
-  			<?php
+  			<br />
+  			<input class="widefat" type="text" name="metabox_field_name" id="metabox_field_name" value="<?php echo esc_attr( get_post_meta( $object->ID, 'metabox_name', true ) ); ?>" />
+			</p>
+			<?php
 		}
 
 

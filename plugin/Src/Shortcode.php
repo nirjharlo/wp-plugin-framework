@@ -1,6 +1,8 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Src;
 
+use League\Plates\Engine as Template;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -36,7 +38,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' ) ) {
 										'type' => 'zip',
 									), $atts );
 
-			return $this->html();
+			$this->html($data);
 		}
 
 
@@ -45,12 +47,12 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' ) ) {
 		 *
 		 * @return Html
 		 */
-		private function html() { ?>
+		private function html($data) {
 
-			<div class="class">
-				Some text.
-			</div>
-		<?php
+			$templates = new Template(PLUGIN_PATH . '/plugin/views');
+			echo $templates->render('shortcode', [
+				'data' => $data
+			]);
 		}
 	}
 } ?>

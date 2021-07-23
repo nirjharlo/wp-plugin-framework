@@ -1,7 +1,9 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Src;
 
-use WP_WIDGET as WP_WIDGET;
+use League\Plates\Engine as Template;
+
+use \WP_WIDGET as WP_WIDGET;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -11,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Widget' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 
 	final class Widget extends WP_WIDGET {
 
@@ -41,12 +43,14 @@ if ( ! class_exists( 'Widget' ) ) {
 		 */
 		public function widget( $args, $instance ) {
 
-			echo $args['before_widget'];
-			if ( ! empty( $instance['title'] ) ) {
-				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
-			}
-			echo esc_html__( 'Hello, World!', 'textdomain' );
-			echo $args['after_widget'];
+			$templates = new Template(PLUGIN_PATH . '/plugin/views/widget');
+			echo $templates->render('content', [
+				'before_widget' => $args['before_widget'],
+				'before_title' => $args['before_title'],
+				'title' => apply_filters( 'widget_title', $instance['title'] ),
+				'after_title' => $args['after_title'],
+				'after_widget' => $args['after_widget']
+			]);
 		}
 
 
@@ -59,12 +63,13 @@ if ( ! class_exists( 'Widget' ) ) {
 		 */
 		public function form( $instance ) {
 
-			$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Internal Link Master', 'textdomain' ); ?>
-			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'textdomain' ); ?></label>
-				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-			</p>
-		<?php
+			$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Internal Link Master', 'textdomain' );
+
+			$templates = new Template(PLUGIN_PATH . '/plugin/views/widget');
+			echo $templates->render('form', [
+				'field_name' => esc_attr( $this->get_field_id( 'title' ) ),
+				'field_vale' => esc_attr( $title )
+			]);
 		}
 
 

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Settings' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Settings' ) ) {
 
 	class Settings {
 
@@ -19,37 +19,37 @@ if ( ! class_exists( 'Settings' ) ) {
 		/**
 		 * @var String
 		 */
-		public $capability;
+		private $capability;
 
 
 		/**
 		 * @var Array
 		 */
-		public $menu_page;
+		private $menu_page;
 
 
 		/**
 		 * @var Array
 		 */
-		public $sub_menu_page;
+		private $sub_menu_page;
 
 
 		/**
 		 * @var Array
 		 */
-		public $help;
+		private $help;
 
 
 		/**
 		 * @var String
 		 */
-		public $screen;
+		private $screen;
 
 
 		/**
 		 * @var Object
 		 */
-		 public $table;
+		 private $table;
 
 
 		/**
@@ -62,13 +62,14 @@ if ( ! class_exists( 'Settings' ) ) {
 			$this->capability = 'manage_options';
 			$this->menu_page = array( 'name' => '', 'heading' => '', 'slug' => '' );
 			$this->sub_menu_page = array(
-									'name' => '',
-									'heading' => '',
-									'slug' => '',
-									'parent_slug' => '',
-									'help' => '',//true/false,
-									'screen' => '',//true/false
-								);
+															array(
+																'name' => '',
+																'heading' => '',
+																'slug' => '',
+																'parent_slug' => '',
+																'help' => '',//true/false,
+																'screen' => '',//true/false
+															));
 			$this->helpData = array(
 								array(
 								'slug' => '',
@@ -185,7 +186,6 @@ if ( ! class_exists( 'Settings' ) ) {
 						'option'  => 'option_name_per_page' // Related to PLUGIN_TABLE()
 						);
 			add_screen_option( $option, $args );
-			$this->table = new Table(); // Source /lib/table.php
 		}
 
 
@@ -216,6 +216,7 @@ if ( ! class_exists( 'Settings' ) ) {
 					 */ ?>
 					<form method="post" action="">
 					<?php
+						$this->table = new Table(); // Source /lib/table.php
 						$this->table->prepare_items();
 						$this->table->display(); ?>
 					</form>

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'RestApi' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) {
 
 	class RestApi extends WP_REST_Controller {
 
@@ -24,8 +24,8 @@ if ( ! class_exists( 'RestApi' ) ) {
 		public function register_routes() {
 
 			$version = '1';
-    		$namespace = 'vendor/v' . $version;
-    		$base = 'route';
+  		$namespace = 'vendor/v' . $version;
+  		$base = 'route';
 
 			//Available options for methods are CREATABLE, READABLE, EDITABLE, DELETABLE
 			register_rest_route( $namespace, '/' . $base, array(
@@ -42,15 +42,15 @@ if ( ! class_exists( 'RestApi' ) ) {
 		 *
 		 * @return Object
 		 */
-		public function callback() {
+		protected function callback() {
 
-    		$params = $request->get_params();
-    		$items = array();
-    		$data = $this->prepare_item_for_response( $items, $request );
+  		$params = $request->get_params();
+  		$items = array();
+  		$data = $this->prepare_item_for_response( $items, $request );
 
-    		if ( $data ) {
-      			return new WP_REST_Response( $data, 200 );
-    		} else {
+  		if ( $data ) {
+    			return new WP_REST_Response( $data, 200 );
+  		} else {
 				return new WP_Error( 'status_code', __( 'message', 'text-domain' ) );
 			}
 		}
@@ -61,7 +61,7 @@ if ( ! class_exists( 'RestApi' ) ) {
 		 *
 		 * @return Bool
 		 */
-		public function permission() {
+		protected function permission() {
 
 			return current_user_can( 'manage_options' );
 		}

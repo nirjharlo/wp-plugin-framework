@@ -6,10 +6,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Add Cron schedules and cron task callback
  *
+ * $cron = new \Cron();
+ * $cron->schedule_task(
+ * array(
+ * 'timestamp' => current_time('timestamp'),
+ * 'recurrence' => 'schedule',
+ * 'hook' => 'custom_cron_hook'
+ * ));
+ *
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Cron' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Cron' ) ) {
 
 	final class Cron {
 

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Db' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Db' ) ) {
 
 	class Db {
 
@@ -59,7 +59,7 @@ if ( ! class_exists( 'Db' ) ) {
 		 *
 		 * @return String
 		 */
-		public function collate() {
+		private function collate() {
 
 			global $wpdb;
 			$wpdb->hide_errors();
@@ -84,7 +84,7 @@ if ( ! class_exists( 'Db' ) ) {
 		 *
 		 * @return String
 		 */
-		public function execute( $table_name, $collate, $sql ) {
+		private function execute( $table_name, $collate, $sql ) {
 
 			return "CREATE TABLE $table_name ( $sql ) $collate;";
 		}
@@ -95,7 +95,7 @@ if ( ! class_exists( 'Db' ) ) {
 		 *
 		 * @return String
 		 */
-		public function __destruct() {
+		private function __destruct() {
 
 			global $wpdb;
 

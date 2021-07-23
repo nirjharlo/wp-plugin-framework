@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WordPress Plugin Framework\n"
-"POT-Creation-Date: 2021-02-20 18:26+0530\n"
+"POT-Creation-Date: 2021-02-20 19:51+0530\n"
 "PO-Revision-Date: 2021-02-20 18:26+0530\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -74,11 +74,11 @@ msgstr ""
 msgid "Successfully saved file details."
 msgstr ""
 
-#: plugin/PluginLoader.php:169
+#: plugin/PluginLoader.php:178
 msgid "Database table Not installed correctly."
 msgstr ""
 
-#: plugin/PluginLoader.php:323
+#: plugin/PluginLoader.php:332
 msgid "You are not currently logged in."
 msgstr ""
 
@@ -206,55 +206,55 @@ msgstr ""
 msgid "Custom Text"
 msgstr ""
 
-#: plugin/Src/RestApi.php:52
+#: plugin/Src/RestApi.php:54
 msgid "message"
 msgstr ""
 
-#: plugin/Src/Settings.php:77
+#: plugin/Src/Settings.php:79
 msgid "Title"
 msgstr ""
 
-#: plugin/Src/Settings.php:78
+#: plugin/Src/Settings.php:80
 msgid "Description"
 msgstr ""
 
-#: plugin/Src/Settings.php:81
+#: plugin/Src/Settings.php:83
 msgid "helpLink"
 msgstr ""
 
-#: plugin/Src/Settings.php:181
+#: plugin/Src/Settings.php:183
 msgid "Show per page"
 msgstr ""
 
-#: plugin/Src/Settings.php:208
+#: plugin/Src/Settings.php:210
 msgid "Save"
 msgstr ""
 
-#: plugin/Src/Settings.php:252
+#: plugin/Src/Settings.php:254
 msgid "Section Name"
 msgstr ""
 
-#: plugin/Src/Settings.php:255
+#: plugin/Src/Settings.php:257
 msgid "Field Name"
 msgstr ""
 
-#: plugin/Src/Settings.php:266
+#: plugin/Src/Settings.php:268
 msgid "Set up settings"
 msgstr ""
 
-#: plugin/Src/Widget.php:26 plugin/Src/Widget.php:28
+#: plugin/Src/Widget.php:28 plugin/Src/Widget.php:30
 msgid "Plugin widget"
 msgstr ""
 
-#: plugin/Src/Widget.php:46
+#: plugin/Src/Widget.php:48
 msgid "Hello, World!"
 msgstr ""
 
-#: plugin/Src/Widget.php:60
+#: plugin/Src/Widget.php:62
 msgid "Internal Link Master"
 msgstr ""
 
-#: plugin/Src/Widget.php:62
+#: plugin/Src/Widget.php:64
 msgid "Title:"
 msgstr ""
 

@@ -1,6 +1,8 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Src;
 
+use League\Plates\Engine as Template;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
@@ -9,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Shortcode' ) ) {
+if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' ) ) {
 
 	class Shortcode {
 
@@ -36,7 +38,7 @@ if ( ! class_exists( 'Shortcode' ) ) {
 										'type' => 'zip',
 									), $atts );
 
-			return $this->html();
+			$this->html($data);
 		}
 
 
@@ -45,12 +47,12 @@ if ( ! class_exists( 'Shortcode' ) ) {
 		 *
 		 * @return Html
 		 */
-		public function html() { ?>
+		private function html($data) {
 
-			<div class="class">
-				Some text.
-			</div>
-		<?php
+			$templates = new Template(PLUGIN_PATH . '/plugin/views');
+			echo $templates->render('shortcode', [
+				'data' => $data
+			]);
 		}
 	}
 } ?>

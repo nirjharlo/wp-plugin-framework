@@ -99,7 +99,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Db' ) ) {
 		 *
 		 * @return String
 		 */
-		private function __destruct() {
+		public function __destruct() {
 
 			global $wpdb;
 

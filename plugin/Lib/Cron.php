@@ -1,7 +1,9 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Lib;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Add Cron schedules and cron task callback

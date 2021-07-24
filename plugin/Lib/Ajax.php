@@ -8,7 +8,9 @@ namespace NirjharLo\WP_Plugin_Framework\Lib;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 //AJAX helper class
 if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Ajax' ) ) {
@@ -37,7 +39,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Ajax' ) ) {
 		public function form() { ?>
 
 			<form id="add_by_ajax" method="POST" action="">
-				<input type="text" name="text_name" placeholder="<?php _e( 'Text', 'textdomain' ); ?>">
+				<input type="text" name="text_name" placeholder="<?php esc_attr_e( 'Text', 'textdomain' ); ?>">
 				<input id="ajax_submit" type="submit" name="submit" value="Submit">
 			</form>
 			<?php

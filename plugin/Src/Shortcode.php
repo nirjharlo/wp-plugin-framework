@@ -3,7 +3,9 @@ namespace NirjharLo\WP_Plugin_Framework\Src;
 
 use League\Plates\Engine as Template;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Shortcode class for rendering in front end

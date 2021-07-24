@@ -13,7 +13,9 @@ use NirjharLo\WP_Plugin_Framework\Src\RestApi as RestApi;
 use NirjharLo\WP_Plugin_Framework\Lib\Cron as Cron;
 use NirjharLo\WP_Plugin_Framework\Lib\Script as Script;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Main plugin object to define the plugin
@@ -37,7 +39,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @var PLUGIN_BUILD the PLUGIN Instance
 		 */
-		protected static $_instance;
+		protected static $instance;
 
 
 		/**
@@ -71,9 +73,10 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		protected static $plugin_page_links = array(
 			array(
-				'slug' => '',
-				'label' => ''
-			) );
+				'slug'  => '',
+				'label' => '',
+			),
+		);
 
 
 		/**
@@ -83,78 +86,74 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		public static function instance() {
 
-			if ( is_null( self::$_instance ) ) {
-				self::$_instance = new self();
-				self::$_instance->init();
+			if ( is_null( self::$instance ) ) {
+				self::$instance = new self();
+				self::$instance->init();
 			}
 
-			return self::$_instance;
+			return self::$instance;
 		}
 
 
 		/**
 		 * Install plugin setup
-		 *
-		 * @return Void
 		 */
 		public function installation() {
 
-			if (class_exists('NirjharLo\\WP_Plugin_Framework\\Src\\Install')) {
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Install' ) ) {
 
-				$install = new Install();
-				$install->text_domain = self::$text_domain;
-				$install->php_ver_allowed = self::$php_ver_allowed;
+				$install                    = new Install();
+				$install->text_domain       = self::$text_domain;
+				$install->php_ver_allowed   = self::$php_ver_allowed;
 				$install->plugin_page_links = self::$plugin_page_links;
 				$install->execute();
 			}
 
-			//If CPT exists, include taht and flush the rewrite rules
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) new Cpt();
-			flush_rewrite_rules();
+			// If CPT exists, include taht and flush the rewrite rules
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) {
+				new Cpt();
+				flush_rewrite_rules();
+			}
 		}
 
 
 		/**
 		 * Custom corn class, register it while activation
-		 *
-		 * @return Void
 		 */
 		public function cron_activation() {
 
 			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Cron' ) ) {
 
-				$cron = new Cron();
+				$cron     = new Cron();
 				$schedule = $cron->schedule_task(
-							array(
-							'timestamp' => current_time('timestamp'),
-							//'schedule' can be 'hourly', 'daily', 'weekly' or anything custom as defined in PLUGIN_CRON
-							'recurrence' => 'schedule',
-							// Use custom_corn_hook to hook into any cron process, anywhere in the plugin.
-							'hook' => 'custom_cron_hook'
-						) );
+					array(
+						'timestamp'  => current_time( 'timestamp' ),
+						// 'schedule' can be 'hourly', 'daily', 'weekly' or anything custom as defined in PLUGIN_CRON
+						'recurrence' => 'schedule',
+						// Use custom_corn_hook to hook into any cron process, anywhere in the plugin.
+						'hook'       => 'custom_cron_hook',
+					)
+				);
 			}
-
 		}
 
 
 		/**
 		 * Install plugin data
-		 *
-		 * @return Void
 		 */
 		public function db_install() {
 
 			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Db' ) ) {
 
-				$db = new Db();
+				$db        = new Db();
 				$db->table = self::$plugin_table;
-				$db->sql = "ID mediumint(9) NOT NULL AUTO_INCREMENT,
-							date date NOT NULL,
-							UNIQUE KEY ID (ID)";
-				#$db->build();
+				$db->sql   = '`ID` mediumint(9) NOT NULL AUTO_INCREMENT,
+							`date` date NOT NULL,
+							UNIQUE KEY `ID` (`ID`)';
+				// $db->build();
 			}
 
-			if (get_option( '_plugin_db_exist') == '0' ) {
+			if ( get_option( '_plugin_db_exist' ) === '0' ) {
 				add_action( 'admin_notices', array( $this, 'db_error_msg' ) );
 			}
 
@@ -169,32 +168,33 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 
 		/**
 		 * Notice of DB
-		 *
-		 * @return Html
 		 */
 		public function db_error_msg() { ?>
 
 			<div class="notice notice-error is-dismissible">
-				<p><?php _e( 'Database table Not installed correctly.', 'textdomain' ); ?></p>
- 			</div>
+				<p><?php esc_attr_e( 'Database table Not installed correctly.', 'textdomain' ); ?></p>
+			</div>
 			<?php
 		}
 
 
 		/**
 		 * Uninstall plugin data
-		 *
-		 * @return Void
 		 */
 		public function db_uninstall() {
 
 			$table_name = self::$plugin_table;
 
 			global $wpdb;
-			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}$table_name" );
+			$wpdb->query(
+				$wpdb->prepare(
+					'DROP TABLE IF EXISTS %s',
+					$wpdb->prefix . $table_name
+				)
+			);
 
 			$options = array(
-				'_plugin_db_exist'
+				'_plugin_db_exist',
 			);
 			foreach ( $options as $value ) {
 				delete_option( $value );
@@ -204,19 +204,15 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 
 		/**
 		 * CRON callback
-		 *
-		 * @return Void
 		 */
 		private function do_cron_job_function() {
 
-			//Do cron function
+			// Do cron function
 		}
 
 
 		/**
 		 * Run CRON action
-		 *
-		 * @return Void
 		 */
 		private function custom_cron_hook_cb() {
 
@@ -226,8 +222,6 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 
 		/**
 		 * Uninstall CRON hook
-		 *
-		 * @return Void
 		 */
 		public function cron_uninstall() {
 
@@ -237,119 +231,116 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 
 		/**
 		 * Install Custom post types
-		 *
-		 * @return Void
 		 */
 		public function cpt() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) new Cpt();
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) {
+				new Cpt();
+			}
 		}
 
 
 		/**
 		 * Include scripts
-		 *
-		 * @return Void
 		 */
 		private function scripts() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) new Script();
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
+				new Script();
+			}
 		}
 
 
 		/**
 		 * Include settings pages
-		 *
-		 * @return Void
 		 */
 		private function settings() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Settings' ) ) new Settings();
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Settings' ) ) {
+				new Settings();
+			}
 		}
 
 
 		/**
 		 * Include widget classes
-		 *
-		 * @return Void
 		 */
 		private function widgets() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) new Widget();
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
+				new Widget();
+			}
 		}
 
 
 		/**
-		 *Include metabox classes
-		 *
-		 * @return Void
+		 * Include metabox classes
 		 */
 		private function metabox() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) new Metabox();
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) {
+				new Metabox();
+			}
 		}
 
 
 		/**
 		 * Include shortcode classes
-		 *
-		 * @return Void
 		 */
 		private function shortcode() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' ) ) new Shortcode();
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' ) ) {
+				new Shortcode();
+			}
+		}
+
+
+		/**
+		 * Instantiate REST API
+		 */
+		private function rest_api() {
+
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) {
+					new RestApi();
+			}
 		}
 
 
 		/**
 		 * Instantiate REST API
 		 *
-		 * @return Void
+		 * @param Obj $result Login info
 		 */
-		 private function rest_api() {
+		private function prevent_unauthorized_rest_access( $result ) {
+			// If a previous authentication check was applied,
+			// pass that result along without modification.
+			if ( true === $result || is_wp_error( $result ) ) {
+					return $result;
+			}
 
-			 if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) new RestApi();
-		 }
+			// No authentication has been performed yet.
+			// Return an error if user is not logged in.
+			if ( ! is_user_logged_in() ) {
+					return new WP_Error(
+						'rest_not_logged_in',
+						__( 'You are not currently logged in.' ),
+						array( 'status' => 401 )
+					);
+			}
 
-
-		 /**
- 		  * Instantiate REST API
- 		  *
- 		  * @return Void
- 		  */
-		 private function prevent_unauthorized_rest_access( $result ) {
- 		    // If a previous authentication check was applied,
- 		    // pass that result along without modification.
- 		    if ( true === $result || is_wp_error( $result ) ) {
- 		        return $result;
- 		    }
-
- 		    // No authentication has been performed yet.
- 		    // Return an error if user is not logged in.
- 		    if ( ! is_user_logged_in() ) {
- 		        return new WP_Error(
- 		            'rest_not_logged_in',
- 		            __( 'You are not currently logged in.' ),
- 		            array( 'status' => 401 )
- 		        );
- 		    }
-
- 		    return $result;
- 		}
+			return $result;
+		}
 
 
 		/**
 		 * Instantiate the plugin
-		 *
-		 * @return Void
 		 */
 		public function init() {
-
 			register_activation_hook( PLUGIN_FILE, array( $this, 'db_install' ) );
 			register_activation_hook( PLUGIN_FILE, array( $this, 'cron_activation' ) );
 
-			//remove the DB and CORN upon uninstallation
-			//using $this won't work here.
+			// Remove the DB and CORN upon uninstallation,
+			// Using $this won't work here.
 			register_uninstall_hook( PLUGIN_FILE, array( 'NirjharLo\\WP_Plugin_Framework\\PluginLoader', 'db_uninstall' ) );
 			register_uninstall_hook( PLUGIN_FILE, array( 'NirjharLo\\WP_Plugin_Framework\\PluginLoader', 'cron_uninstall' ) );
 
@@ -366,7 +357,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 			$this->shortcode();
 			$this->settings();
 
-			//Alternative method: add_action( 'rest_api_init', array($this, 'rest_api') );
+			// Alternative method: add_action( 'rest_api_init', array($this, 'rest_api') );
 			$this->rest_api();
 		}
 	}

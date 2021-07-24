@@ -7,7 +7,9 @@ namespace NirjharLo\WP_Plugin_Framework\Lib;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 

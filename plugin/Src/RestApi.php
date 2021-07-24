@@ -3,7 +3,9 @@ namespace NirjharLo\WP_Plugin_Framework\Src;
 
 use WP_REST_Controller as WP_REST_Controller;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Extending REST API framework of WordPress

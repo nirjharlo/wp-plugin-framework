@@ -1,7 +1,9 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Src;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * WP Query class for querying WP database

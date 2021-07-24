@@ -3,7 +3,9 @@ namespace NirjharLo\WP_Plugin_Framework\Src;
 
 use NirjharLo\WP_Plugin_Framework\Lib\Table as Table;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Backend settings page class, can have settings fields or data table

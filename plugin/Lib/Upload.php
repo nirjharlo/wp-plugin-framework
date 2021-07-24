@@ -1,7 +1,9 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Lib;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Plugin upload for WordPress front end or backend
@@ -91,7 +93,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 		private function file_type_error_admin_notice() { ?>
 
 			<div class="notice notice-error is-dismissible">
-				<p><?php _e( 'Please Upload correct type of file only.', 'textdomain' ); ?></p>
+				<p><?php esc_attr_e( 'Please Upload correct type of file only.', 'textdomain' ); ?></p>
  			</div>
 		<?php
 		}
@@ -105,7 +107,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 		private function file_error_admin_notice() { ?>
 
 			<div class="notice notice-error is-dismissible">
-				<p><?php _e( 'File Upload failed.', 'textdomain' ); ?></p>
+				<p><?php esc_attr_e( 'File Upload failed.', 'textdomain' ); ?></p>
  			</div>
 		<?php
 		}
@@ -119,7 +121,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 		private function success_notice() { ?>
 
 			<div class="notice notice-success is-dismissible">
-				<p><?php _e( 'Successfully saved file details.', 'textdomain' ); ?></p>
+				<p><?php esc_attr_e( 'Successfully saved file details.', 'textdomain' ); ?></p>
  			</div>
 		<?php
 		}

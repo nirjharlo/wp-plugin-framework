@@ -5,7 +5,9 @@ use League\Plates\Engine as Template;
 
 use \WP_WIDGET as WP_WIDGET;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Widget class

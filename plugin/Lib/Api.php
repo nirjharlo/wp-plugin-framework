@@ -51,13 +51,13 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' ) ) {
 		 *
 		 * @return Void
 		 */
-		 public function __construct() {
+		public function __construct() {
 
-			 $this->endpoint  = '';
-			 $this->header    = array();
-			 $this->data_type = ''; //xml or json
-			 $this->call_type = '';
-		 }
+			$this->endpoint  = '';
+			$this->header    = array();
+			$this->data_type = ''; // xml or json
+			$this->call_type = '';
+		}
 
 
 		/**
@@ -68,15 +68,15 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' ) ) {
 		protected function build() {
 
 			$args = array(
-						CURLOPT_URL => $this->endpoint,
-						CURLOPT_RETURNTRANSFER => true,
-						CURLOPT_ENCODING => "",
-						CURLOPT_MAXREDIRS => 10,
-						CURLOPT_TIMEOUT => 30,
-						CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-						CURLOPT_CUSTOMREQUEST => $this->call_type,
-						CURLOPT_HTTPHEADER => $this->header,
-						);
+				CURLOPT_URL            => $this->endpoint,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING       => '',
+				CURLOPT_MAXREDIRS      => 10,
+				CURLOPT_TIMEOUT        => 30,
+				CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST  => $this->call_type,
+				CURLOPT_HTTPHEADER     => $this->header,
+			);
 
 			return $args;
 		}
@@ -94,12 +94,12 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' ) ) {
 			curl_setopt_array( $curl, $this->build() );
 
 			$result = curl_exec( $curl );
-			$err = curl_error( $curl );
+			$err    = curl_error( $curl );
 
 			curl_close( $curl );
 
 			if ( $err ) {
-				$result = "cURL Error #:" . $err;
+				$result = 'cURL Error #:' . $err;
 			}
 
 			return $result;
@@ -111,7 +111,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' ) ) {
 		 *
 		 * @return Array
 		 */
-		public function parse($data) {
+		public function parse( $data ) {
 
 			call_user_func( array( $this, $this->data_type ), $data );
 		}
@@ -147,4 +147,4 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' ) ) {
 			return $parsed;
 		}
 	}
-} ?>
+}

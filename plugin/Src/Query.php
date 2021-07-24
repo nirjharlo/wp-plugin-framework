@@ -33,11 +33,11 @@ if ( ! class_exists( 'Query' ) ) {
 
 			global $post, $user;
 
-			$this->display_count = get_option('posts_per_page', 10);
+			$this->display_count = get_option( 'posts_per_page', 10 );
 
-			$paged = get_query_var('paged') ? get_query_var('paged') : (get_query_var('page') ? get_query_var('page') : 1);
+			$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : ( get_query_var( 'page' ) ? get_query_var( 'page' ) : 1 );
 
-			$post_args = $this->post_args($paged);
+			$post_args = $this->post_args( $paged );
 			$the_query = new WP_Query( $post_args );
 
 			/**
@@ -48,13 +48,18 @@ if ( ! class_exists( 'Query' ) ) {
 			// The Loop
 			if ( $the_query->have_posts() ) {
 				while ( $the_query->have_posts() ) {
-      				$the_query->the_post();
-	  				// Do Stuff
+					$the_query->the_post();
+					// Do Stuff
 				} // end while
 			} // endif
 
-			if ( function_exists('wp_pagenavi' ) )  {
-				wp_pagenavi( array( 'query' => $the_query, 'echo' => true ) );//For user query add param 'type' => 'users'
+			if ( function_exists( 'wp_pagenavi' ) ) {
+				wp_pagenavi(
+					array(
+						'query' => $the_query,
+						'echo'  => true,
+					)
+				);// For user query add param 'type' => 'users'
 			}
 
 			// Reset Post Data
@@ -71,10 +76,10 @@ if ( ! class_exists( 'Query' ) ) {
 
 			$offset = ( $paged - 1 ) * $this->display_count;
 
-			$args = array (
+			$args = array(
 				'role'         => '', // user role
-				'order'        => '', //ASC or DESC
-				'fields'       => '', //
+				'order'        => '', // ASC or DESC
+				'fields'       => '',
 				'orderby'      => '',
 				'role__in'     => '',
 				'role__not_in' => '',
@@ -89,18 +94,18 @@ if ( ! class_exists( 'Query' ) ) {
 				'offset'       => $offset,
 				'search'       => '*' . esc_attr( $_GET['s'] ) . '*',
 				'meta_query'   => array( // It supports nested meta query
-					'relation' => 'AND', //or 'OR'
+					'relation' => 'AND', // or 'OR'
 					array(
 						'key'     => 'meta_key',
 						'value'   => 'some_value',
-						'compare' => 'LIKE' //like others
+						'compare' => 'LIKE', // like others
 					),
 					array(
 						'key'     => 'meta_key',
 						'value'   => 'some_value',
-						'compare' => 'LIKE' //like others
-					)
-				)
+						'compare' => 'LIKE', // like others
+					),
+				),
 			);
 
 			return $args;
@@ -116,37 +121,37 @@ if ( ! class_exists( 'Query' ) ) {
 
 			$offset = ( $paged - 1 ) * $this->display_count;
 
-			$args = array (
-				'post_type'    => '', // array of type slugs
-				'order'        => 'ASC',
-				'fields'       => '', //
-				'orderby'      => '',
-				'include'      => '',
-				'exclude'      => '',
-				'blog_id'      => '',
-				'taxonomy'     => '',
-				'terms'        => '',
-				'number'       => $this->display_count,
-				'count_total'  => true,
-				'paged'        => $paged,
-				'offset'       => $offset,
-				'search'       => '*' . esc_attr( $_GET['s'] ) . '*',
-				'meta_query'   => array( // It supports nested meta query
-					'relation' => 'AND', //or 'OR'
+			$args = array(
+				'post_type'   => '', // array of type slugs
+				'order'       => 'ASC',
+				'fields'      => '',
+				'orderby'     => '',
+				'include'     => '',
+				'exclude'     => '',
+				'blog_id'     => '',
+				'taxonomy'    => '',
+				'terms'       => '',
+				'number'      => $this->display_count,
+				'count_total' => true,
+				'paged'       => $paged,
+				'offset'      => $offset,
+				'search'      => '*' . esc_attr( $_GET['s'] ) . '*',
+				'meta_query'  => array( // It supports nested meta query
+					'relation' => 'AND', // or 'OR'
 					array(
 						'key'     => 'meta_key',
 						'value'   => 'some_value',
-						'compare' => 'LIKE' //like others
+						'compare' => 'LIKE', // like others
 					),
 					array(
 						'key'     => 'meta_key',
 						'value'   => 'some_value',
-						'compare' => 'LIKE' //like others
-					)
-				)
+						'compare' => 'LIKE', // like others
+					),
+				),
 			);
 
 			return $args;
 		}
 	}
-} ?>
+}

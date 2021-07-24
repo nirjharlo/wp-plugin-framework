@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-//AJAX helper class
+// AJAX helper class
 if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Ajax' ) ) {
 
 	final class Ajax {

@@ -28,9 +28,9 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 		public function __construct() {
 
 			$widget_ops = array(
-							'classname' => 'plugin_widget',
-							'description' => __( 'Plugin widget', 'textdomain' ),
-							);
+				'classname'   => 'plugin_widget',
+				'description' => __( 'Plugin widget', 'textdomain' ),
+			);
 			parent::__construct( 'my_widget_id', __( 'Plugin widget', 'textdomain' ), $widget_ops );
 		}
 
@@ -45,14 +45,17 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 		 */
 		public function widget( $args, $instance ) {
 
-			$templates = new Template(PLUGIN_PATH . '/plugin/views/widget');
-			echo $templates->render('content', [
-				'before_widget' => $args['before_widget'],
-				'before_title' => $args['before_title'],
-				'title' => apply_filters( 'widget_title', $instance['title'] ),
-				'after_title' => $args['after_title'],
-				'after_widget' => $args['after_widget']
-			]);
+			$templates = new Template( PLUGIN_PATH . '/plugin/views/widget' );
+			echo $templates->render(
+				'content',
+				array(
+					'before_widget' => $args['before_widget'],
+					'before_title'  => $args['before_title'],
+					'title'         => apply_filters( 'widget_title', $instance['title'] ),
+					'after_title'   => $args['after_title'],
+					'after_widget'  => $args['after_widget'],
+				)
+			);
 		}
 
 
@@ -67,11 +70,14 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 
 			$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Internal Link Master', 'textdomain' );
 
-			$templates = new Template(PLUGIN_PATH . '/plugin/views/widget');
-			echo $templates->render('form', [
-				'field_name' => esc_attr( $this->get_field_id( 'title' ) ),
-				'field_vale' => esc_attr( $title )
-			]);
+			$templates = new Template( PLUGIN_PATH . '/plugin/views/widget' );
+			echo $templates->render(
+				'form',
+				array(
+					'field_name' => esc_attr( $this->get_field_id( 'title' ) ),
+					'field_vale' => esc_attr( $title ),
+				)
+			);
 		}
 
 
@@ -85,9 +91,9 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 		 */
 		public function update( $new_instance, $old_instance ) {
 
-			$instance = array();
+			$instance          = array();
 			$instance['title'] = ( ! empty( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : '' );
 			return $instance;
 		}
 	}
-} ?>
+}

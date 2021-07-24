@@ -65,14 +65,16 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Db' ) ) {
 
 			global $wpdb;
 			$wpdb->hide_errors();
-			$collate = "";
-		    if ( $wpdb->has_cap( 'collation' ) ) {
-				if( ! empty($wpdb->charset ) )
+			$collate = '';
+			if ( $wpdb->has_cap( 'collation' ) ) {
+				if ( ! empty( $wpdb->charset ) ) {
 					$collate .= "DEFAULT CHARACTER SET $wpdb->charset";
-				if( ! empty($wpdb->collate ) )
+				}
+				if ( ! empty( $wpdb->collate ) ) {
 					$collate .= " COLLATE $wpdb->collate";
-		    }
-    		require_once( $this->up_path );
+				}
+			}
+			require_once $this->up_path;
 			return $collate;
 		}
 
@@ -108,4 +110,4 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Db' ) ) {
 			}
 		}
 	}
-} ?>
+}

@@ -19,6 +19,8 @@
     },
   	"autoload": {
           "psr-4": {"NirjharLo\\WP_Plugin_Framework\\": "./plugin"}
-      }
-
+      },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*"
+    }
 }

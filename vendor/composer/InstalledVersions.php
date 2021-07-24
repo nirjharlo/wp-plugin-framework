@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '85de10c9c1d73bc2ab3f44be33ec6cbc99197e6d',
+    'reference' => '74475b30474301549a769be312aa61405be890bd',
     'name' => 'nirjharlo/wp-plugin-framework',
   ),
   'versions' => 
@@ -51,7 +51,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '85de10c9c1d73bc2ab3f44be33ec6cbc99197e6d',
+      'reference' => '74475b30474301549a769be312aa61405be890bd',
+    ),
+    'squizlabs/php_codesniffer' => 
+    array (
+      'pretty_version' => '3.6.0',
+      'version' => '3.6.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ffced0d2c8fa8e6cdc4d695a743271fab6c38625',
     ),
   ),
 );

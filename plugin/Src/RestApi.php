@@ -3,7 +3,9 @@ namespace NirjharLo\WP_Plugin_Framework\Src;
 
 use WP_REST_Controller as WP_REST_Controller;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Extending REST API framework of WordPress
@@ -23,17 +25,21 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) {
 		 */
 		public function register_routes() {
 
-			$version = '1';
-  		$namespace = 'vendor/v' . $version;
-  		$base = 'route';
+			$version   = '1';
+			$namespace = 'vendor/v' . $version;
+			$base      = 'route';
 
-			//Available options for methods are CREATABLE, READABLE, EDITABLE, DELETABLE
-			register_rest_route( $namespace, '/' . $base, array(
-        		'methods'             => WP_REST_Server::READABLE,
-        		'callback'            => array( $this, 'callback' ),
-        		'permission_callback' => array( $this, 'permission' ),
-        		'args'                => array('sample', 'list', 'of', 'args')
-      		));
+			// Available options for methods are CREATABLE, READABLE, EDITABLE, DELETABLE
+			register_rest_route(
+				$namespace,
+				'/' . $base,
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'callback' ),
+					'permission_callback' => array( $this, 'permission' ),
+					'args'                => array( 'sample', 'list', 'of', 'args' ),
+				)
+			);
 		}
 
 
@@ -44,13 +50,13 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) {
 		 */
 		protected function callback() {
 
-  		$params = $request->get_params();
-  		$items = array();
-  		$data = $this->prepare_item_for_response( $items, $request );
+			$params = $request->get_params();
+			$items  = array();
+			$data   = $this->prepare_item_for_response( $items, $request );
 
-  		if ( $data ) {
-    			return new WP_REST_Response( $data, 200 );
-  		} else {
+			if ( $data ) {
+				return new WP_REST_Response( $data, 200 );
+			} else {
 				return new WP_Error( 'status_code', __( 'message', 'text-domain' ) );
 			}
 		}
@@ -75,10 +81,10 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) {
 		 *
 		 * @return Array
 		 */
-		public function prepare_item_for_response($items, $request) {
+		public function prepare_item_for_response( $items, $request ) {
 
-			//Process the data in any way you like
-			$data = compact($items, $request);
+			// Process the data in any way you like
+			$data = compact( $items, $request );
 			return $data;
 		}
 	}

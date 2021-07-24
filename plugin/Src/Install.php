@@ -1,7 +1,9 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Src;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Implimentation of WordPress inbuilt functions for plugin activation.
@@ -52,11 +54,11 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Install' ) ) {
 		 */
 		public function text_domain_cb() {
 
-			$locale = is_admin() && function_exists('get_user_locale') ? get_user_locale() : get_locale();
-			$locale = apply_filters('plugin_locale', $locale, $this->text_domain);
+			$locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
+			$locale = apply_filters( 'plugin_locale', $locale, $this->text_domain );
 
-			unload_textdomain($this->text_domain);
-			load_textdomain($this->text_domain, PLUGIN_LN . 'textdomain-' . $locale . '.mo');
+			unload_textdomain( $this->text_domain );
+			load_textdomain( $this->text_domain, PLUGIN_LN . 'textdomain-' . $locale . '.mo' );
 			load_plugin_textdomain( $this->text_domain, false, PLUGIN_LN );
 		}
 
@@ -69,8 +71,8 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Install' ) ) {
 		public function php_ver_incompatible() {
 
 			if ( version_compare( phpversion(), $this->php_ver_allowed, '<' ) ) :
-				$text = __( 'The Plugin can\'t be activated because your PHP version', 'textdomain' );
-				$text_last = __( 'is less than required '.$this->php_ver_allowed.'. See more information', 'textdomain' );
+				$text      = __( 'The Plugin can\'t be activated because your PHP version', 'textdomain' );
+				$text_last = __( 'is less than required ' . $this->php_ver_allowed . '. See more information', 'textdomain' );
 				$text_link = 'php.net/eol.php'; ?>
 
 				<div id="message" class="updated notice notice-success is-dismissible">
@@ -79,31 +81,32 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Install' ) ) {
 					</p>
 				</div>
 
-			<?php endif; return;
+			<?php endif;
+			return;
 		}
 
 
 		/**
 		 * Add settings link to plugin page
 		 *
-		 * @param Array $links
+		 * @param Array  $links
 		 * @param String $file
 		 *
 		 * @return Array
 		 */
 		public function menu_page_link( $links, $file ) {
 
-			if ($this->plugin_page_links) {
+			if ( $this->plugin_page_links ) {
 				static $this_plugin;
 				if ( ! $this_plugin ) {
 					$this_plugin = PLUGIN_FILE;
 				}
 				if ( $file == $this_plugin ) {
 					$shift_link = array();
-					foreach ($this->plugin_page_links as $value) {
-						$shift_link[] = '<a href="'.$value['slug'].'">'.$value['label'].'</a>';
+					foreach ( $this->plugin_page_links as $value ) {
+						$shift_link[] = '<a href="' . $value['slug'] . '">' . $value['label'] . '</a>';
 					}
-					foreach( $shift_link as $val ) {
+					foreach ( $shift_link as $val ) {
 						array_unshift( $links, $val );
 					}
 				}

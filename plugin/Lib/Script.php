@@ -7,7 +7,9 @@ namespace NirjharLo\WP_Plugin_Framework\Lib;
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 
@@ -58,7 +60,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 			wp_enqueue_script( 'jsName', PLUGIN_JS . 'ui.js', array() );
 
 			wp_enqueue_script( 'action-jsName', PLUGIN_JS . 'ajax.js', array() );
-			wp_localize_script( 'action-jsName', 'ajax', array( 'url' => admin_url('admin-ajax.php') ) );
+			wp_localize_script( 'action-jsName', 'ajax', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
 
 			wp_enqueue_style( 'cssName', PLUGIN_CSS . 'css.css' );
 		}
@@ -74,9 +76,9 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 			wp_enqueue_script( 'jsName', PLUGIN_JS . 'ui.js', array() );
 
 			wp_enqueue_script( 'action-jsName', PLUGIN_JS . 'ajax.js', array() );
-			wp_localize_script( 'action-jsName', 'ajax', array( 'url' => admin_url('admin-ajax.php') ) );
+			wp_localize_script( 'action-jsName', 'ajax', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
 
 			wp_enqueue_style( 'cssName', PLUGIN_CSS . 'css.css' );
 		}
 	}
-} ?>
+}

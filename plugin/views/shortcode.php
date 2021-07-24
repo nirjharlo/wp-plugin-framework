@@ -1,3 +1,3 @@
 <div class="class">
-  Some text. <?=$this->e($data['type'])?>
+  Some text. <?php echo esc_attr( $this->e( $data['type'] ) ); ?>
 </div>

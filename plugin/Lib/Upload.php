@@ -1,7 +1,9 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Lib;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Plugin upload for WordPress front end or backend
@@ -21,7 +23,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 		 */
 		public function __construct() {
 
-			if ( isset($_POST['UploadSubmit']) ) {
+			if ( isset( $_POST['UploadSubmit'] ) ) {
 				$this->upload_controller();
 			}
 
@@ -55,20 +57,20 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 			$type = $file['type'];
 
 			// Check in your file type
-			if( $type != 'application/_TYPE_' ) {
+			if ( $type != 'application/_TYPE_' ) {
 				add_action( 'admin_notices', array( $this, 'file_type_error_admin_notice' ) );
 			} else {
 
-				if (!function_exists('wp_handle_upload')){
-					require_once(ABSPATH . 'wp-admin/includes/image.php');
-					require_once(ABSPATH . 'wp-admin/includes/file.php');
-					require_once(ABSPATH . 'wp-admin/includes/media.php');
+				if ( ! function_exists( 'wp_handle_upload' ) ) {
+					require_once ABSPATH . 'wp-admin/includes/image.php';
+					require_once ABSPATH . 'wp-admin/includes/file.php';
+					require_once ABSPATH . 'wp-admin/includes/media.php';
 				}
 
-				$overrides = array( 'test_form' => false);
-				$attachment = wp_handle_upload($file, $overrides);
+				$overrides  = array( 'test_form' => false );
+				$attachment = wp_handle_upload( $file, $overrides );
 
-				if( is_array( $attachment_id ) && array_key_exists( 'path', $attachment ) ) {
+				if ( is_array( $attachment_id ) && array_key_exists( 'path', $attachment ) ) {
 					$upload_path = $attachment['path'];
 
 					add_action( 'admin_notices', array( $this, 'success_notice' ) );
@@ -88,12 +90,13 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 		 *
 		 * @return Html
 		 */
-		private function file_type_error_admin_notice() { ?>
+		private function file_type_error_admin_notice() {
+			?>
 
 			<div class="notice notice-error is-dismissible">
-				<p><?php _e( 'Please Upload correct type of file only.', 'textdomain' ); ?></p>
- 			</div>
-		<?php
+				<p><?php esc_attr_e( 'Please Upload correct type of file only.', 'textdomain' ); ?></p>
+			 </div>
+			<?php
 		}
 
 
@@ -102,12 +105,13 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 		 *
 		 * @return Html
 		 */
-		private function file_error_admin_notice() { ?>
+		private function file_error_admin_notice() {
+			?>
 
 			<div class="notice notice-error is-dismissible">
-				<p><?php _e( 'File Upload failed.', 'textdomain' ); ?></p>
- 			</div>
-		<?php
+				<p><?php esc_attr_e( 'File Upload failed.', 'textdomain' ); ?></p>
+			 </div>
+			<?php
 		}
 
 
@@ -116,12 +120,13 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 		 *
 		 * @return Html
 		 */
-		private function success_notice() { ?>
+		private function success_notice() {
+			?>
 
 			<div class="notice notice-success is-dismissible">
-				<p><?php _e( 'Successfully saved file details.', 'textdomain' ); ?></p>
- 			</div>
-		<?php
+				<p><?php esc_attr_e( 'Successfully saved file details.', 'textdomain' ); ?></p>
+			 </div>
+			<?php
 		}
 	}
 } ?>

@@ -9,7 +9,7 @@ There are extra classes for API integration, AJAX, File upload and Cron jobs.
 
 NOTE: Requires PHP 5.4 and up. Uses `cURL` for API integration class.
 
-##installation
+## Installation
 1. For production environment:
 ```
 composer install

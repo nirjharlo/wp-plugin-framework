@@ -18,7 +18,7 @@
         "league/plates": "^3.4"
     },
   	"autoload": {
-          "psr-4": {"NirjharLo\\WP_Plugin_Framework\\": "./plugin"}
+          "psr-4": {"NirjharLo\\WP_Plugin_Framework\\": "./Plugin"}
       },
     "require-dev": {
         "squizlabs/php_codesniffer": "*",

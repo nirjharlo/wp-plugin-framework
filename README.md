@@ -12,11 +12,11 @@ NOTE: Requires PHP 5.4 and up. Uses `cURL` for API integration class.
 ## Installation
 1. For production environment:
 ```
-composer install
+composer install --no-dev
 ```
 2. For development environment:
 ```
-composer install --no-dev
+composer install
 ```
 ```
 ./vendor/bin/phpcs --config-set installed_paths ../../wp-coding-standards/wpcs

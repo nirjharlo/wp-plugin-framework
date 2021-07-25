@@ -55,7 +55,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @var String
 		 */
-		protected static $php_ver_allowed = '5.3';
+		protected static $php_ver_allowed = '5.6';
 
 
 		/**

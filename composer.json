@@ -22,6 +22,7 @@
       },
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
-        "wp-coding-standards/wpcs": "^2.3"
+        "wp-coding-standards/wpcs": "^2.3",
+        "phpunit/phpunit": "5"
     }
 }

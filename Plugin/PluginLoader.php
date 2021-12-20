@@ -3,6 +3,7 @@ namespace NirjharLo\WP_Plugin_Framework;
 
 use NirjharLo\WP_Plugin_Framework\Engine\Init\Install as Install;
 use NirjharLo\WP_Plugin_Framework\Engine\Init\Db as Db;
+use NirjharLo\WP_Plugin_Framework\Engine\Init\Script as Script;
 
 use NirjharLo\WP_Plugin_Framework\Engine\Src\Cpt as Cpt;
 use NirjharLo\WP_Plugin_Framework\Engine\Src\Settings as Settings;
@@ -12,7 +13,6 @@ use NirjharLo\WP_Plugin_Framework\Engine\Src\Shortcode as Shortcode;
 use NirjharLo\WP_Plugin_Framework\Engine\Src\RestApi as RestApi;
 
 use NirjharLo\WP_Plugin_Framework\Engine\Lib\Cron as Cron;
-use NirjharLo\WP_Plugin_Framework\Engine\Lib\Script as Script;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @var String
 		 */
-		protected static $phpVerAllowed = '5.6';
+		protected static $phpVerAllowed = '7.1';
 
 
 		/**
@@ -63,7 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @var String
 		 */
-		protected static $pluginTable = "_plugin_db_table_name";
+		protected static $pluginTable = "_" . PLUGIN_NAME . "_db_table_name";
 
 
 		/**
@@ -119,7 +119,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/**
 		 * Install plugin data
 		 */
-		public function db_install() {
+		public function dbInstall() {
 
 				$db        = new Db();
 				$db->table = self::$pluginTable;
@@ -168,7 +168,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/**
 		 * Custom corn class, register it while activation
 		 */
-		public function cron_activation() {
+		public function cronActivation() {
 
 			$cron     = new Cron();
 			$schedule = $cron->schedule_task(
@@ -186,7 +186,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/**
 		 * Uninstall plugin data
 		 */
-		public function db_uninstall() {
+		public function dbUninstall() {
 
 			$table_name = self::$pluginTable;
 
@@ -199,7 +199,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			);
 
 			$options = array(
-				PLUGIN_NAME . "_db_exist",
+				"_" . PLUGIN_NAME . "_db_exist",
 			);
 			foreach ( $options as $value ) {
 				delete_option( $value );
@@ -210,7 +210,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/**
 		 * CRON callback
 		 */
-		private function do_cron_job_function() {
+		private function doCronJobFunction() {
 
 			// Do cron function
 		}
@@ -219,16 +219,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/**
 		 * Run CRON action
 		 */
-		private function custom_cron_hook_cb() {
+		private function customCronHookCb() {
 
-			add_action( 'custom_cron_hook', array( $this, 'do_cron_job_function' ) );
+			add_action( 'custom_cron_hook', array( $this, 'doCronJobFunction' ) );
 		}
 
 
 		/**
 		 * Uninstall CRON hook
 		 */
-		public function cron_uninstall() {
+		public function cronUninstall() {
 
 			wp_clear_scheduled_hook( 'custom_cron_hook' );
 		}
@@ -302,7 +302,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @param Obj $result Login info
 		 */
-		private function prevent_unauthorized_rest_access( $result ) {
+		private function preventUnauthorizedRestAccess( $result ) {
 			// If a previous authentication check was applied,
 			// pass that result along without modification.
 			if ( true === $result || is_wp_error( $result ) ) {
@@ -328,29 +328,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function init() {
 
-			register_activation_hook( PLUGIN_FILE, array( $this, 'db_install' ) );
+			//Setup
+			register_activation_hook( PLUGIN_FILE, array( $this, 'dbInstall' ) );
 			register_activation_hook( PLUGIN_FILE, array( $this, 'flushPermalinks' ) );
-			register_activation_hook( PLUGIN_FILE, array( $this, 'cron_activation' ) );
+			register_activation_hook( PLUGIN_FILE, array( $this, 'cronActivation' ) );
 
 			// Remove the DB and CORN upon uninstallation,
 			// Using $this won't work here.
-			register_uninstall_hook( PLUGIN_FILE, array( 'NirjharLo\\WP_Plugin_Framework\\PluginLoader', 'db_uninstall' ) );
-			register_uninstall_hook( PLUGIN_FILE, array( 'NirjharLo\\WP_Plugin_Framework\\PluginLoader', 'cron_uninstall' ) );
-
-			add_filter( 'rest_authentication_errors', array( $this, 'prevent_unauthorized_rest_access' ) );
+			register_uninstall_hook( PLUGIN_FILE, array( 'NirjharLo\\WP_Plugin_Framework\\PluginLoader', 'dbUninstall' ) );
+			register_uninstall_hook( PLUGIN_FILE, array( 'NirjharLo\\WP_Plugin_Framework\\PluginLoader', 'cronUninstall' ) );
 
 			add_action( 'init', array( $this, 'installation' ) );
+			add_action( 'init', array( $this, 'scripts' ) );
+
+
+			//Features
 			add_action( 'init', array( $this, 'cpt' ) );
-
-			$this->custom_cron_hook_cb();
-
-			$this->scripts();
+			$this->customCronHookCb();
 			$this->widgets();
 			$this->metabox();
 			$this->shortcode();
 			$this->settings();
 
+			//Gutenberg
+
+
+			//API
 			// Alternative method: add_action( 'rest_api_init', array($this, 'rest_api') );
 			$this->rest_api();
+			add_filter( 'rest_authentication_errors', array( $this, 'preventUnauthorizedRestAccess' ) );
 		}
 	}

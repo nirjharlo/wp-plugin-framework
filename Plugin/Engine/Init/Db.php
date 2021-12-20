@@ -105,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$this->table_name = $wpdb->prefix . $this->table;
 			if ( $wpdb->get_var( "SHOW TABLES LIKE '$this->table_name'" ) == $this->table_name ) {
 
-				update_option( "_{$pluginName}_db_exist", 1 );
+				update_option( "_" . PLUGIN_NAME . "_db_exist", 1 );
 			}
 		}
 	}

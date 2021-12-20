@@ -174,7 +174,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 
 			if ( $output ) {
-				return $output; // Related to PLUGIN_TABLE()
+				return $output; // Related to pluginTable()
 			}
 		}
 
@@ -190,7 +190,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$args   = array(
 				'label'   => __( 'Show per page', 'textdomain' ),
 				'default' => 10,
-				'option'  => 'option_name_per_page', // Related to PLUGIN_TABLE()
+				'option'  => 'option_name_per_page', // Related to pluginTable()
 			);
 			add_screen_option( $option, $args );
 		}

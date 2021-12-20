@@ -4,9 +4,9 @@ namespace NirjharLo\WP_Plugin_Framework\Engine\Lib;
 /**
  * Implimentation of WordPress inbuilt functions for creating an extension of a default table class.
  *
- * $my_plugin_name_table = new PLUGIN_TABLE();
- * $my_plugin_name_table->prepare_items();
- * $my_plugin_name_table->display();
+ * $my_pluginName_table = new pluginTable();
+ * $my_pluginName_table->prepare_items();
+ * $my_pluginName_table->display();
  *
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework

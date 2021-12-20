@@ -1,9 +1,10 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework;
 
-use NirjharLo\WP_Plugin_Framework\Engine\Src\Install as Install;
+use NirjharLo\WP_Plugin_Framework\Engine\Init\Install as Install;
+use NirjharLo\WP_Plugin_Framework\Engine\Init\Db as Db;
+
 use NirjharLo\WP_Plugin_Framework\Engine\Src\Cpt as Cpt;
-use NirjharLo\WP_Plugin_Framework\Engine\Src\Db as Db;
 use NirjharLo\WP_Plugin_Framework\Engine\Src\Settings as Settings;
 use NirjharLo\WP_Plugin_Framework\Engine\Src\Widget as Widget;
 use NirjharLo\WP_Plugin_Framework\Engine\Src\Metabox as Metabox;
@@ -24,7 +25,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'PluginLoader' ) ) {
 
 	final class PluginLoader {
 
@@ -47,7 +47,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @var String
 		 */
-		protected static $text_domain = 'textdomain';
+		protected static $textDomain = 'textdomain';
 
 
 		/**
@@ -55,7 +55,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @var String
 		 */
-		protected static $php_ver_allowed = '5.6';
+		protected static $phpVerAllowed = '5.6';
 
 
 		/**
@@ -63,7 +63,15 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @var String
 		 */
-		protected static $plugin_table = 'plugin_db_table_name';
+		protected static $pluginTable = "_plugin_db_table_name";
+
+
+		/**
+		 * DB tabble used in plugin
+		 *
+		 * @var String
+		 */
+		protected static $pluginName = PLUGIN_NAME;
 
 
 		/**
@@ -71,7 +79,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 *
 		 * @var Array
 		 */
-		protected static $plugin_page_links = array(
+		protected static $pluginPageLinks = array(
 			array(
 				'slug'  => '',
 				'label' => '',
@@ -100,16 +108,56 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		public function installation() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Engine\\Src\\Install' ) ) {
+			$install                 	= new Install();
+			$install->textDomain      = self::$textDomain;
+			$install->phpVerAllowed   = self::$phpVerAllowed;
+			$install->pluginPageLinks = self::$pluginPageLinks;
+			$install->execute();
+		}
 
-				$install                    = new Install();
-				$install->text_domain       = self::$text_domain;
-				$install->php_ver_allowed   = self::$php_ver_allowed;
-				$install->plugin_page_links = self::$plugin_page_links;
-				$install->execute();
+
+		/**
+		 * Install plugin data
+		 */
+		public function db_install() {
+
+				$db        = new Db();
+				$db->table = self::$pluginTable;
+				$db->sql   = '`ID` mediumint(9) NOT NULL AUTO_INCREMENT,
+							`date` date NOT NULL,
+							UNIQUE KEY `ID` (`ID`)';
+				// $db->build();
+
+			if ( get_option( '_' . PLUGIN_NAME . '_db_exist' ) === '0' ) {
+				add_action( 'admin_notices', array( $this, 'dbNotInstalledErrorMsg' ) );
 			}
 
-			// If CPT exists, include taht and flush the rewrite rules
+			$options = array(
+				array( 'option_name_1', '__value__1' ),
+			);
+			foreach ( $options as $value ) {
+				update_option( $value[0], $value[1] );
+			}
+		}
+
+
+		/**
+		 * Notice of DB
+		 */
+		public function dbNotInstalledErrorMsg() { ?>
+
+			<div class="notice notice-error is-dismissible">
+				<p><?php esc_attr_e( 'Database table Not installed correctly.', 'textdomain' ); ?></p>
+			</div>
+			<?php
+		}
+
+
+	 	/**
+		 * If CPT exists, include taht and flush the rewrite rules upon activation
+		 */
+		public function flushPermalinks() {
+
 			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Engine\\Src\\Cpt' ) ) {
 				new Cpt();
 				flush_rewrite_rules();
@@ -122,59 +170,16 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		public function cron_activation() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Cron' ) ) {
-
-				$cron     = new Cron();
-				$schedule = $cron->schedule_task(
-					array(
-						'timestamp'  => current_time( 'timestamp' ),
-						// 'schedule' can be 'hourly', 'daily', 'weekly' or anything custom as defined in PLUGIN_CRON
-						'recurrence' => 'schedule',
-						// Use custom_corn_hook to hook into any cron process, anywhere in the plugin.
-						'hook'       => 'custom_cron_hook',
-					)
-				);
-			}
-		}
-
-
-		/**
-		 * Install plugin data
-		 */
-		public function db_install() {
-
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Engine\\Src\\Db' ) ) {
-
-				$db        = new Db();
-				$db->table = self::$plugin_table;
-				$db->sql   = '`ID` mediumint(9) NOT NULL AUTO_INCREMENT,
-							`date` date NOT NULL,
-							UNIQUE KEY `ID` (`ID`)';
-				// $db->build();
-			}
-
-			if ( get_option( '_plugin_db_exist' ) === '0' ) {
-				add_action( 'admin_notices', array( $this, 'db_error_msg' ) );
-			}
-
-			$options = array(
-				array( 'option_name', '__value__' ),
+			$cron     = new Cron();
+			$schedule = $cron->schedule_task(
+				array(
+					'timestamp'  => current_time( 'timestamp' ),
+					// 'schedule' can be 'hourly', 'daily', 'weekly' or anything custom as defined in PLUGIN_CRON
+					'recurrence' => 'schedule',
+					// Use custom_corn_hook to hook into any cron process, anywhere in the plugin.
+					'hook'       => 'custom_cron_hook',
+				)
 			);
-			foreach ( $options as $value ) {
-				update_option( $value[0], $value[1] );
-			}
-		}
-
-
-		/**
-		 * Notice of DB
-		 */
-		public function db_error_msg() { ?>
-
-			<div class="notice notice-error is-dismissible">
-				<p><?php esc_attr_e( 'Database table Not installed correctly.', 'textdomain' ); ?></p>
-			</div>
-			<?php
 		}
 
 
@@ -183,7 +188,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		public function db_uninstall() {
 
-			$table_name = self::$plugin_table;
+			$table_name = self::$pluginTable;
 
 			global $wpdb;
 			$wpdb->query(
@@ -194,7 +199,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 			);
 
 			$options = array(
-				'_plugin_db_exist',
+				PLUGIN_NAME . "_db_exist",
 			);
 			foreach ( $options as $value ) {
 				delete_option( $value );
@@ -324,6 +329,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		public function init() {
 
 			register_activation_hook( PLUGIN_FILE, array( $this, 'db_install' ) );
+			register_activation_hook( PLUGIN_FILE, array( $this, 'flushPermalinks' ) );
 			register_activation_hook( PLUGIN_FILE, array( $this, 'cron_activation' ) );
 
 			// Remove the DB and CORN upon uninstallation,
@@ -348,4 +354,3 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 			$this->rest_api();
 		}
 	}
-} ?>

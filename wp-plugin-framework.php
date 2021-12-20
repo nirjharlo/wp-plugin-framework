@@ -29,6 +29,7 @@ defined( 'PLUGIN_JS' ) || define( 'PLUGIN_JS', plugins_url( '/asset/js/', __FILE
 defined( 'PLUGIN_CSS' ) || define( 'PLUGIN_CSS', plugins_url( '/asset/css/', __FILE__ ) );
 defined( 'PLUGIN_IMAGE' ) || define( 'PLUGIN_IMAGE', plugins_url( '/asset/img/', __FILE__ ) );
 
+defined( 'PLUGIN_NAME' ) || define( 'PLUGIN_NAME', 'plugin' );
 
 require __DIR__ . '/vendor/autoload.php';
 /**

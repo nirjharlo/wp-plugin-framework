@@ -12,7 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-	final class Script {
+	abstract class Script {
+
+
+		public static $cssName;
+
+		public static $scriptName;
+
+		public static $ajaxObjName;
 
 
 		/**
@@ -22,9 +29,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function __construct() {
 
-			add_action( 'admin_head', array( $this, 'data_table_css' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'backend_scripts' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
+			add_action( 'admin_head', array( $this, 'adminHeaderCss' ) );
+			add_action( 'wp_head', array( $this, 'HeaderCss' ) );
+
+			add_action( 'admin_enqueue_scripts', array( $this, 'backEndScript' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'frontEndScript' ) );
+
+			add_action( 'admin_enqueue_scripts', array( $this, 'backEndStyle' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'frontEndStyle' ) );
+
+			add_action( 'admin_enqueue_scripts', array( $this, 'backEndAjaxScript' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'frontEndAjaxScript' ) );
 		}
 
 
@@ -53,15 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function backend_scripts() {
 
-			// Set condition to add script
-			// if ( ! isset( $_GET['page'] ) || $_GET['page'] != 'pageName' ) return;
-
-			wp_enqueue_script( 'jsName', PLUGIN_JS . 'ui.js', array() );
-
-			wp_enqueue_script( 'action-jsName', PLUGIN_JS . 'ajax.js', array() );
-			wp_localize_script( 'action-jsName', 'ajax', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
-
-			wp_enqueue_style( 'cssName', PLUGIN_CSS . 'css.css' );
+			wp_enqueue_script( $this->scriptName, PLUGIN_JS . 'ui.js', array() );
 		}
 
 
@@ -72,11 +79,55 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function frontend_scripts() {
 
-			wp_enqueue_script( 'jsName', PLUGIN_JS . 'ui.js', array() );
+			wp_enqueue_script( $this->scriptName, PLUGIN_JS . 'ui.js', array() );
+		}
 
-			wp_enqueue_script( 'action-jsName', PLUGIN_JS . 'ajax.js', array() );
-			wp_localize_script( 'action-jsName', 'ajax', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
 
-			wp_enqueue_style( 'cssName', PLUGIN_CSS . 'css.css' );
+		/**
+		 * Enter scripts into pages
+		 *
+		 * @return String
+		 */
+		public function backEndStyle() {
+
+			// Set condition to add script
+			// if ( ! isset( $_GET['page'] ) || $_GET['page'] != 'pageName' ) return;
+
+			wp_enqueue_style( $this->cssName, PLUGIN_CSS . 'css.css' );
+		}
+
+
+		/**
+		 * Enter scripts into pages
+		 *
+		 * @return String
+		 */
+		public function frontEndStyle() {
+
+			wp_enqueue_style( $this->cssName, PLUGIN_CSS . 'css.css' );
+		}
+
+
+		/**
+		 * Enter scripts into pages
+		 *
+		 * @return String
+		 */
+		public function backEndAjaxScript() {
+
+			wp_enqueue_script( $this->ajaxScriptName, PLUGIN_JS . 'ajax.js', array('jquery') );
+			wp_localize_script( $this->ajaxScriptName, $this->ajaxObjName, array( 'url' => admin_url( 'admin-ajax.php' ) ) );
+		}
+
+
+		/**
+		 * Enter scripts into pages
+		 *
+		 * @return String
+		 */
+		public function frontEndAjaxScript() {
+
+			wp_enqueue_script( $this->ajaxScriptName, PLUGIN_JS . 'ajax.js', array('jquery') );
+			wp_localize_script( $this->ajaxScriptName, $this->ajaxObjName, array( 'url' => admin_url( 'admin-ajax.php' ) ) );
 		}
 	}

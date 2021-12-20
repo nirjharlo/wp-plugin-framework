@@ -108,11 +108,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function installation() {
 
-			$install                 	= new Install();
-			$install->textDomain      = self::$textDomain;
-			$install->phpVerAllowed   = self::$phpVerAllowed;
-			$install->pluginPageLinks = self::$pluginPageLinks;
-			$install->execute();
+			$install                 	 = new Install();
+			$install::$textDomain      = self::$textDomain;
+			$install::$phpVerAllowed   = self::$phpVerAllowed;
+			$install::$pluginPageLinks = self::$pluginPageLinks;
+			$install::execute();
 		}
 
 
@@ -162,6 +162,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 				new Cpt();
 				flush_rewrite_rules();
 			}
+		}
+
+
+		/**
+		 * Include scripts
+		 */
+		public function scripts() {
+
+				#new Script();
 		}
 
 
@@ -240,15 +249,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		public function cpt() {
 
 				new Cpt();
-		}
-
-
-		/**
-		 * Include scripts
-		 */
-		private function scripts() {
-
-				new Script();
 		}
 
 

@@ -18,19 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/**
 		 * @var String
 		 */
-		public $textDomain;
+		public static $textDomain;
 
 
 		/**
 		 * @var String
 		 */
-		public $phpVerAllowed;
+		public static $phpVerAllowed;
 
 
 		/**
 		 * @var Array
 		 */
-		public $pluginPageLinks;
+		public static $pluginPageLinks;
 
 
 		/**
@@ -38,11 +38,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function execute() {
+		public static function execute() {
 
-			add_action( 'plugins_loaded', array( $this, 'textDomainCb' ) );
-			add_action( 'admin_notices', array( $this, 'phpVerIncompatibleCb' ) );
-			add_filter( 'plugin_action_links', array( $this, 'menuPageLinkCb' ), 10, 2 );
+			add_action( 'plugins_loaded', array( __CLASS__, 'textDomainCb' ) );
+			add_action( 'admin_notices', array( __CLASS__, 'phpVerIncompatibleCb' ) );
+			add_filter( 'plugin_action_links', array( __CLASS__, 'menuPageLinkCb' ), 10, 2 );
 		}
 
 
@@ -51,14 +51,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @return Void
 		 */
-		public function textDomainCb() {
+		public static function textDomainCb() {
 
 			$locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
-			$locale = apply_filters( 'plugin_locale', $locale, $this->textDomain );
+			$locale = apply_filters( 'plugin_locale', $locale, self::$textDomain );
 
-			unload_textdomain( $this->textDomain );
-			load_textdomain( $this->textDomain, PLUGIN_LN . 'textdomain-' . $locale . '.mo' );
-			load_plugin_textdomain( $this->textDomain, false, PLUGIN_LN );
+			unload_textdomain( self::$textDomain );
+			load_textdomain( self::$textDomain, PLUGIN_LN . 'textdomain-' . $locale . '.mo' );
+			load_plugin_textdomain( self::$textDomain, false, PLUGIN_LN );
 		}
 
 
@@ -67,11 +67,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @return String
 		 */
-		public function phpVerIncompatibleCb() {
+		public static function phpVerIncompatibleCb() {
 
-			if ( version_compare( phpversion(), $this->phpVerAllowed, '<' ) ) :
+			if ( version_compare( phpversion(), self::$phpVerAllowed, '<' ) ) :
 				$text      = __( 'The Plugin can\'t be activated because your PHP version', 'textdomain' );
-				$text_last = __( 'is less than required ' . $this->phpVerAllowed . '. See more information', 'textdomain' );
+				$text_last = __( 'is less than required ' . self::$phpVerAllowed . '. See more information', 'textdomain' );
 				$text_link = 'php.net/eol.php'; ?>
 
 				<div id="message" class="updated notice notice-success is-dismissible">
@@ -93,16 +93,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @return Array
 		 */
-		public function menuPageLinkCb( $links, $file ) {
+		public static function menuPageLinkCb( $links, $file ) {
 
-			if ( $this->pluginPageLinks ) {
+			if ( self::$pluginPageLinks ) {
 				static $this_plugin;
 				if ( ! $this_plugin ) {
 					$this_plugin = PLUGIN_FILE;
 				}
 				if ( $file == $this_plugin ) {
 					$shift_link = array();
-					foreach ( $this->pluginPageLinks as $value ) {
+					foreach ( self::$pluginPageLinks as $value ) {
 						$shift_link[] = '<a href="' . $value['slug'] . '">' . $value['label'] . '</a>';
 					}
 					foreach ( $shift_link as $val ) {

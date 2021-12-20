@@ -1,5 +1,5 @@
 <?php
-namespace NirjharLo\WP_Plugin_Framework\Src;
+namespace NirjharLo\WP_Plugin_Framework\Engine\Src;
 
 use League\Plates\Engine as Template;
 
@@ -59,7 +59,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) {
 
 			wp_nonce_field( basename( __FILE__ ), 'metabox_name_nonce' );
 
-			$templates = new Template( PLUGIN_PATH . '/plugin/views' );
+			$templates = new Template( PLUGIN_PATH . '/Plugin/Engine/views' );
 			echo $templates->render(
 				'metabox',
 				array(

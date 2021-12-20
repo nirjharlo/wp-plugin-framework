@@ -37,36 +37,36 @@ It's a precaution to avoid conflict.
 
 Go through the files in `/lib/class-` and `/src/class-`. First one contains classes for extra features, while the latter is using essential features.
 
-### `/plugin/lib` Files
+### `/Plugin/Engine/lib` Files
 
-`/plugin/lib/Cron.php` :: `Cron` to schedule operations.
+`/Plugin/Engine/lib/Cron.php` :: `Cron` to schedule operations.
 
-`/plugin/lib/Api.php` :: `Api` to integrate 3rd party APIs.
+`/Plugin/Engine/lib/Api.php` :: `Api` to integrate 3rd party APIs.
 
-`/plugin/lib/Table.php` :: `Table` to display data tables.
+`/Plugin/Engine/lib/Table.php` :: `Table` to display data tables.
 
-`/plugin/lib/Ajax.php` :: `Ajax` to make AJAX requests.
+`/Plugin/Engine/lib/Ajax.php` :: `Ajax` to make AJAX requests.
 
-`/plugin/lib/Upload.php` :: `Upload` to upload a file.
+`/Plugin/Engine/lib/Upload.php` :: `Upload` to upload a file.
 
-`/plugin/lib/Script.php` :: `Script` to add required CSS and JS.
+`/Plugin/Engine/lib/Script.php` :: `Script` to add required CSS and JS.
 
-### `/plugin/src` Files
+### `/Plugin/Engine/src` Files
 
-`/plugin/src/Install.php` :: `Install` to handle activation process.
+`/Plugin/Engine/src/Install.php` :: `Install` to handle activation process.
 
-`/plugin/src/Db.php` :: `Db` to install database tables.
+`/Plugin/Engine/src/Db.php` :: `Db` to install database tables.
 
-`/plugin/src/Settings.php` :: `Settings` to create admin settings pages.
+`/Plugin/Engine/src/Settings.php` :: `Settings` to create admin settings pages.
 
-`/plugin/src/Cpt.php` :: `Cpt` to create custom post type.
+`/Plugin/Engine/src/Cpt.php` :: `Cpt` to create custom post type.
 
-`/plugin/src/Widget.php` :: `Widget` to add custom widget.
+`/Plugin/Engine/src/Widget.php` :: `Widget` to add custom widget.
 
-`/plugin/src/Metabox.php` :: `Metabox` to add custom metabox in editor screen.
+`/Plugin/Engine/src/Metabox.php` :: `Metabox` to add custom metabox in editor screen.
 
-`/plugin/src/Shortcode.php`:: `Shortcode` to add and display shortcodes.
+`/Plugin/Engine/src/Shortcode.php`:: `Shortcode` to add and display shortcodes.
 
-`/plugin/src/Query.php`:: `Query` to use post and user query. It uses `wp_pagenavi()` for breadceumbs
+`/Plugin/Engine/src/Query.php`:: `Query` to use post and user query. It uses `wp_pagenavi()` for breadceumbs
 
-`/plugin/src/RestApi.php`:: `RestApi` to extend REST API.
+`/Plugin/Engine/src/RestApi.php`:: `RestApi` to extend REST API.

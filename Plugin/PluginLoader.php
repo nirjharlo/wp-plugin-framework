@@ -1,17 +1,17 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework;
 
-use NirjharLo\WP_Plugin_Framework\Src\Install as Install;
-use NirjharLo\WP_Plugin_Framework\Src\Cpt as Cpt;
-use NirjharLo\WP_Plugin_Framework\Src\Db as Db;
-use NirjharLo\WP_Plugin_Framework\Src\Settings as Settings;
-use NirjharLo\WP_Plugin_Framework\Src\Widget as Widget;
-use NirjharLo\WP_Plugin_Framework\Src\Metabox as Metabox;
-use NirjharLo\WP_Plugin_Framework\Src\Shortcode as Shortcode;
-use NirjharLo\WP_Plugin_Framework\Src\RestApi as RestApi;
+use NirjharLo\WP_Plugin_Framework\Engine\Src\Install as Install;
+use NirjharLo\WP_Plugin_Framework\Engine\Src\Cpt as Cpt;
+use NirjharLo\WP_Plugin_Framework\Engine\Src\Db as Db;
+use NirjharLo\WP_Plugin_Framework\Engine\Src\Settings as Settings;
+use NirjharLo\WP_Plugin_Framework\Engine\Src\Widget as Widget;
+use NirjharLo\WP_Plugin_Framework\Engine\Src\Metabox as Metabox;
+use NirjharLo\WP_Plugin_Framework\Engine\Src\Shortcode as Shortcode;
+use NirjharLo\WP_Plugin_Framework\Engine\Src\RestApi as RestApi;
 
-use NirjharLo\WP_Plugin_Framework\Lib\Cron as Cron;
-use NirjharLo\WP_Plugin_Framework\Lib\Script as Script;
+use NirjharLo\WP_Plugin_Framework\Engine\Lib\Cron as Cron;
+use NirjharLo\WP_Plugin_Framework\Engine\Lib\Script as Script;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

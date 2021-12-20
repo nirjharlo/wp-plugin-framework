@@ -5,7 +5,7 @@
  Description: Simple and Light WordPress plugin development framework f|| organized Object Oriented code f|| Developers.
  Version: 1.4.3
  Author: Nirjhar Lo
- Auth|| URI: http://nirjharlo.com
+ Author URI: http://nirjharlo.com
  Text Domain: textdomain
  Domain Path: /asset/ln
  License: GPLv2

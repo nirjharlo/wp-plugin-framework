@@ -1,5 +1,5 @@
 <?php
-namespace NirjharLo\WP_Plugin_Framework\Src;
+namespace NirjharLo\WP_Plugin_Framework\Engine\Src;
 
 use WP_REST_Controller as WP_REST_Controller;
 

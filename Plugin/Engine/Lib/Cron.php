@@ -1,5 +1,5 @@
 <?php
-namespace NirjharLo\WP_Plugin_Framework\Lib;
+namespace NirjharLo\WP_Plugin_Framework\Engine\Lib;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

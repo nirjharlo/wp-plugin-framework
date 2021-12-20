@@ -1,5 +1,5 @@
 <?php
-namespace NirjharLo\WP_Plugin_Framework\Src;
+namespace NirjharLo\WP_Plugin_Framework\Engine\Src;
 
 use League\Plates\Engine as Template;
 
@@ -45,7 +45,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 		 */
 		public function widget( $args, $instance ) {
 
-			$templates = new Template( PLUGIN_PATH . '/plugin/views/widget' );
+			$templates = new Template( PLUGIN_PATH . '/Plugin/Engine/views/widget' );
 			echo $templates->render(
 				'content',
 				array(
@@ -70,7 +70,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 
 			$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Internal Link Master', 'textdomain' );
 
-			$templates = new Template( PLUGIN_PATH . '/plugin/views/widget' );
+			$templates = new Template( PLUGIN_PATH . '/Plugin/Engine/views/widget' );
 			echo $templates->render(
 				'form',
 				array(

@@ -1,7 +1,7 @@
 <?php
-namespace NirjharLo\WP_Plugin_Framework\Src;
+namespace NirjharLo\WP_Plugin_Framework\Engine\Src;
 
-use NirjharLo\WP_Plugin_Framework\Lib\Table as Table;
+use NirjharLo\WP_Plugin_Framework\Engine\Lib\Table as Table;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

@@ -1,5 +1,5 @@
 <?php
-namespace NirjharLo\WP_Plugin_Framework\Src;
+namespace NirjharLo\WP_Plugin_Framework\Engine\Src;
 
 use League\Plates\Engine as Template;
 
@@ -54,7 +54,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' ) ) {
 		 */
 		private function html( $data ) {
 
-			$templates = new Template( PLUGIN_PATH . '/plugin/views' );
+			$templates = new Template( PLUGIN_PATH . '/Plugin/Engine/views' );
 			echo $templates->render(
 				'shortcode',
 				array(

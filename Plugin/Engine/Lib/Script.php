@@ -1,5 +1,5 @@
 <?php
-namespace NirjharLo\WP_Plugin_Framework\Lib;
+namespace NirjharLo\WP_Plugin_Framework\Engine\Lib;
 
 /**
  * Add scripts to the plugin. CSS and JS.

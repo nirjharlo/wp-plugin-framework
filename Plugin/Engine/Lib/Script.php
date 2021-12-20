@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 
 	final class Script {
 
@@ -81,4 +80,3 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 			wp_enqueue_style( 'cssName', PLUGIN_CSS . 'css.css' );
 		}
 	}
-}

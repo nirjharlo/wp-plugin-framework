@@ -19,7 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Cron' ) ) {
 
 	final class Cron {
 
@@ -112,4 +111,3 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Cron' ) ) {
 			return true;
 		}
 	}
-}

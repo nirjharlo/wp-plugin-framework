@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) {
 
 	class Cpt {
 
@@ -195,4 +194,3 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) {
 			return $args;
 		}
 	}
-}

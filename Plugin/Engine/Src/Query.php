@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'Query' ) ) {
 
 	class Query {
 
@@ -154,4 +153,3 @@ if ( ! class_exists( 'Query' ) ) {
 			return $args;
 		}
 	}
-}

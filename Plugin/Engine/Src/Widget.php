@@ -15,7 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 
 	final class Widget extends WP_WIDGET {
 
@@ -96,4 +95,3 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 			return $instance;
 		}
 	}
-}

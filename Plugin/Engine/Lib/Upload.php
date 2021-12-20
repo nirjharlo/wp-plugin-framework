@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 
 	final class Upload {
 
@@ -129,4 +128,3 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 			<?php
 		}
 	}
-} ?>

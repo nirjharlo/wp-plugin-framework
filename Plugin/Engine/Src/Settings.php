@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Settings' ) ) {
 
 	class Settings {
 
@@ -300,4 +299,3 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Settings' ) ) {
 			*/
 		}
 	}
-} ?>

@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) {
 
 	class RestApi extends WP_REST_Controller {
 
@@ -88,4 +87,3 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) {
 			return $data;
 		}
 	}
-}

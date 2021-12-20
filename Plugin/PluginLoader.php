@@ -100,7 +100,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		public function installation() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Install' ) ) {
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Engine\\Src\\Install' ) ) {
 
 				$install                    = new Install();
 				$install->text_domain       = self::$text_domain;
@@ -110,7 +110,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 			}
 
 			// If CPT exists, include taht and flush the rewrite rules
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) {
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Engine\\Src\\Cpt' ) ) {
 				new Cpt();
 				flush_rewrite_rules();
 			}
@@ -143,7 +143,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		public function db_install() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Db' ) ) {
+			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Engine\\Src\\Db' ) ) {
 
 				$db        = new Db();
 				$db->table = self::$plugin_table;
@@ -234,9 +234,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		public function cpt() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Cpt' ) ) {
 				new Cpt();
-			}
 		}
 
 
@@ -245,9 +243,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		private function scripts() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Script' ) ) {
 				new Script();
-			}
 		}
 
 
@@ -256,9 +252,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		private function settings() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Settings' ) ) {
 				new Settings();
-			}
 		}
 
 
@@ -267,9 +261,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		private function widgets() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Widget' ) ) {
 				new Widget();
-			}
 		}
 
 
@@ -278,9 +270,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		private function metabox() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) {
 				new Metabox();
-			}
 		}
 
 
@@ -289,9 +279,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		private function shortcode() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Shortcode' ) ) {
 				new Shortcode();
-			}
 		}
 
 
@@ -300,9 +288,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 */
 		private function rest_api() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\RestApi' ) ) {
-					new RestApi();
-			}
+			new RestApi();
 		}
 
 
@@ -336,6 +322,7 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 		 * Instantiate the plugin
 		 */
 		public function init() {
+
 			register_activation_hook( PLUGIN_FILE, array( $this, 'db_install' ) );
 			register_activation_hook( PLUGIN_FILE, array( $this, 'cron_activation' ) );
 

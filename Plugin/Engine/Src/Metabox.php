@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Nirjhar Lo
  * @package    wp-plugin-framework
  */
-if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) {
 
 	final class Metabox {
 
@@ -76,7 +75,7 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) {
 		 *
 		 * @return Html
 		 */
-		function save( $post_id, $post ) {
+		public function save( $post_id, $post ) {
 
 			// Check if doing autosave
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -101,4 +100,3 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Metabox' ) ) {
 			}
 		}
 	}
-}

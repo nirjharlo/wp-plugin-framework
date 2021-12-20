@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // AJAX helper class
-if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Ajax' ) ) {
 
 	final class Ajax {
 
@@ -62,4 +61,3 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Ajax' ) ) {
 			wp_die();
 		}
 	}
-} ?>

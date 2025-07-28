@@ -1,6 +1,10 @@
 <?php
 namespace NirjharLo\WP_Plugin_Framework\Engine\Lib;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Implimentation of WordPress inbuilt API class
  *
@@ -18,45 +22,98 @@ namespace NirjharLo\WP_Plugin_Framework\Engine\Lib;
  * @package    wp-plugin-framework
  */
 
-	class Api {
+class Api
+{
+    /**
+     * API endpoint URL.
+     *
+     * @var string
+     */
+    protected $endpoint = '';
 
 
-		/**
-		 * @var String
-		 */
-		public $endpoint;
+    /**
+     * Request headers.
+     *
+     * @var array
+     */
+    protected $header = [];
 
 
-		/**
-		 * @var Array
-		 */
-		public $header;
+    /**
+     * Response data type.
+     *
+     * @var string
+     */
+    protected $dataType = 'json';
 
 
-		/**
-		 * @var String
-		 */
-		public $data_type;
+    /**
+     * HTTP method to use.
+     *
+     * @var string
+     */
+    protected $callType = 'GET';
 
 
-		/**
-		 * @var String
-		 */
-		public $call_type;
+    /**
+     * Initialise a new API request.
+     */
+    public function __construct( string $endpoint = '', array $header = [], string $method = 'GET', string $dataType = 'json' )
+    {
+        $this->endpoint  = $endpoint;
+        $this->header    = $header;
+        $this->callType  = $method;
+        $this->dataType  = $dataType;
+    }
 
+    /**
+     * Create a new instance fluently.
+     */
+    public static function make(): self
+    {
+        return new self();
+    }
 
-		/**
-		 * Define the properties inside a instance
-		 *
-		 * @return Void
-		 */
-		public function __construct() {
+    /**
+     * Set the endpoint.
+     */
+    public function endpoint( string $endpoint ): self
+    {
+        $this->endpoint = $endpoint;
 
-			$this->endpoint  = '';
-			$this->header    = array();
-			$this->data_type = ''; // xml or json
-			$this->call_type = '';
-		}
+        return $this;
+    }
+
+    /**
+     * Set request headers.
+     */
+    public function header( array $header ): self
+    {
+        $this->header = $header;
+
+        return $this;
+    }
+
+    /**
+     * Set HTTP method.
+     */
+    public function method( string $method ): self
+    {
+        $this->callType = strtoupper( $method );
+
+        return $this;
+    }
+
+    /**
+     * Set data type.
+     */
+    public function dataType( string $dataType ): self
+    {
+        $this->dataType = $dataType;
+
+        return $this;
+    }
 
 
 		/**
@@ -64,21 +121,19 @@ namespace NirjharLo\WP_Plugin_Framework\Engine\Lib;
 		 *
 		 * @return Array
 		 */
-		protected function build() {
-
-			$args = array(
-				CURLOPT_URL            => $this->endpoint,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING       => '',
-				CURLOPT_MAXREDIRS      => 10,
-				CURLOPT_TIMEOUT        => 30,
-				CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST  => $this->call_type,
-				CURLOPT_HTTPHEADER     => $this->header,
-			);
-
-			return $args;
-		}
+    protected function build(): array
+    {
+        return [
+            CURLOPT_URL            => $this->endpoint,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING       => '',
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_TIMEOUT        => 30,
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST  => $this->callType,
+            CURLOPT_HTTPHEADER     => $this->header,
+        ];
+    }
 
 
 		/**
@@ -86,63 +141,52 @@ namespace NirjharLo\WP_Plugin_Framework\Engine\Lib;
 		 *
 		 * @return Array
 		 */
-		public function call() {
+    public function call()
+    {
+        $curl = curl_init();
 
-			$curl = curl_init();
+        curl_setopt_array( $curl, $this->build() );
 
-			curl_setopt_array( $curl, $this->build() );
+        $result = curl_exec( $curl );
+        $err    = curl_error( $curl );
 
-			$result = curl_exec( $curl );
-			$err    = curl_error( $curl );
+        curl_close( $curl );
 
-			curl_close( $curl );
+        if ( $err ) {
+            return 'cURL Error #:' . $err;
+        }
 
-			if ( $err ) {
-				$result = 'cURL Error #:' . $err;
-			}
-
-			return $result;
-		}
-
-
-		/**
-		 * Check options and tables and output the info to check if db install is successful
-		 *
-		 * @return Array
-		 */
-		public function parse( $data ) {
-
-			call_user_func( array( $this, $this->data_type ), $data );
-		}
+        return $result;
+    }
 
 
-		/**
-		 * Parse XML data type
-		 *
-		 * @return Array
-		 */
-		protected function xml( $data ) {
-
-			libxml_use_internal_errors( true );
-			$parsed = ( ! $data || $data == '' ? false : simplexml_load_string( $data ) );
-
-			if ( ! $parsed ) {
-				return false;
-				libxml_clear_errors();
-			} else {
-				return $parsed;
-			}
-		}
+    /**
+     * Parse the returned data based on the configured data type.
+     */
+    public function parse( string $data )
+    {
+        return call_user_func( [ $this, $this->dataType ], $data );
+    }
 
 
-		/**
-		 * Parse JSON data type
-		 *
-		 * @return Array
-		 */
-		protected function json( $data ) {
+    /**
+     * Parse XML data type.
+     */
+    protected function xml( string $data )
+    {
+        libxml_use_internal_errors( true );
+        $parsed = empty( $data ) ? false : simplexml_load_string( $data );
+        libxml_clear_errors();
 
-			$parsed = ( ! $data || $data == '' ? false : json_decode( $data, 1 ) );
-			return $parsed;
-		}
-	}
+        return $parsed ?: false;
+    }
+
+
+    /**
+     * Parse JSON data type.
+     */
+    protected function json( string $data )
+    {
+        return empty( $data ) ? false : json_decode( $data, true );
+    }
+}

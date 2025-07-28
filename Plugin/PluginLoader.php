@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/**
 		 * @var String
 		 */
-		protected $version = '1.4.3';
+                protected $version = '1.4.4';
 
 
 		/**
@@ -179,9 +179,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function cronActivation() {
 
-			$cron     = new Cron();
-			$schedule = $cron->schedule_task(
-				array(
+                        $cron     = new Cron();
+                        $schedule = $cron->schedule(
+                                array(
 					'timestamp'  => current_time( 'timestamp' ),
 					// 'schedule' can be 'hourly', 'daily', 'weekly' or anything custom as defined in PLUGIN_CRON
 					'recurrence' => 'schedule',

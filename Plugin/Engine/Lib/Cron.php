@@ -2,7 +2,7 @@
 namespace NirjharLo\WP_Plugin_Framework\Engine\Lib;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -20,94 +20,82 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package    wp-plugin-framework
  */
 
-	final class Cron {
+final class Cron
+{
+    /**
+     * Add corn to wp scheduler.
+     */
+    public function __construct()
+    {
+        // Add cron schedules
+        add_filter( 'cron_schedules', [ $this, 'registerSchedules' ] );
+    }
 
 
-		/**
-		 * Add corn to wp scheduler
-		 *
-		 * @return Void
-		 */
-		public function __construct() {
+    /**
+     * Set up the schedules.
+     */
+    public function registerSchedules( array $schedules ): array
+    {
+        $prefix = 'prefix_'; // Avoid conflict with other crons. Example Reference: cron_30_mins
 
-			// Add cron schedules
-			add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
-		}
+        // Example schedule options
+        $scheduleOptions = [
+            '24_hrs' => [
+                'display'  => '24 hours',
+                'interval' => 86400,
+            ],
+            '48_hrs' => [
+                'display'  => '48 hours',
+                'interval' => 172800,
+            ],
+            '72_hrs' => [
+                'display'  => '72 hours',
+                'interval' => 259200,
+            ],
+        ];
 
+        /* Add each custom schedule into the cron job system. */
+        foreach ( $scheduleOptions as $scheduleKey => $schedule ) {
+            if ( ! isset( $schedules[ $prefix . $scheduleKey ] ) ) {
+                $schedules[ $prefix . $scheduleKey ] = [
+                    'interval' => $schedule['interval'],
+                    'display'  => __( 'Every ' . $schedule['display'] ),
+                ];
+            }
+        }
 
-		/**
-		 * Set up the schedules
-		 *
-		 * @return Void
-		 */
-		public function cron_schedules( $schedules ) {
-
-			$prefix = 'prefix_'; // Avoid conflict with other crons. Example Reference: cron_30_mins
-
-			// Example schedule options
-			$schedule_options = array(
-				'24_hrs' => array(
-					'display'  => '24 hours',
-					'interval' => 86400,
-				),
-				'48_hrs' => array(
-					'display'  => '48 hours',
-					'interval' => 172800,
-				),
-				'72_hrs' => array(
-					'display'  => '72 hours',
-					'interval' => 259200,
-				),
-			);
-
-			/* Add each custom schedule into the cron job system. */
-			foreach ( $schedule_options as $schedule_key => $schedule ) {
-
-				if ( ! isset( $schedules[ $prefix . $schedule_key ] ) ) {
-
-					$schedules[ $prefix . $schedule_key ] = array(
-						'interval' => $schedule['interval'],
-						'display'  => __( 'Every ' . $schedule['display'] ),
-					);
-				}
-			}
-
-			return $schedules;
-		}
+        return $schedules;
+    }
 
 
-		/**
-		 * Schedule the task based on added schedules
-		 *
-		 * @return Bool
-		 */
-		public function schedule_task( $task ) {
+    /**
+     * Schedule the task based on added schedules.
+     */
+    public function schedule( array $task ): bool
+    {
+        $requiredKeys = [ 'timestamp', 'recurrence', 'hook' ];
 
-			if ( ! $task ) {
-				return false;
-			}
+        foreach ( $requiredKeys as $key ) {
+            if ( ! array_key_exists( $key, $task ) ) {
+                return false;
+            }
+        }
 
-			$required_keys = array(
-				'timestamp',
-				'recurrence',
-				'hook',
-			);
-			$missing_keys  = array();
-			foreach ( $required_keys as $key ) {
-				if ( ! array_key_exists( $key, $task ) ) {
-					$missing_keys[] = $key;
-				}
-			}
+        if ( wp_next_scheduled( $task['hook'] ) ) {
+            wp_clear_scheduled_hook( $task['hook'] );
+        }
 
-			if ( ! empty( $missing_keys ) ) {
-				return false;
-			}
+        wp_schedule_event( $task['timestamp'], $task['recurrence'], $task['hook'] );
 
-			if ( wp_next_scheduled( $task['hook'] ) ) {
-				wp_clear_scheduled_hook( $task['hook'] );
-			}
+        return true;
+    }
 
-			wp_schedule_event( $task['timestamp'], $task['recurrence'], $task['hook'] );
-			return true;
-		}
-	}
+    /**
+     * Backwards compatible wrapper for {@see schedule()}.
+     */
+    public function schedule_task( array $task ): bool
+    {
+        return $this->schedule( $task );
+    }
+}

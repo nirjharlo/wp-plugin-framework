@@ -3,7 +3,7 @@
  Plugin Name: WordPress Plugin Framework
  Plugin URI: https://github.com/nirjharlo/wp-plugin-framework/
  Description: Simple and Light WordPress plugin development framework f|| organized Object Oriented code f|| Developers.
- Version: 1.4.3
+ Version: 1.4.4
  Author: Nirjhar Lo
  Author URI: http://nirjharlo.com
  Text Domain: textdomain

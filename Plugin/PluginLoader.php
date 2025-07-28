@@ -13,6 +13,7 @@ use NirjharLo\WP_Plugin_Framework\Engine\Src\Shortcode as Shortcode;
 use NirjharLo\WP_Plugin_Framework\Engine\Src\RestApi as RestApi;
 
 use NirjharLo\WP_Plugin_Framework\Engine\Lib\Cron as Cron;
+use NirjharLo\WP_Plugin_Framework\Support\Container;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package    wp-plugin-framework
  */
 
-	final class PluginLoader {
+        final class PluginLoader {
 
 		/**
 		 * @var String
@@ -79,12 +80,56 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @var Array
 		 */
-		protected static $pluginPageLinks = array(
-			array(
-				'slug'  => '',
-				'label' => '',
-			),
-		);
+                protected static $pluginPageLinks = array(
+                        array(
+                                'slug'  => '',
+                                'label' => '',
+                        ),
+                );
+
+                public function __construct() {
+                        $this->container = new Container();
+                        $this->registerBindings();
+                }
+
+                /**
+                 * Register bindings with the container.
+                 *
+                 * @return void
+                 */
+                protected function registerBindings() {
+                        $this->container->singleton( Cpt::class, function () {
+                                return new Cpt();
+                        } );
+                        $this->container->singleton( Settings::class, function () {
+                                return new Settings();
+                        } );
+                        $this->container->singleton( Widget::class, function () {
+                                return new Widget();
+                        } );
+                        $this->container->singleton( Metabox::class, function () {
+                                return new Metabox();
+                        } );
+                        $this->container->singleton( Shortcode::class, function () {
+                                return new Shortcode();
+                        } );
+                        $this->container->singleton( RestApi::class, function () {
+                                return new RestApi();
+                        } );
+                        $this->container->singleton( Cron::class, function () {
+                                return new Cron();
+                        } );
+                        $this->container->singleton( Db::class, function () {
+                                return new Db();
+                        } );
+                }
+
+                /**
+                 * Service container instance.
+                 *
+                 * @var Container
+                 */
+                protected $container;
 
 
 		/**
@@ -121,7 +166,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function dbInstall() {
 
-				$db        = new Db();
+                                $db        = $this->container->make( Db::class );
 				$db->table = self::$pluginTable;
 				$db->sql   = '`ID` mediumint(9) NOT NULL AUTO_INCREMENT,
 							`date` date NOT NULL,
@@ -158,11 +203,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function flushPermalinks() {
 
-			if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Engine\\Src\\Cpt' ) ) {
-				new Cpt();
-				flush_rewrite_rules();
-			}
-		}
+                        if ( class_exists( 'NirjharLo\\WP_Plugin_Framework\\Engine\\Src\\Cpt' ) ) {
+                                $this->container->make( Cpt::class );
+                                flush_rewrite_rules();
+                        }
+                }
 
 
 		/**
@@ -179,7 +224,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function cronActivation() {
 
-                        $cron     = new Cron();
+                        $cron     = $this->container->make( Cron::class );
                         $schedule = $cron->schedule(
                                 array(
 					'timestamp'  => current_time( 'timestamp' ),
@@ -248,7 +293,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		public function cpt() {
 
-				new Cpt();
+                                $this->container->make( Cpt::class );
 		}
 
 
@@ -257,7 +302,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		private function settings() {
 
-				new Settings();
+                                $this->container->make( Settings::class );
 		}
 
 
@@ -266,7 +311,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		private function widgets() {
 
-				new Widget();
+                                $this->container->make( Widget::class );
 		}
 
 
@@ -275,7 +320,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		private function metabox() {
 
-				new Metabox();
+                                $this->container->make( Metabox::class );
 		}
 
 
@@ -284,7 +329,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		private function shortcode() {
 
-				new Shortcode();
+                                $this->container->make( Shortcode::class );
 		}
 
 
@@ -293,7 +338,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		private function rest_api() {
 
-			new RestApi();
+                        $this->container->make( RestApi::class );
 		}
 
 

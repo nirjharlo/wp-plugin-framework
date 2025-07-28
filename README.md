@@ -18,7 +18,8 @@ For production use `composer install --no-dev`.
 ## Usage
 1. Update namespaces in `wp-plugin-framework.php` and `Plugin/PluginLoader.php` to match your plugin name.
 2. Instantiate any of the engine classes or extend them to add your own logic.
-3. Register plugin features inside `PluginLoader` to keep everything organised.
+3. A lightweight service container now powers `PluginLoader`, keeping class instantiation clean and testable.
+4. Register plugin features inside `PluginLoader` to keep everything organised.
 
 ## Features
 - Settings pages, widgets, metaboxes and shortcodes
@@ -26,6 +27,7 @@ For production use `composer install --no-dev`.
 - Fluent API integration class
 - Cron scheduler wrapper
 - REST API controller scaffold
+- Simple service container for dependency injection
 
 ## Contributing
 Pull requests are welcome. For major changes please open an issue first to discuss what you would like to change.

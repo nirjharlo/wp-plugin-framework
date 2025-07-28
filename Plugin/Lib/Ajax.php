@@ -61,5 +61,5 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Ajax' ) ) {
 			echo json_encode( $response );
 			wp_die();
 		}
-	}
-} ?>
+        }
+}

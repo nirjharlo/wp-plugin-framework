@@ -113,5 +113,5 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Install' ) ) {
 				return $links;
 			}
 		}
-	}
-} ?>
+        }
+}

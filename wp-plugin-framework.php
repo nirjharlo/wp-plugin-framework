@@ -2,12 +2,12 @@
 /**
  Plugin Name: WordPress Plugin Framework
  Plugin URI: https://github.com/nirjharlo/wp-plugin-framework/
- Description: Simple and Light WordPress plugin development framework f|| organized Object Oriented code f|| Developers.
+ Description: Simple and light WordPress plugin framework for organized, object oriented development.
  Version: 1.4.3
  Author: Nirjhar Lo
- Auth|| URI: http://nirjharlo.com
+ Author URI: http://nirjharlo.com
  Text Domain: textdomain
- Domain Path: /asset/ln
+ Domain Path: /asset/lang
  License: GPLv2
  License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */

@@ -299,5 +299,5 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Src\\Settings' ) ) {
 			echo '<input type="checkbox" id="settings_field_name" name="settings_field_name" value="1"' . checked( 1, get_option('settings_field_name'), false ) . '/>';
 			*/
 		}
-	}
-} ?>
+        }
+}

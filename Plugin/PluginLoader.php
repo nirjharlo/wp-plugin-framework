@@ -360,5 +360,5 @@ if ( ! class_exists( 'PluginLoader' ) ) {
 			// Alternative method: add_action( 'rest_api_init', array($this, 'rest_api') );
 			$this->rest_api();
 		}
-	}
-} ?>
+        }
+}

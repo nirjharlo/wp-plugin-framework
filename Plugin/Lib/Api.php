@@ -19,45 +19,101 @@ namespace NirjharLo\WP_Plugin_Framework\Lib;
  */
 if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' ) ) {
 
-	class Api {
+       class Api {
 
+               /**
+                * API endpoint URL.
+                *
+                * @var string
+                */
+               protected $endpoint = '';
 
-		/**
-		 * @var String
-		 */
-		public $endpoint;
+               /**
+                * HTTP headers to be sent with the request.
+                *
+                * @var array
+                */
+               protected $header = array();
 
+               /**
+                * Expected data type. Either xml or json.
+                *
+                * @var string
+                */
+               protected $data_type = 'json';
 
-		/**
-		 * @var Array
-		 */
-		public $header;
+               /**
+                * Request method such as GET or POST.
+                *
+                * @var string
+                */
+               protected $call_type = 'GET';
 
+               /**
+                * Optionally set properties via constructor.
+                *
+                * @param array $config Configuration options.
+                */
+               public function __construct( array $config = array() ) {
+                       foreach ( $config as $key => $value ) {
+                               if ( property_exists( $this, $key ) ) {
+                                       $this->$key = $value;
+                               }
+                       }
+               }
 
-		/**
-		 * @var String
-		 */
-		public $data_type;
+               /**
+                * Set endpoint URL.
+                *
+                * @param string $endpoint Endpoint URL.
+                * @return self
+                */
+               public function endpoint( $endpoint ) {
+                       $this->endpoint = $endpoint;
+                       return $this;
+               }
 
+               /**
+                * Set request headers.
+                *
+                * @param array $headers List of headers.
+                * @return self
+                */
+               public function header( array $headers ) {
+                       $this->header = $headers;
+                       return $this;
+               }
 
-		/**
-		 * @var String
-		 */
-		public $call_type;
+               /**
+                * Expect JSON response.
+                *
+                * @return self
+                */
+               public function as_json() {
+                       $this->data_type = 'json';
+                       return $this;
+               }
 
+               /**
+                * Expect XML response.
+                *
+                * @return self
+                */
+               public function as_xml() {
+                       $this->data_type = 'xml';
+                       return $this;
+               }
 
-		/**
-		 * Define the properties inside a instance
-		 *
-		 * @return Void
-		 */
-		public function __construct() {
-
-			$this->endpoint  = '';
-			$this->header    = array();
-			$this->data_type = ''; // xml or json
-			$this->call_type = '';
-		}
+               /**
+                * Set HTTP method.
+                *
+                * @param string $type Request method.
+                * @return self
+                */
+               public function method( $type ) {
+                       $this->call_type = strtoupper( $type );
+                       return $this;
+               }
 
 
 		/**
@@ -83,11 +139,11 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' ) ) {
 
 
 		/**
-		 * Define the variables for db table creation
-		 *
-		 * @return Array
-		 */
-		public function call() {
+                * Execute the HTTP request.
+                *
+                * @return mixed Raw API response or error string
+                */
+                public function call() {
 
 			$curl = curl_init();
 
@@ -111,10 +167,9 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Api' ) ) {
 		 *
 		 * @return Array
 		 */
-		public function parse( $data ) {
-
-			call_user_func( array( $this, $this->data_type ), $data );
-		}
+                public function parse( $data ) {
+                        return call_user_func( array( $this, $this->data_type ), $data );
+                }
 
 
 		/**

@@ -128,5 +128,5 @@ if ( ! class_exists( 'NirjharLo\\WP_Plugin_Framework\\Lib\\Upload' ) ) {
 			 </div>
 			<?php
 		}
-	}
-} ?>
+        }
+}
